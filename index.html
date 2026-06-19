@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zibello Arena Bocce 2026 — Calendario, Risultati e Classifiche</title>
+  <meta name="description" content="Calendario, risultati, classifiche e tabellone del Torneo di Bocce 2026 della Zibello Arena, organizzato da Zibèl D'Incò.">
+  <meta name="theme-color" content="#021f53">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="./assets/img/apple-touch-icon.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Zibello Arena Bocce 2026">
+  <meta property="og:description" content="Calendario, risultati e classifiche del Torneo di Bocce 2026 — Zibèl D'Incò.">
+  <meta property="og:image" content="./assets/img/icon-512.png">
+
+  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/sailors-condensed.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/montserrat-400.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/montserrat-700.woff2" crossorigin>
+  <link rel="stylesheet" href="./assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Salta al contenuto</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="#home" aria-label="Zibello Arena Bocce — home">
+        <img class="brand__emblem" src="./assets/img/bonfire.png" alt="" width="34" height="57">
+        <span class="brand__text">
+          <span class="brand__name">Zibello Arena</span>
+          <span class="brand__sub">Bocce · 2026</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Sezioni">
+        <ul class="nav__list" id="nav-list">
+          <li><a class="nav__link" href="#home">Home</a></li>
+          <li><a class="nav__link" href="#calendario">Calendario</a></li>
+          <li><a class="nav__link" href="#classifiche">Classifiche</a></li>
+          <li><a class="nav__link" href="#tabellone">Tabellone</a></li>
+          <li><a class="nav__link" href="#info">Info</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+
+    <!-- HOME ---------------------------------------------------------- -->
+    <section class="view" id="view-home" data-view="home" aria-label="Panoramica">
+      <div class="hero">
+        <div class="hero__glow" aria-hidden="true"></div>
+        <img class="hero__emblem" src="./assets/img/bonfire.png" alt="Emblema Zibèl D'Incò: persone attorno a un falò" width="168" height="281">
+        <h1 class="hero__title">Zibello&nbsp;Arena<br><span class="ember">Bocce</span> 2026</h1>
+        <p class="hero__tagline">Il torneo di bocce di <strong>Zibèl D'Incò</strong>. Calendario, risultati e classifiche delle serate al campo, sempre aggiornati.</p>
+        <div class="hero__meta" id="hero-meta"><!-- status pill via JS --></div>
+      </div>
+
+      <div class="stats" id="hero-stats"><!-- JS --></div>
+
+      <section class="section" aria-labelledby="h-next">
+        <div class="section__head">
+          <h2 class="section__title" id="h-next">Prossime partite</h2>
+          <a class="section__note" href="#calendario">Vedi tutto il calendario →</a>
+        </div>
+        <div id="home-next" class="cards-row"><!-- JS --></div>
+      </section>
+
+      <section class="section" aria-labelledby="h-last">
+        <div class="section__head">
+          <h2 class="section__title" id="h-last">Ultimi risultati</h2>
+          <a class="section__note" href="#classifiche">Vedi le classifiche →</a>
+        </div>
+        <div id="home-last" class="cards-row"><!-- JS --></div>
+      </section>
+
+      <section class="section" aria-labelledby="h-lead">
+        <div class="section__head">
+          <h2 class="section__title" id="h-lead">In testa ai gironi</h2>
+        </div>
+        <div id="home-leaders" class="standings-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"><!-- JS --></div>
+      </section>
+    </section>
+
+    <!-- CALENDARIO ---------------------------------------------------- -->
+    <section class="view" id="view-calendario" data-view="calendario" aria-label="Calendario">
+      <div class="section" style="padding-top:var(--sp-6)">
+        <div class="section__head">
+          <h2 class="section__title">Calendario</h2>
+          <span class="section__note" id="cal-count"></span>
+        </div>
+
+        <div class="filterbar" role="group" aria-label="Filtri calendario">
+          <div class="filter-group" id="filter-gironi" aria-label="Filtra per girone">
+            <span class="filter-label">Girone</span>
+            <!-- JS injects girone toggles -->
+          </div>
+          <div class="filter-group">
+            <span class="filter-label">Squadra</span>
+            <select class="select" id="filter-team" aria-label="Filtra per squadra"></select>
+          </div>
+          <div class="filter-group">
+            <button class="fbtn" id="filter-todo" aria-pressed="false">Solo da giocare</button>
+          </div>
+        </div>
+
+        <div id="calendar-list"><!-- JS --></div>
+      </div>
+    </section>
+
+    <!-- CLASSIFICHE --------------------------------------------------- -->
+    <section class="view" id="view-classifiche" data-view="classifiche" aria-label="Classifiche">
+      <div class="section" style="padding-top:var(--sp-6)">
+        <div class="section__head">
+          <h2 class="section__title">Classifiche</h2>
+          <span class="section__note">Ordine: vittorie → scontro diretto → differenza punti. Prime 2 → ottavi.</span>
+        </div>
+        <div id="standings-grid" class="standings-grid"><!-- JS --></div>
+      </div>
+    </section>
+
+    <!-- TABELLONE ----------------------------------------------------- -->
+    <section class="view" id="view-tabellone" data-view="tabellone" aria-label="Tabellone fase finale">
+      <div class="section" style="padding-top:var(--sp-6)">
+        <div class="section__head">
+          <h2 class="section__title">Tabellone</h2>
+          <span class="section__note">Fase finale a eliminazione diretta · 16 squadre</span>
+        </div>
+        <div class="bracket-scroll">
+          <div class="bracket" id="bracket"><!-- JS --></div>
+        </div>
+        <p class="muted" style="margin-top:var(--sp-4);font-size:var(--fs-300)">Gli accoppiamenti verranno definiti al termine della fase a gironi.</p>
+      </div>
+    </section>
+
+    <!-- INFO ---------------------------------------------------------- -->
+    <section class="view" id="view-info" data-view="info" aria-label="Informazioni">
+      <div class="section" style="padding-top:var(--sp-6)">
+        <div class="section__head">
+          <h2 class="section__title">Info</h2>
+        </div>
+        <div class="prose">
+          <p>Il <strong>Torneo di Bocce 2026</strong> si gioca alla <strong>Zibello Arena</strong> ed è organizzato dall'associazione <strong>Zibèl D'Incò</strong>. Trentadue squadre divise in otto gironi si sfidano nelle serate d'estate: si parte con la fase a gironi e si chiude con l'eliminazione diretta, dagli ottavi alla finale.</p>
+          <p>Questo sito raccoglie calendario, risultati e classifiche in un unico posto. Le classifiche sono <strong>ricalcolate dai risultati delle partite</strong>: vittorie su partite giocate e differenza punti vengono verificate, non copiate a mano.</p>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>Il torneo</h3>
+            <ul>
+              <li><span class="k">Squadre</span><span class="v" id="info-teams">32</span></li>
+              <li><span class="k">Gironi</span><span class="v" id="info-groups">8</span></li>
+              <li><span class="k">Formato</span><span class="v">Gironi + eliminazione diretta</span></li>
+              <li><span class="k">Periodo</span><span class="v">Giugno – Luglio 2026</span></li>
+              <li><span class="k">Orari</span><span class="v">Serale, dalle 20:30</span></li>
+              <li><span class="k">Luogo</span><span class="v">Zibello Arena</span></li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <h3>Zibèl D'Incò</h3>
+            <p class="muted" style="margin-bottom:var(--sp-3)">L'associazione che organizza il torneo. Il suo emblema è un falò con le persone attorno: la serata in compagnia che dà il nome a tutto.</p>
+            <div class="assoc-lockup">
+              <img class="bonfire" src="./assets/img/bonfire.png" alt="Emblema di Zibèl D'Incò: falò con persone attorno">
+              <img src="./assets/img/zibeldinco.png" alt="Logotipo Zibèl D'Incò">
+            </div>
+          </div>
+        </div>
+
+        <p class="muted" id="info-updated" style="margin-top:var(--sp-5);font-size:var(--fs-300)"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="brand">
+        <img src="./assets/img/zibeldinco.png" alt="Zibèl D'Incò" height="30">
+        <span>Torneo di Bocce · Zibello Arena</span>
+      </div>
+      <span id="footer-updated"></span>
+    </div>
+  </footer>
+
+  <noscript>
+    <div class="container" style="padding:2rem 0;color:var(--ink-soft)">
+      Per visualizzare calendario, risultati e classifiche è necessario abilitare JavaScript.
+    </div>
+  </noscript>
+
+  <script src="./data/tournament.js"></script>
+  <script src="./assets/js/app.js"></script>
+</body>
+</html>

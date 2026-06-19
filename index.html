@@ -27,9 +27,9 @@
     <div class="container site-header__inner">
       <a class="brand" href="#home" aria-label="Zibello Arena Bocce — home">
         <img class="brand__emblem" src="./assets/img/bonfire.png" alt="" width="34" height="57">
-        <span class="brand__text">
-          <span class="brand__name">Zibello Arena</span>
-          <span class="brand__sub">Bocce · 2026</span>
+        <span class="za-lockup za-lockup--sm" aria-hidden="true">
+          <span class="za-lockup__top">Zibello</span>
+          <span class="za-lockup__bot">Arena</span>
         </span>
       </a>
       <nav class="nav" aria-label="Sezioni">
@@ -38,7 +38,6 @@
           <li><a class="nav__link" href="#calendario">Calendario</a></li>
           <li><a class="nav__link" href="#classifiche">Classifiche</a></li>
           <li><a class="nav__link" href="#tabellone">Tabellone</a></li>
-          <li><a class="nav__link" href="#info">Info</a></li>
         </ul>
       </nav>
     </div>
@@ -51,9 +50,12 @@
       <div class="hero">
         <div class="hero__glow" aria-hidden="true"></div>
         <img class="hero__emblem" src="./assets/img/bonfire.png" alt="Emblema Zibèl D'Incò: persone attorno a un falò" width="168" height="281">
-        <h1 class="hero__title">Zibello&nbsp;Arena<br><span class="ember">Bocce</span> 2026</h1>
-        <p class="hero__tagline">Il torneo di bocce di <strong>Zibèl D'Incò</strong>. Calendario, risultati e classifiche delle serate al campo, sempre aggiornati.</p>
-        <div class="hero__meta" id="hero-meta"><!-- status pill via JS --></div>
+        <h1 class="za-lockup za-lockup--hero" aria-label="Zibello Arena">
+          <span class="za-lockup__top" aria-hidden="true">Zibello</span>
+          <span class="za-lockup__bot" aria-hidden="true">Arena</span>
+        </h1>
+        <p class="hero__event">Torneo di Bocce 2026</p>
+        <p class="hero__tagline">Il torneo di bocce di <strong>Zibèl D'Incò</strong>. Calendario, risultati e classifiche delle serate al campo.</p>
       </div>
 
       <div class="stats" id="hero-stats"><!-- JS --></div>
@@ -78,7 +80,7 @@
         <div class="section__head">
           <h2 class="section__title" id="h-lead">In testa ai gironi</h2>
         </div>
-        <div id="home-leaders" class="standings-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"><!-- JS --></div>
+        <div id="home-leaders" class="standings-grid" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))"><!-- JS --></div>
       </section>
     </section>
 
@@ -113,9 +115,9 @@
       <div class="section" style="padding-top:var(--sp-6)">
         <div class="section__head">
           <h2 class="section__title">Classifiche</h2>
-          <span class="section__note">Ordine: vittorie → scontro diretto → differenza punti. Prime 2 → ottavi.</span>
         </div>
         <div id="standings-grid" class="standings-grid"><!-- JS --></div>
+        <p class="standings-note">Le prime due classificate di ogni girone accedono agli ottavi di finale. A parità di vittorie: scontro diretto, poi differenza punti.</p>
       </div>
     </section>
 
@@ -133,52 +135,16 @@
       </div>
     </section>
 
-    <!-- INFO ---------------------------------------------------------- -->
-    <section class="view" id="view-info" data-view="info" aria-label="Informazioni">
-      <div class="section" style="padding-top:var(--sp-6)">
-        <div class="section__head">
-          <h2 class="section__title">Info</h2>
-        </div>
-        <div class="prose">
-          <p>Il <strong>Torneo di Bocce 2026</strong> si gioca alla <strong>Zibello Arena</strong> ed è organizzato dall'associazione <strong>Zibèl D'Incò</strong>. Trentadue squadre divise in otto gironi si sfidano nelle serate d'estate: si parte con la fase a gironi e si chiude con l'eliminazione diretta, dagli ottavi alla finale.</p>
-          <p>Questo sito raccoglie calendario, risultati e classifiche in un unico posto. Le classifiche sono <strong>ricalcolate dai risultati delle partite</strong>: vittorie su partite giocate e differenza punti vengono verificate, non copiate a mano.</p>
-        </div>
-
-        <div class="info-grid">
-          <div class="info-card">
-            <h3>Il torneo</h3>
-            <ul>
-              <li><span class="k">Squadre</span><span class="v" id="info-teams">32</span></li>
-              <li><span class="k">Gironi</span><span class="v" id="info-groups">8</span></li>
-              <li><span class="k">Formato</span><span class="v">Gironi + eliminazione diretta</span></li>
-              <li><span class="k">Periodo</span><span class="v">Giugno – Luglio 2026</span></li>
-              <li><span class="k">Orari</span><span class="v">Serale, dalle 20:30</span></li>
-              <li><span class="k">Luogo</span><span class="v">Zibello Arena</span></li>
-            </ul>
-          </div>
-          <div class="info-card">
-            <h3>Zibèl D'Incò</h3>
-            <p class="muted" style="margin-bottom:var(--sp-3)">L'associazione che organizza il torneo. Il suo emblema è un falò con le persone attorno: la serata in compagnia che dà il nome a tutto.</p>
-            <div class="assoc-lockup">
-              <img class="bonfire" src="./assets/img/bonfire.png" alt="Emblema di Zibèl D'Incò: falò con persone attorno">
-              <img src="./assets/img/zibeldinco.png" alt="Logotipo Zibèl D'Incò">
-            </div>
-          </div>
-        </div>
-
-        <p class="muted" id="info-updated" style="margin-top:var(--sp-5);font-size:var(--fs-300)"></p>
-      </div>
-    </section>
-
   </main>
 
   <footer class="site-footer">
     <div class="container site-footer__inner">
-      <div class="brand">
-        <img src="./assets/img/zibeldinco.png" alt="Zibèl D'Incò" height="30">
-        <span>Torneo di Bocce · Zibello Arena</span>
-      </div>
-      <span id="footer-updated"></span>
+      <img class="site-footer__assoc" src="./assets/img/zibeldinco.png" alt="Zibèl D'Incò" height="34">
+      <span class="site-footer__event">Torneo di Bocce 2026</span>
+      <span class="za-lockup za-lockup--sm" aria-label="Zibello Arena">
+        <span class="za-lockup__top" aria-hidden="true">Zibello</span>
+        <span class="za-lockup__bot" aria-hidden="true">Arena</span>
+      </span>
     </div>
   </footer>
 

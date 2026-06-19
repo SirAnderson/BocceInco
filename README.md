@@ -49,7 +49,7 @@ python -m http.server 8777
 ## Struttura
 
 ```
-index.html              pagina unica (viste: home, calendario, classifiche, tabellone, info)
+index.html              pagina unica (viste: home, calendario, classifiche, tabellone)
 assets/
   css/styles.css        design system "notturna / arena"
   js/app.js             rendering dati, routing, filtri

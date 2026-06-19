@@ -6,7 +6,7 @@
   "use strict";
 
   var T = window.TOURNAMENT;
-  var VIEWS = ["home", "calendario", "classifiche", "tabellone", "info"];
+  var VIEWS = ["home", "calendario", "classifiche", "tabellone"];
   var KO_SHORT = {
     "Ottavi di finale": "Ottavi", "Quarti di finale": "Quarti",
     "Semifinali": "Semifinale", "Finale 3°/4° posto": "Finale 3°/4°", "Finale": "Finale"
@@ -32,10 +32,6 @@
     return x < y ? -1 : x > y ? 1 : a.id - b.id;
   }
   function dayKey(m) { return m.when ? m.when.day + "/" + m.when.month : "?"; }
-  function dayTitle(m) {
-    if (!m.when) return "Data da definire";
-    return cap(m.when.weekday) + " " + m.when.day + " " + m.when.monthName;
-  }
 
   /* ---- girone chip ----------------------------------------------------- */
   function gchip(letter, opts) {
@@ -86,7 +82,7 @@
     } else {
       var tm = el("div", "match__time");
       if (m.when && m.when.time) {
-        tm.innerHTML = esc(m.when.time) + (opts.showDate && m.when ? "<small>" + esc(m.when.dateLabel) + "</small>" : "<small>da giocare</small>");
+        tm.innerHTML = esc(m.when.time) + (opts.showDate ? "<small>" + esc(m.when.dateLabel) + "</small>" : "");
       } else {
         tm.innerHTML = '<span class="muted">—</span>';
       }
@@ -97,8 +93,6 @@
   function teamLine(name, win, played, tbd) {
     var cls = "match__team" + (played ? (win ? " match__team--win" : " match__team--lose") : "");
     var line = el("div", cls);
-    var dot = el("span", "win-dot" + (win ? "" : " win-dot--ghost"));
-    line.appendChild(dot);
     var nm = el("span", "name" + (tbd ? " tie__name--tbd" : ""));
     nm.textContent = name;
     line.appendChild(nm);
@@ -108,18 +102,10 @@
   /* ---- HOME ------------------------------------------------------------ */
   function renderHome() {
     var played = T.matches.filter(function (m) { return m.played; });
-    var groupMatches = T.matches.filter(function (m) { return m.phase === "girone"; });
     var upcoming = T.matches.filter(function (m) { return !m.played && m.when && m.when.iso; }).sort(byIso);
     var lastResults = played.slice().sort(byIso).reverse();
 
-    // status pill + stats
-    var meta = $("#hero-meta");
-    meta.innerHTML = "";
-    var pill = el("span", "pill");
-    pill.innerHTML = '<span class="pill__dot"></span> Fase a gironi · <strong>' +
-      T.meta.playedMatches + "/" + T.meta.groupMatches + "</strong>&nbsp;partite giocate";
-    meta.appendChild(pill);
-
+    // stats
     var stats = [
       [T.meta.totalTeams, "Squadre"],
       [T.meta.totalGroups, "Gironi"],
@@ -133,13 +119,17 @@
       sw.appendChild(c);
     });
 
-    // prossime
+    // prossima giornata: solo il giorno successivo, con tutte le sue partite
     var nx = $("#home-next"); nx.innerHTML = "";
     if (upcoming.length) {
-      upcoming.slice(0, 5).forEach(function (m, i) {
-        var r = matchRow(m, { next: i === 0, showDate: true });
-        nx.appendChild(r);
-      });
+      var k0 = dayKey(upcoming[0]);
+      var sameDay = upcoming.filter(function (m) { return dayKey(m) === k0; });
+      var w = upcoming[0].when;
+      var head = el("div", "nextday");
+      head.innerHTML = "<span class='num'>" + w.day + "</span><span>" +
+        esc(cap(w.weekday) + " " + w.day + " " + w.monthName) + "</span>";
+      nx.appendChild(head);
+      sameDay.forEach(function (m) { nx.appendChild(matchRow(m)); });
     } else {
       nx.appendChild(el("div", "empty-note", "Nessuna partita in programma."));
     }
@@ -152,24 +142,22 @@
       lr.appendChild(el("div", "empty-note", "Ancora nessun risultato. Prima palla a breve!"));
     }
 
-    // capoclassifica per girone
+    // in testa ai gironi: le prime due
     var lead = $("#home-leaders"); lead.innerHTML = "";
     T.groups.forEach(function (g) {
-      var st = T.standings[g.letter] || [];
-      var top = st[0];
+      var st = (T.standings[g.letter] || []).slice(0, 2);
       var card = el("div", "standing");
       card.style.borderTopColor = g.color;
-      var played = top && top.played > 0;
+      var rows = st.map(function (r) {
+        var rec = r.played > 0 ? r.won + "/" + r.played + " · " + signed(r.diff) : "—";
+        return '<div class="leader">' +
+          '<span class="leader__pos">' + r.pos + "</span>" +
+          '<span class="leader__name">' + esc(r.team) + "</span>" +
+          '<span class="leader__rec">' + rec + "</span></div>";
+      }).join("");
       card.innerHTML =
-        '<div class="standing__head" style="padding:var(--sp-3)">' +
-          chipHTML(g.letter, true) +
-        "</div>" +
-        '<div style="padding:var(--sp-3) var(--sp-4)">' +
-          (played
-            ? '<div class="team" style="color:var(--white);font-weight:700">' + esc(top.team) + "</div>" +
-              '<div class="muted" style="font-size:var(--fs-300)">' + top.won + "/" + top.played + " · " + signed(top.diff) + "</div>"
-            : '<div class="muted" style="font-size:var(--fs-300)">Nessun risultato</div>') +
-        "</div>";
+        '<div class="standing__head" style="padding:var(--sp-3)">' + chipHTML(g.letter, true) + "</div>" +
+        '<div class="leader-list">' + rows + "</div>";
       lead.appendChild(card);
     });
   }
@@ -295,14 +283,6 @@
       });
       table.appendChild(tb);
       card.appendChild(table);
-
-      var foot = el("div", "standing__foot");
-      if (anyPlayed) {
-        foot.innerHTML = '<span class="qual-key" aria-hidden="true"></span> Le prime 2 accedono agli ottavi';
-      } else {
-        foot.textContent = "Ancora nessuna partita giocata in questo girone.";
-      }
-      card.appendChild(foot);
       grid.appendChild(card);
     });
   }
@@ -333,11 +313,6 @@
                   : (KO_SHORT[m.phaseLabel] || p[1]) + " " + (i + 1);
         tie.appendChild(slot(m.team1, label));
         tie.appendChild(slot(m.team2, ""));
-        if (m.when && m.when.time) {
-          var when = el("div", "tie__when");
-          when.innerHTML = '<span class="num">' + esc(m.when.time) + "</span> " + esc(m.when.dateLabel);
-          tie.appendChild(when);
-        }
         col.appendChild(tie);
       });
       box.appendChild(col);
@@ -350,15 +325,6 @@
     s.appendChild(nm);
     if (seedLabel) s.appendChild(el("span", "tie__seed", esc(seedLabel)));
     return s;
-  }
-
-  /* ---- INFO ------------------------------------------------------------ */
-  function renderInfo() {
-    $("#info-teams").textContent = T.meta.totalTeams;
-    $("#info-groups").textContent = T.meta.totalGroups;
-    var stamp = "Dati aggiornati al " + T.meta.generatedAt + ".";
-    $("#info-updated").textContent = stamp;
-    $("#footer-updated").textContent = stamp;
   }
 
   /* ---- Router ---------------------------------------------------------- */
@@ -394,7 +360,6 @@
     renderCalendar();
     renderStandings();
     renderBracket();
-    renderInfo();
     window.addEventListener("hashchange", route);
     route();
     showView._ready = true;

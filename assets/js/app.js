@@ -101,23 +101,9 @@
 
   /* ---- HOME ------------------------------------------------------------ */
   function renderHome() {
-    var played = T.matches.filter(function (m) { return m.played; });
-    var upcoming = T.matches.filter(function (m) { return !m.played && m.when && m.when.iso; }).sort(byIso);
+    var played = T.matches.filter(function (m) { return m.phase === "girone" && m.played; });
+    var upcoming = T.matches.filter(function (m) { return m.phase === "girone" && !m.played && m.when && m.when.iso; }).sort(byIso);
     var lastResults = played.slice().sort(byIso).reverse();
-
-    // stats
-    var stats = [
-      [T.meta.totalTeams, "Squadre"],
-      [T.meta.totalGroups, "Gironi"],
-      [T.meta.playedMatches, "Giocate"],
-      [Math.max(0, T.meta.groupMatches - T.meta.playedMatches), "Da giocare"]
-    ];
-    var sw = $("#hero-stats"); sw.innerHTML = "";
-    stats.forEach(function (s) {
-      var c = el("div", "stat");
-      c.innerHTML = '<div class="stat__num">' + s[0] + '</div><div class="stat__label">' + s[1] + "</div>";
-      sw.appendChild(c);
-    });
 
     // prossima giornata: solo il giorno successivo, con tutte le sue partite
     var nx = $("#home-next"); nx.innerHTML = "";
@@ -225,7 +211,7 @@
   function renderCalendar() {
     var list = $("#calendar-list");
     list.innerHTML = "";
-    var ms = T.matches.filter(function (m) { return m.when && m.when.iso; })
+    var ms = T.matches.filter(function (m) { return m.phase === "girone" && m.when && m.when.iso; })
                       .filter(matchPassesFilter).sort(byIso);
     $("#cal-count").textContent = ms.length + (ms.length === 1 ? " partita" : " partite");
     if (!ms.length) {

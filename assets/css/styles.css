@@ -176,7 +176,7 @@ main { display: block; padding-bottom: var(--sp-8); }
   animation: emberPulse 6s ease-in-out infinite;
 }
 .hero__emblem {
-  width: clamp(78px, 17vw, 124px); margin: 0 auto var(--sp-3);
+  width: clamp(78px, 17vw, 124px); height: auto; margin: 0 auto var(--sp-3);
   filter: drop-shadow(0 6px 30px var(--red-glow));
   animation: emberRise 900ms var(--ease) both;
 }
@@ -191,11 +191,22 @@ main { display: block; padding-bottom: var(--sp-8); }
 @keyframes emberRise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @keyframes emberPulse { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
 
-/* stat strip */
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--sp-3); margin-top: var(--sp-6); }
-.stat { padding: var(--sp-4); border: 1px solid var(--line-soft); border-radius: var(--r-lg); background: color-mix(in oklab, var(--surface) 45%, transparent); text-align: center; }
-.stat__num { font-family: var(--font-display); font-size: 2.2rem; color: var(--white); line-height: 1; }
-.stat__label { font-size: var(--fs-300); color: var(--ink-mute); letter-spacing: 0.06em; text-transform: uppercase; margin-top: var(--sp-2); }
+/* link al luogo (Google Maps) */
+.hero__cta { display: flex; justify-content: center; margin-top: var(--sp-6); animation: emberRise 900ms var(--ease) 320ms both; }
+.venue-link {
+  display: inline-flex; align-items: center; gap: var(--sp-3);
+  padding: 0.65rem 1rem 0.65rem 0.8rem; border-radius: var(--r-pill);
+  border: 1px solid var(--line); background: color-mix(in oklab, var(--surface) 55%, transparent);
+  color: var(--ink); max-width: 100%;
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.venue-link:hover { border-color: color-mix(in oklab, var(--red) 60%, transparent); background: color-mix(in oklab, var(--surface) 78%, transparent); transform: translateY(-1px); }
+.venue-link__pin { flex-shrink: 0; filter: drop-shadow(0 0 8px var(--red-glow)); }
+.venue-link__text { display: flex; flex-direction: column; line-height: 1.25; text-align: left; min-width: 0; }
+.venue-link__text strong { color: var(--white); font-weight: 700; }
+.venue-link__text span { font-size: var(--fs-300); color: var(--ink-mute); }
+.venue-link__arrow { color: var(--ink-mute); flex-shrink: 0; transition: transform var(--dur) var(--ease), color var(--dur) var(--ease); }
+.venue-link:hover .venue-link__arrow { transform: translateX(3px); color: var(--red); }
 
 /* ---- Chip girone ------------------------------------------------------- */
 .gchip {

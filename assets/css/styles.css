@@ -145,6 +145,19 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
   background: var(--red); border-radius: var(--r-pill); box-shadow: 0 0 12px var(--red-glow);
 }
 
+/* Bottom tab bar (solo mobile) */
+.bottomnav { display: none; }
+.bottomnav__link {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  padding: 0.45rem 0.25rem; min-height: 56px;
+  font-size: 0.6875rem; font-weight: 600; color: var(--ink-mute);
+  transition: color var(--dur) var(--ease);
+}
+.bottomnav__link svg { width: 23px; height: 23px; transition: color var(--dur) var(--ease); }
+.bottomnav__link:active { background: var(--line-soft); }
+.bottomnav__link[aria-current="page"] { color: var(--white); }
+.bottomnav__link[aria-current="page"] svg { color: var(--red); filter: drop-shadow(0 0 8px var(--red-glow)); }
+
 /* ---- Views ------------------------------------------------------------- */
 main { display: block; padding-bottom: var(--sp-8); }
 .view { display: none; }
@@ -222,11 +235,11 @@ main { display: block; padding-bottom: var(--sp-8); }
 /* ---- Match row --------------------------------------------------------- */
 .daygroup { margin-bottom: var(--sp-6); }
 .daygroup__date {
-  position: sticky; top: 64px; z-index: var(--z-sticky);
+  position: sticky; top: calc(var(--header-h, 64px) + var(--filterbar-h, 0px)); z-index: var(--z-sticky);
   display: flex; align-items: center; gap: var(--sp-3);
-  padding: var(--sp-2) 0; margin-bottom: var(--sp-3);
+  padding: var(--sp-3) 0; margin-bottom: var(--sp-3);
   font-weight: 700; color: var(--white); text-transform: capitalize;
-  background: linear-gradient(var(--bg) 70%, transparent);
+  background: var(--bg); box-shadow: 0 1px 0 var(--line-soft);
 }
 .daygroup__date .num { font-family: var(--font-display); font-size: 1.5rem; color: var(--red); }
 
@@ -261,10 +274,10 @@ main { display: block; padding-bottom: var(--sp-8); }
 
 /* ---- Filtri ------------------------------------------------------------ */
 .filterbar {
-  position: sticky; top: 64px; z-index: var(--z-sticky);
+  position: sticky; top: var(--header-h, 64px); z-index: calc(var(--z-sticky) + 1);
   display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center;
   padding: var(--sp-3) 0; margin-bottom: var(--sp-4);
-  background: linear-gradient(var(--bg) 78%, transparent);
+  background: var(--bg); box-shadow: 0 1px 0 var(--line-soft);
 }
 .filter-group { display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: center; }
 .filter-label { font-size: var(--fs-300); color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.1em; margin-right: var(--sp-1); }
@@ -358,12 +371,34 @@ main { display: block; padding-bottom: var(--sp-8); }
   .brand__sub { display: none; }
   .match { grid-template-columns: 1.9rem 1fr auto; gap: var(--sp-2); padding: var(--sp-3); }
   .match__score { font-size: 1.7rem; }
-  .daygroup__date, .filterbar { top: 56px; }
-  .site-header__inner { min-height: 56px; }
+  .site-header__inner { min-height: 52px; }
 }
 @media (min-width: 700px) {
   .site-header__inner { gap: var(--sp-6); }
   .nav__link { font-size: var(--fs-400); }
+}
+
+/* Mobile: nav in alto -> bottom tab bar */
+@media (max-width: 680px) {
+  .nav { display: none; }
+  .bottomnav {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-nav);
+    background: color-mix(in oklab, var(--bg) 90%, transparent);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-top: 1px solid var(--line);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  body { padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px)); }
+  .site-footer { margin-top: var(--sp-7); }
+
+  /* filterbar piu' compatta: niente etichette, gironi su una riga scorrevole */
+  .filterbar { gap: var(--sp-2); }
+  .filter-label { display: none; }
+  #filter-gironi { flex-wrap: nowrap; overflow-x: auto; max-width: 100%; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  #filter-gironi::-webkit-scrollbar { display: none; }
+  #filter-gironi .fbtn { flex: 0 0 auto; }
+  .select { flex: 1 1 8rem; }
 }
 
 /* ---- Reduced motion ---------------------------------------------------- */

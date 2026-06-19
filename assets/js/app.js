@@ -323,14 +323,24 @@
       var sec = document.getElementById("view-" + v);
       if (sec) sec.classList.toggle("is-active", v === name);
     });
-    document.querySelectorAll(".nav__link").forEach(function (a) {
+    document.querySelectorAll(".nav__link, .bottomnav__link").forEach(function (a) {
       var is = a.getAttribute("href") === "#" + name;
       if (is) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
     });
+    updateStickyOffsets();
     // scroll to top of main on view change (not on first load)
     if (showView._ready) window.scrollTo({ top: 0, behavior: "auto" });
     document.title = (name === "home" ? "Zibello Arena Bocce 2026" :
       cap(name) + " · Zibello Arena Bocce 2026");
+  }
+
+  // altezze reali di header e filterbar -> stacking corretto delle sticky
+  function updateStickyOffsets() {
+    var header = document.querySelector(".site-header");
+    if (header) document.documentElement.style.setProperty("--header-h", header.offsetHeight + "px");
+    var fb = document.querySelector(".filterbar");
+    if (fb) document.documentElement.style.setProperty("--filterbar-h",
+      (fb.offsetParent === null ? 0 : fb.offsetHeight) + "px");
   }
   function route() { showView(currentView()); }
 
@@ -347,7 +357,18 @@
     renderStandings();
     renderBracket();
     window.addEventListener("hashchange", route);
+    window.addEventListener("resize", updateStickyOffsets);
+    // tiene --filterbar-h e --header-h sempre allineati all'altezza reale
+    // (cambi di wrapping, breakpoint, caricamento font, mostra/nascondi vista)
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(function () { updateStickyOffsets(); });
+      [".site-header", ".filterbar"].forEach(function (sel) {
+        var elm = document.querySelector(sel);
+        if (elm) ro.observe(elm);
+      });
+    }
     route();
+    updateStickyOffsets();
     showView._ready = true;
   }
 

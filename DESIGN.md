@@ -61,7 +61,8 @@ Ogni girone porta il suo colore-cella originale. Usato come chip/etichetta accan
 
 Coppia del brand (dal PDF), entrambi self-hosted in woff2 (zero richieste esterne).
 
-- **Display — "Sailors Condensed"** (`assets/fonts/sailors-condensed.woff2`). Condensato, bold, terminali morbidi. Solo per: wordmark, titoli pagina/sezione, numeri-punteggio, hero. Mai per testo corrente o label piccole. Nota: manca il glifo `°` → gli ordinali (3°/1°) si compongono in Montserrat.
+- **Display — "Sailors Condensed"** (`assets/fonts/sailors-condensed.woff2`). Condensato, bold, terminali morbidi. Solo per: titoli pagina/sezione, numeri-punteggio. Mai per testo corrente o label piccole. Nota: manca il glifo `°` → gli ordinali (3°/1°) si compongono in Montserrat.
+- **Logo Zibello Arena** (`assets/img/zibello-arena.svg`): wordmark ufficiale ZIBELLO (rosso) / ARENA (bianco), estratto vettorialmente dal PDF in `Resources/` (testo convertito in tracciati, sfondo rimosso). Usato in header, hero e footer ovunque compaia il nome "Zibello Arena". È la variante larga del font "Sailors", diversa dalla Sailors Condensed dei titoli.
 - **Testo/UI/dati — "Montserrat"** (400/500/600/700, self-hosted). Tutto il resto: corpo, label, tabelle, navigazione, orari.
 
 Scala (rem fissa, registro product):

@@ -127,15 +127,8 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 }
 .brand { display: flex; align-items: center; gap: var(--sp-3); flex-shrink: 0; }
 .brand__emblem { width: 34px; height: 34px; object-fit: contain; filter: drop-shadow(0 0 10px var(--red-glow)); }
-
-/* Lockup ZIBELLO (rosso) sopra / ARENA (bianco) sotto */
-.za-lockup { display: inline-flex; flex-direction: column; font-family: var(--font-display); text-transform: uppercase; line-height: 0.8; }
-.za-lockup__top { color: var(--red); }
-.za-lockup__bot { color: var(--white); }
-.za-lockup--sm { font-size: 1.2rem; }
-.za-lockup--sm .za-lockup__bot { letter-spacing: 0.17em; margin-left: 0.17em; }
-.za-lockup--hero { font-size: var(--fs-hero); align-items: center; text-align: center; line-height: 0.78; }
-.za-lockup--hero .za-lockup__bot { letter-spacing: 0.13em; margin-left: 0.13em; }
+/* Logo ufficiale Zibello Arena (SVG estratto dal PDF) */
+.brand__logo { height: 40px; width: auto; display: block; }
 
 .nav { margin-left: auto; }
 .nav__list { display: flex; gap: var(--sp-1); list-style: none; padding: 0; overflow-x: auto; scrollbar-width: none; }
@@ -183,11 +176,12 @@ main { display: block; padding-bottom: var(--sp-8); }
   animation: emberPulse 6s ease-in-out infinite;
 }
 .hero__emblem {
-  width: clamp(92px, 22vw, 156px); margin: 0 auto var(--sp-4);
+  width: clamp(78px, 17vw, 124px); margin: 0 auto var(--sp-3);
   filter: drop-shadow(0 6px 30px var(--red-glow));
   animation: emberRise 900ms var(--ease) both;
 }
-.za-lockup--hero { margin-inline: auto; animation: emberRise 900ms var(--ease) 80ms both; }
+.hero__logo-h1 { margin: var(--sp-2) auto 0; animation: emberRise 900ms var(--ease) 80ms both; }
+.hero__logo { display: block; width: clamp(248px, 60vw, 480px); height: auto; margin-inline: auto; filter: drop-shadow(0 4px 24px rgb(0 0 0 / 0.35)); }
 .hero__event {
   margin-top: var(--sp-3); font-family: var(--font-display); text-transform: uppercase;
   letter-spacing: 0.16em; color: var(--ink-soft); font-size: clamp(1rem, 3.2vw, 1.45rem);
@@ -338,6 +332,7 @@ main { display: block; padding-bottom: var(--sp-8); }
 .site-footer__inner { display: flex; flex-wrap: wrap; gap: var(--sp-4) var(--sp-5); align-items: center; justify-content: space-between; color: var(--ink-mute); font-size: var(--fs-300); }
 .site-footer__assoc { height: 34px; width: auto; opacity: 0.92; }
 .site-footer__event { font-weight: 600; color: var(--ink-soft); }
+.site-footer__logo { height: 42px; width: auto; }
 
 /* ---- Utility ----------------------------------------------------------- */
 .cards-row { display: grid; gap: var(--sp-2); }

@@ -142,7 +142,7 @@
           '<span class="leader__rec">' + rec + "</span></div>";
       }).join("");
       card.innerHTML =
-        '<div class="standing__head" style="padding:var(--sp-3)">' + chipHTML(g.letter, true) + "</div>" +
+        '<div class="standing__head" style="padding:var(--sp-3)">' + chipHTML(g.letter, false) + "</div>" +
         '<div class="leader-list">' + rows + "</div>";
       lead.appendChild(card);
     });

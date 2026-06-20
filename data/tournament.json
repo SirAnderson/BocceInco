@@ -2,7 +2,7 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-06-20 10:06",
+    "generatedAt": "2026-06-20 12:07",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
@@ -740,6 +740,28 @@
     {
       "id": 30,
       "phase": "girone",
+      "phaseLabel": "Girone D",
+      "group": "D",
+      "when": {
+        "label": "mercoledì 24/06 20:00",
+        "weekday": "mercoledì",
+        "day": 24,
+        "month": 6,
+        "monthName": "giugno",
+        "time": "20:00",
+        "iso": "2026-06-24T20:00:00",
+        "dateLabel": "24 giugno"
+      },
+      "team1": "Il Boccino della Discordia",
+      "team2": "Tironi di Bocce",
+      "score1": null,
+      "score2": null,
+      "played": false,
+      "winner": null
+    },
+    {
+      "id": 31,
+      "phase": "girone",
       "phaseLabel": "Girone A",
       "group": "A",
       "when": {
@@ -760,7 +782,7 @@
       "winner": null
     },
     {
-      "id": 31,
+      "id": 32,
       "phase": "girone",
       "phaseLabel": "Girone C",
       "group": "C",
@@ -782,7 +804,7 @@
       "winner": null
     },
     {
-      "id": 32,
+      "id": 33,
       "phase": "girone",
       "phaseLabel": "Girone F",
       "group": "F",
@@ -798,28 +820,6 @@
       },
       "team1": "Zaccaria",
       "team2": "I Cavalli",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 33,
-      "phase": "girone",
-      "phaseLabel": "Girone D",
-      "group": "D",
-      "when": {
-        "label": "mercoledì 24/06 22:00",
-        "weekday": "mercoledì",
-        "day": 24,
-        "month": 6,
-        "monthName": "giugno",
-        "time": "22:00",
-        "iso": "2026-06-24T22:00:00",
-        "dateLabel": "24 giugno"
-      },
-      "team1": "Il Boccino della Discordia",
-      "team2": "Tironi di Bocce",
       "score1": null,
       "score2": null,
       "played": false,
@@ -850,6 +850,28 @@
     {
       "id": 35,
       "phase": "girone",
+      "phaseLabel": "Girone D",
+      "group": "D",
+      "when": {
+        "label": "giovedì 25/06 20:00",
+        "weekday": "giovedì",
+        "day": 25,
+        "month": 6,
+        "monthName": "giugno",
+        "time": "20:00",
+        "iso": "2026-06-25T20:00:00",
+        "dateLabel": "25 giugno"
+      },
+      "team1": "Mirkae",
+      "team2": "Tironi di Bocce",
+      "score1": null,
+      "score2": null,
+      "played": false,
+      "winner": null
+    },
+    {
+      "id": 36,
+      "phase": "girone",
       "phaseLabel": "Girone C",
       "group": "C",
       "when": {
@@ -870,7 +892,7 @@
       "winner": null
     },
     {
-      "id": 36,
+      "id": 37,
       "phase": "girone",
       "phaseLabel": "Girone B",
       "group": "B",
@@ -886,28 +908,6 @@
       },
       "team1": "Apostadores",
       "team2": "The Doctors",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 37,
-      "phase": "girone",
-      "phaseLabel": "Girone D",
-      "group": "D",
-      "when": {
-        "label": "giovedì 25/06 21:30",
-        "weekday": "giovedì",
-        "day": 25,
-        "month": 6,
-        "monthName": "giugno",
-        "time": "21:30",
-        "iso": "2026-06-25T21:30:00",
-        "dateLabel": "25 giugno"
-      },
-      "team1": "Mirkae",
-      "team2": "Tironi di Bocce",
       "score1": null,
       "score2": null,
       "played": false,

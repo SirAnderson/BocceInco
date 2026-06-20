@@ -339,23 +339,27 @@
     }
     return null;
   }
-  function teamNextMatch(t) {
+  function teamUpcomingMatches(t) {
     return T.matches.filter(function (m) {
       return m.phase === "girone" && !m.played && m.when && m.when.iso && (m.team1 === t || m.team2 === t);
-    }).sort(byIso)[0] || null;
+    }).sort(byIso);
   }
   function teamLastMatch(t) {
     return T.matches.filter(function (m) {
       return m.played && (m.team1 === t || m.team2 === t);
     }).sort(byIso).reverse()[0] || null;
   }
-  function panelCol(label, m, emptyText) {
+  function panelCol(label, matches, emptyText) {
     var col = el("div", "myteam-card__col");
     col.appendChild(el("div", "myteam-card__label", esc(label)));
-    if (m) {
-      col.appendChild(el("div", "myteam-card__when",
-        esc(cap(m.when.weekday) + " " + m.when.day + " " + m.when.monthName)));
-      col.appendChild(matchRow(m));
+    if (matches && matches.length) {
+      matches.forEach(function (m) {
+        var item = el("div", "myteam-card__match");
+        item.appendChild(el("div", "myteam-card__when",
+          esc(cap(m.when.weekday) + " " + m.when.day + " " + m.when.monthName)));
+        item.appendChild(matchRow(m));
+        col.appendChild(item);
+      });
     } else {
       col.appendChild(el("div", "empty-note", esc(emptyText)));
     }
@@ -380,23 +384,20 @@
       '<div class="myteam-card__head">' + (gir ? chipHTML(gir, false) : "") +
         '<div><div class="myteam-card__name">' + esc(myteam) + "</div>" +
         (pos ? '<div class="myteam-card__pos">' + esc(pos) + "</div>" : "") + "</div></div>";
+    var last = teamLastMatch(myteam);
     var cols = el("div", "myteam-card__cols");
-    cols.appendChild(panelCol("Prossima partita", teamNextMatch(myteam), "Nessuna partita in programma."));
-    cols.appendChild(panelCol("Ultimo risultato", teamLastMatch(myteam), "Ancora nessun risultato."));
+    cols.appendChild(panelCol("Prossime partite", teamUpcomingMatches(myteam), "Nessuna partita in programma."));
+    cols.appendChild(panelCol("Ultimo risultato", last ? [last] : [], "Ancora nessun risultato."));
     card.appendChild(cols);
     panel.hidden = false; panel.innerHTML = ""; panel.appendChild(card);
   }
   function ordinal(n) { return n + "º"; }
-  function setMyTeam(team, syncCalendar) {
+  // "La mia squadra" e' solo per il box in Home. Non tocca il filtro del
+  // calendario: il Calendario resta generale (filtrabile solo se l'utente vuole).
+  function setMyTeam(team) {
     myteam = team || "";
     lsSet(MYTEAM_KEY, myteam);
     renderMyTeam();
-    if (syncCalendar) {
-      filterState.team = myteam || "ALL";
-      var ft = $("#filter-team"); if (ft) ft.value = myteam || "ALL";
-      syncTeamUrl();
-      renderCalendar();
-    }
   }
   function buildMyTeam() {
     var sel = $("#myteam-select"); if (!sel) return;
@@ -405,14 +406,10 @@
       var o = el("option"); o.value = t; o.textContent = t; sel.appendChild(o);
     });
     var saved = lsGet(MYTEAM_KEY);
-    if (saved && allTeams().indexOf(saved) >= 0) {
-      myteam = saved;
-      filterState.team = saved;                 // calendario pre-filtrato sulla squadra
-      var ft = $("#filter-team"); if (ft) ft.value = saved;
-    }
-    sel.addEventListener("change", function () { setMyTeam(sel.value, true); });
+    if (saved && allTeams().indexOf(saved) >= 0) myteam = saved;
+    sel.addEventListener("change", function () { setMyTeam(sel.value); });
     var clear = $("#myteam-clear");
-    if (clear) clear.addEventListener("click", function () { setMyTeam("", true); });
+    if (clear) clear.addEventListener("click", function () { setMyTeam(""); });
     renderMyTeam();
   }
 

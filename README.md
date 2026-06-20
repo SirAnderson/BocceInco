@@ -21,10 +21,15 @@ A fine esecuzione stampa una verifica dell'ordine delle classifiche.
 Regola di classifica: **Vittorie → Scontro diretto → Differenza punti**. Vinte/Giocate e
 Differenza non vengono copiate dal PDF ma ricalcolate dai punteggi.
 
+**Cache:** lo script aggiorna anche la versione (`?v=...`) di CSS/JS/dati in `index.html`, così
+i browser dei partecipanti scaricano subito la versione nuova invece di una in cache. Per questo
+**conviene rieseguire `build_data.py` prima di ogni deploy** (anche per sole modifiche a stile o
+codice), non solo quando cambiano i risultati.
+
 Poi basta fare commit e push: GitHub Pages si aggiorna da solo.
 
 ```bash
-git add data/ Resources/ && git commit -m "Aggiorna risultati" && git push
+git add . && git commit -m "Aggiorna risultati" && git push
 ```
 
 Serve Python 3 con `openpyxl` (`pip install openpyxl`).

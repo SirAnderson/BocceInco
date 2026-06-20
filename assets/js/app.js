@@ -449,13 +449,23 @@
     var text = label + " · Zibello Arena Bocce 2026";
     var link = calendarShareUrl();
     if (navigator.share) {
-      navigator.share({ title: "Zibello Arena Bocce", text: text, url: link }).catch(function () {});
+      navigator.share({ title: "Zibello Arena Bocce", text: text, url: link })
+        .catch(function (err) {
+          if (err && err.name === "AbortError") return;   // condivisione annullata
+          waOpen(text, link);                              // qualunque altro errore -> WhatsApp
+        });
       return;
     }
-    var wa = "https://wa.me/?text=" + encodeURIComponent(text + " " + link);
-    var win = window.open(wa, "_blank", "noopener");
-    if (!win) flashShare("Popup bloccato");
-    else flashShare("Apro WhatsApp…");
+    waOpen(text, link);
+  }
+  // apre WhatsApp con un click su <a> reale: piu' affidabile di window.open
+  // su mobile (niente blocco popup), e su contesti non-HTTPS dove share manca
+  function waOpen(text, link) {
+    var a = document.createElement("a");
+    a.href = "https://wa.me/?text=" + encodeURIComponent(text + " " + link);
+    a.target = "_blank"; a.rel = "noopener";
+    document.body.appendChild(a); a.click(); a.remove();
+    flashShare("Apro WhatsApp…");
   }
   function flashShare(msg) {
     var lbl = $("#filter-share-label"); if (!lbl) return;
@@ -526,12 +536,14 @@
     });
   }
 
-  // la Home atterra direttamente su "La mia squadra" (sotto l'header)
+  // la Home atterra direttamente sul titolo "La mia squadra" (sotto l'header),
+  // cosi' il link "Come arrivare" sopra resta nascosto dietro l'header
   function scrollHomeToMyTeam() {
     var sec = $("#myteam"); if (!sec) return;
+    var anchor = sec.querySelector(".section__head") || sec;
     var header = document.querySelector(".site-header");
-    var offset = (header ? header.offsetHeight : 0) + 14;
-    var y = sec.getBoundingClientRect().top + window.scrollY - offset;
+    var offset = (header ? header.offsetHeight : 0) + 12;
+    var y = anchor.getBoundingClientRect().top + window.scrollY - offset;
     window.scrollTo({ top: y < 0 ? 0 : y, behavior: "auto" });
   }
   function jumpHomeToMyTeam() {

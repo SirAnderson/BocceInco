@@ -210,6 +210,20 @@ def compute_standings(groups, matches):
     return standings
 
 
+def bump_asset_versions(stamp):
+    """Aggiorna ?v=<stamp> su CSS/JS/dati in index.html per invalidare la cache."""
+    idx = ROOT / "index.html"
+    if not idx.exists():
+        return False
+    html = idx.read_text(encoding="utf-8")
+    pattern = r'((?:href|src)="\.?/?(?:assets/css/styles\.css|assets/js/app\.js|data/tournament\.js))(?:\?v=[^"]*)?(")'
+    new_html = re.sub(pattern, lambda m: m.group(1) + "?v=" + stamp + m.group(2), html)
+    if new_html != html:
+        idx.write_text(new_html, encoding="utf-8")
+        return True
+    return False
+
+
 def main():
     if not XLSX.exists():
         sys.exit(f"File non trovato: {XLSX}")
@@ -245,6 +259,10 @@ def main():
         "window.TOURNAMENT = " + json.dumps(data, ensure_ascii=False) + ";\n",
         encoding="utf-8")
 
+    # cache-busting: nuova versione asset a ogni build -> niente cache vecchia
+    stamp = datetime.now().strftime("%Y%m%d%H%M")
+    bumped = bump_asset_versions(stamp)
+
     # --- riepilogo e verifica ---
     print(f"Squadre: {data['meta']['totalTeams']}  Gironi: {len(groups)}")
     print(f"Partite gironi: {len(group_matches)} ({len(played)} giocate, {len(upcoming)} in programma)")
@@ -275,6 +293,7 @@ def main():
     print("\nVERIFICA ordine vs PDF classifiche:",
           "TUTTO COERENTE" if ok_all else "DISCREPANZE PRESENTI")
     print(f"\nScritto: {out_js.relative_to(ROOT)} , {out_json.relative_to(ROOT)}")
+    print("Cache-busting index.html:", ("?v=" + stamp) if bumped else "nessuna modifica")
 
 
 if __name__ == "__main__":

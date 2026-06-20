@@ -409,6 +409,84 @@
     myteam = team || "";
     lsSet(MYTEAM_KEY, myteam);
     renderMyTeam();
+    if (myteam && !lsGet(WELCOMED_KEY)) {   // delight: solo la primissima volta
+      lsSet(WELCOMED_KEY, "1");
+      celebrateMyTeam(myteam);
+    }
+  }
+
+  /* ---- delight: prima scelta della squadra ---------------------------- */
+  var WELCOMED_KEY = "zibello.welcomed";
+  function teamColor(team) {
+    var st = teamStanding(team);
+    if (!st) return "#ff3131";
+    var g = T.groups.filter(function (x) { return x.letter === st.letter; })[0];
+    return g ? g.color : "#ff3131";
+  }
+  function isBright(hex) {
+    var c = String(hex).replace("#", "");
+    if (c.length < 6) return true;
+    var r = parseInt(c.slice(0, 2), 16), g = parseInt(c.slice(2, 4), 16), b = parseInt(c.slice(4, 6), 16);
+    return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255 > 0.18;  // troppo scuro -> solo fuoco
+  }
+  // "Braci vive": la card si accende di un anello di braci che ruota,
+  // con una manciata di scintille che si alzano. Una sola volta (first-run).
+  function celebrateMyTeam(team) {
+    var host = $("#myteam-panel"); if (!host) return;
+    var card = host.querySelector(".myteam-card"); if (!card) return;
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var color = teamColor(team);
+    var lit = isBright(color) ? color : "#ff7a2f";   // colore squadra leggibile sul fuoco
+    var aura = el("div", "forge-aura" + (reduce ? " forge-aura--still" : ""));
+    aura.style.setProperty("--ember-team", lit);
+    host.insertBefore(aura, card);                    // dietro la card (z-index in CSS)
+    aura.addEventListener("animationend", function (e) {
+      if (e.animationName === "forgeAura" && aura.parentNode) aura.remove();
+    });
+    setTimeout(function () { if (aura.parentNode) aura.remove(); }, 3400);  // safety
+    if (!reduce) emberLift(host, color);
+  }
+  function emberLift(host, color) {
+    var canvas = el("canvas", "forge-sparks");
+    host.appendChild(canvas);
+    var rect = host.getBoundingClientRect();
+    var W = rect.width, H = rect.height;
+    if (W < 4 || H < 4) { canvas.remove(); return; }
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    var ctx = canvas.getContext("2d"); ctx.scale(dpr, dpr);
+    var fire = ["#ff3131", "#ff7a2f", "#ffc24a", "#ffe08a"];
+    var pal = isBright(color) ? fire.concat([color]) : fire;
+    var P = [], N = 34;
+    for (var i = 0; i < N; i++) {
+      P.push({
+        x: W * (0.08 + Math.random() * 0.84), y: H * (0.22 + Math.random() * 0.55),
+        vx: (Math.random() - 0.5) * 0.9, vy: -(0.8 + Math.random() * 2.1),
+        r: 1 + Math.random() * 2.4, life: 0, max: 70 + Math.random() * 60,
+        fl: Math.random() * 6.28, c: pal[(Math.random() * pal.length) | 0]
+      });
+    }
+    var raf, stopped = false;
+    function frame() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalCompositeOperation = "lighter";
+      var alive = false;
+      for (var i = 0; i < P.length; i++) {
+        var p = P[i]; if (p.life > p.max) continue;
+        p.life++; alive = true;
+        p.vy *= 0.99; p.vx *= 0.99; p.fl += 0.25;
+        p.x += p.vx + Math.sin(p.fl) * 0.3; p.y += p.vy;
+        var t = 1 - p.life / p.max;
+        ctx.globalAlpha = Math.max(0, t * (0.65 + 0.35 * Math.sin(p.fl)));
+        ctx.fillStyle = p.c; ctx.shadowColor = p.c; ctx.shadowBlur = 10;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r * (0.4 + t * 0.6), 0, 6.2832); ctx.fill();
+      }
+      ctx.globalAlpha = 1; ctx.shadowBlur = 0; ctx.globalCompositeOperation = "source-over";
+      if (alive && !stopped) raf = requestAnimationFrame(frame);
+      else if (canvas.parentNode) canvas.remove();
+    }
+    raf = requestAnimationFrame(frame);
+    setTimeout(function () { stopped = true; if (raf) cancelAnimationFrame(raf); if (canvas.parentNode) canvas.remove(); }, 2800);
   }
   function buildMyTeam() {
     var sel = $("#myteam-select"); if (!sel) return;

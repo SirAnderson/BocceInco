@@ -228,8 +228,32 @@ main { display: block; padding-bottom: var(--sp-8); }
 .myteam__bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3); }
 .myteam__label { color: var(--ink-soft); font-size: var(--fs-400); max-width: 52ch; }
 .myteam__select { min-width: 14rem; }
-.myteam__panel { margin-top: var(--sp-4); }
-.myteam-card { border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: color-mix(in oklab, var(--surface) 52%, transparent); border-top: 3px solid var(--gc, var(--red)); }
+.myteam__panel { margin-top: var(--sp-4); position: relative; }
+
+/* "Braci vive": prima scelta squadra -> anello di braci che ruota + scintille */
+@property --ember-angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.forge-aura {
+  position: absolute; inset: -6px; z-index: 0; pointer-events: none;
+  border-radius: calc(var(--r-lg) + 7px); padding: 11px;
+  background: conic-gradient(from var(--ember-angle),
+    #ff3131, #480e0e, #ff8a2f, #361200, #ffc24a, #480e0e, var(--ember-team, #ff7a2f), #361200, #ff5a1f, #480e0e, #ff3131);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  filter: blur(6px); opacity: 0;
+  animation: forgeAura 3000ms var(--ease) forwards, forgeSpin 3000ms linear;
+}
+.forge-aura--still { animation: forgeAura 1400ms ease-out forwards; }
+.forge-sparks { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+@keyframes forgeAura {
+  0% { opacity: 0; } 10% { opacity: 1; } 30% { opacity: 0.76; } 45% { opacity: 0.96; }
+  68% { opacity: 0.68; } 82% { opacity: 0.86; } 100% { opacity: 0; }
+}
+@keyframes forgeSpin { from { --ember-angle: 0deg; } to { --ember-angle: 520deg; } }
+@media (prefers-reduced-motion: reduce) {
+  .forge-aura { animation: forgeAura 1400ms ease-out forwards; }  /* niente rotazione */
+}
+.myteam-card { position: relative; z-index: 1; border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: color-mix(in oklab, var(--surface) 52%, transparent); border-top: 3px solid var(--gc, var(--red)); }
 .myteam-card__head { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-4); border-bottom: 1px solid var(--line-soft); }
 .myteam-card__name { font-family: var(--font-display); font-size: 1.5rem; color: var(--white); text-transform: uppercase; letter-spacing: 0.01em; line-height: 1; }
 .myteam-card__pos { color: var(--ink-mute); font-size: var(--fs-300); margin-top: 5px; font-variant-numeric: tabular-nums; }

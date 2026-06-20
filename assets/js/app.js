@@ -156,6 +156,20 @@
   /* ---- CALENDARIO ------------------------------------------------------ */
   var filterState = { gir: "ALL", team: "ALL", todo: false };
 
+  var MYTEAM_KEY = "zibello.myteam";
+  var myteam = "";
+  var _allTeams = null;
+  function allTeams() {
+    if (!_allTeams) {
+      _allTeams = [];
+      T.groups.forEach(function (g) { g.teams.forEach(function (t) { _allTeams.push(t); }); });
+      _allTeams.sort(function (a, b) { return a.localeCompare(b, "it"); });
+    }
+    return _allTeams;
+  }
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { if (v) localStorage.setItem(k, v); else localStorage.removeItem(k); } catch (e) {} }
+
   function buildFilters() {
     // girone toggles
     var wrap = $("#filter-gironi");
@@ -172,10 +186,7 @@
     // team select
     var sel = $("#filter-team");
     sel.innerHTML = '<option value="ALL">Tutte le squadre</option>';
-    var teams = [];
-    T.groups.forEach(function (g) { g.teams.forEach(function (t) { teams.push(t); }); });
-    teams.sort(function (a, b) { return a.localeCompare(b, "it"); });
-    teams.forEach(function (t) {
+    allTeams().forEach(function (t) {
       var o = el("option"); o.value = t; o.textContent = t; sel.appendChild(o);
     });
     sel.addEventListener("change", function () { filterState.team = sel.value; renderCalendar(); });
@@ -314,6 +325,93 @@
     return s;
   }
 
+  /* ---- LA MIA SQUADRA -------------------------------------------------- */
+  function teamStanding(t) {
+    var keys = Object.keys(T.standings);
+    for (var i = 0; i < keys.length; i++) {
+      var rows = T.standings[keys[i]];
+      for (var j = 0; j < rows.length; j++) {
+        if (rows[j].team === t) return { letter: keys[i], row: rows[j] };
+      }
+    }
+    return null;
+  }
+  function teamNextMatch(t) {
+    return T.matches.filter(function (m) {
+      return m.phase === "girone" && !m.played && m.when && m.when.iso && (m.team1 === t || m.team2 === t);
+    }).sort(byIso)[0] || null;
+  }
+  function teamLastMatch(t) {
+    return T.matches.filter(function (m) {
+      return m.played && (m.team1 === t || m.team2 === t);
+    }).sort(byIso).reverse()[0] || null;
+  }
+  function panelCol(label, m, emptyText) {
+    var col = el("div", "myteam-card__col");
+    col.appendChild(el("div", "myteam-card__label", esc(label)));
+    if (m) {
+      col.appendChild(el("div", "myteam-card__when",
+        esc(cap(m.when.weekday) + " " + m.when.day + " " + m.when.monthName)));
+      col.appendChild(matchRow(m));
+    } else {
+      col.appendChild(el("div", "empty-note", esc(emptyText)));
+    }
+    return col;
+  }
+  function renderMyTeam() {
+    var panel = $("#myteam-panel"), clear = $("#myteam-clear"), label = $(".myteam__label"), sel = $("#myteam-select");
+    if (sel && sel.value !== myteam) sel.value = myteam;
+    if (!myteam) {
+      panel.hidden = true; panel.innerHTML = "";
+      if (clear) clear.hidden = true;
+      if (label) label.hidden = false;
+      return;
+    }
+    if (clear) clear.hidden = false;
+    if (label) label.hidden = true;
+    var st = teamStanding(myteam), gir = st ? st.letter : null;
+    var card = el("div", "myteam-card");
+    if (gir) card.setAttribute("data-gir", gir);
+    var pos = st ? ordinal(st.row.pos) + " posto · " + st.row.won + "/" + st.row.played + " · " + signed(st.row.diff) : "";
+    card.innerHTML =
+      '<div class="myteam-card__head">' + (gir ? chipHTML(gir, false) : "") +
+        '<div><div class="myteam-card__name">' + esc(myteam) + "</div>" +
+        (pos ? '<div class="myteam-card__pos">' + esc(pos) + "</div>" : "") + "</div></div>";
+    var cols = el("div", "myteam-card__cols");
+    cols.appendChild(panelCol("Prossima partita", teamNextMatch(myteam), "Nessuna partita in programma."));
+    cols.appendChild(panelCol("Ultimo risultato", teamLastMatch(myteam), "Ancora nessun risultato."));
+    card.appendChild(cols);
+    panel.hidden = false; panel.innerHTML = ""; panel.appendChild(card);
+  }
+  function ordinal(n) { return n + "º"; }
+  function setMyTeam(team, syncCalendar) {
+    myteam = team || "";
+    lsSet(MYTEAM_KEY, myteam);
+    renderMyTeam();
+    if (syncCalendar) {
+      filterState.team = myteam || "ALL";
+      var ft = $("#filter-team"); if (ft) ft.value = myteam || "ALL";
+      renderCalendar();
+    }
+  }
+  function buildMyTeam() {
+    var sel = $("#myteam-select"); if (!sel) return;
+    sel.innerHTML = '<option value="">Scegli…</option>';
+    allTeams().forEach(function (t) {
+      var o = el("option"); o.value = t; o.textContent = t; sel.appendChild(o);
+    });
+    var saved = lsGet(MYTEAM_KEY);
+    if (saved && allTeams().indexOf(saved) >= 0) {
+      myteam = saved;
+      filterState.team = saved;                 // calendario pre-filtrato sulla squadra
+      var ft = $("#filter-team"); if (ft) ft.value = saved;
+    }
+    sel.addEventListener("change", function () { setMyTeam(sel.value, true); });
+    var clear = $("#myteam-clear");
+    if (clear) clear.addEventListener("click", function () { setMyTeam("", true); });
+    renderMyTeam();
+  }
+
   /* ---- Router ---------------------------------------------------------- */
   function currentView() {
     var h = (location.hash || "").replace("#", "");
@@ -386,6 +484,7 @@
     }
     renderHome();
     buildFilters();
+    buildMyTeam();
     renderCalendar();
     renderStandings();
     renderBracket();

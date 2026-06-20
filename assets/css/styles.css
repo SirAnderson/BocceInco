@@ -421,11 +421,18 @@ main { display: block; padding-bottom: var(--sp-8); }
   /* filterbar piu' compatta: niente etichette, gironi su una riga scorrevole */
   .filterbar { gap: var(--sp-2); }
   .filter-label { display: none; }
-  #filter-gironi { flex-wrap: nowrap; overflow-x: auto; max-width: 100%; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  #filter-gironi {
+    flex-wrap: nowrap; overflow-x: auto; max-width: 100%; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent);
+            mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent);
+  }
+  #filter-gironi.is-end { -webkit-mask-image: none; mask-image: none; }  /* a fine scroll niente sfumatura */
   #filter-gironi::-webkit-scrollbar { display: none; }
   #filter-gironi .fbtn { flex: 0 0 auto; }
-  .select { flex: 1 1 8rem; }
   .filter-group--share { margin-left: 0; }
+  /* target touch comodi su mobile (>=42px) */
+  .fbtn { min-height: 42px; display: inline-flex; align-items: center; justify-content: center; }
+  .select { flex: 1 1 8rem; min-height: 42px; }
 }
 
 /* ---- Reduced motion ---------------------------------------------------- */

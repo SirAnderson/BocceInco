@@ -200,6 +200,17 @@
     // condividi
     var share = $("#filter-share");
     if (share) share.addEventListener("click", shareCalendar);
+    // affordance di scroll della riga gironi: la sfumatura a destra sparisce a fine corsa
+    var girRow = $("#filter-gironi");
+    if (girRow) {
+      girRow.addEventListener("scroll", updateGironeScrollHint, { passive: true });
+      window.addEventListener("resize", updateGironeScrollHint);
+    }
+  }
+  function updateGironeScrollHint() {
+    var g = $("#filter-gironi");
+    if (!g || g.offsetParent === null) return;  // non visibile: non valutare (dimensioni 0)
+    g.classList.toggle("is-end", g.scrollLeft + g.clientWidth >= g.scrollWidth - 2);
   }
   function makeFbtn(label, val, pressed) {
     var b = el("button", "fbtn", esc(label));
@@ -486,6 +497,7 @@
     });
     updateStickyOffsets();
     // cambio vista: il calendario parte dal giorno corrente, gli altri dall'alto
+    if (name === "calendario") requestAnimationFrame(updateGironeScrollHint);
     if (showView._ready) {
       if (name === "calendario") jumpCalendarToday();
       else if (name === "home") jumpHomeToMyTeam();

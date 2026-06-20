@@ -182,7 +182,7 @@ main { display: block; padding-bottom: var(--sp-8); }
 .eyebrow { font-size: var(--fs-300); letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); font-weight: 700; }
 
 /* ---- Hero -------------------------------------------------------------- */
-.hero { position: relative; text-align: center; padding-top: clamp(2rem, 7vw, 4.5rem); }
+.hero { position: relative; text-align: center; padding-top: clamp(1.5rem, 5vw, 3.5rem); }
 .hero__glow {
   position: absolute; inset: -10% 0 auto 0; height: 360px; z-index: -1; pointer-events: none;
   background: radial-gradient(50% 60% at 50% 35%, var(--red-glow), transparent 70%);
@@ -190,15 +190,15 @@ main { display: block; padding-bottom: var(--sp-8); }
   animation: emberPulse 6s ease-in-out infinite;
 }
 .hero__emblem {
-  width: clamp(78px, 17vw, 124px); height: auto; margin: 0 auto var(--sp-3);
+  width: clamp(72px, 15vw, 108px); height: auto; margin: 0 auto var(--sp-3);
   filter: drop-shadow(0 6px 30px var(--red-glow));
   animation: emberRise 900ms var(--ease) both;
 }
 .hero__logo-h1 { margin: var(--sp-2) auto 0; animation: emberRise 900ms var(--ease) 80ms both; }
-.hero__logo { display: block; width: clamp(248px, 60vw, 480px); height: auto; margin-inline: auto; filter: drop-shadow(0 4px 24px rgb(0 0 0 / 0.35)); }
+.hero__logo { display: block; width: clamp(206px, 50vw, 400px); height: auto; margin-inline: auto; filter: drop-shadow(0 4px 24px rgb(0 0 0 / 0.35)); }
 .hero__event {
   margin-top: var(--sp-3); font-family: var(--font-display); text-transform: uppercase;
-  letter-spacing: 0.16em; color: var(--ink-soft); font-size: clamp(1rem, 3.2vw, 1.45rem);
+  letter-spacing: 0.16em; color: var(--ink-soft); font-size: clamp(0.95rem, 3vw, 1.3rem);
   animation: emberRise 900ms var(--ease) 160ms both;
 }
 .hero__tagline { margin: var(--sp-4) auto 0; max-width: 46ch; color: var(--ink-soft); font-size: var(--fs-500); animation: emberRise 900ms var(--ease) 240ms both; }

@@ -224,6 +224,7 @@
       if (k !== curKey) {
         curKey = k;
         group = el("div", "daygroup");
+        group.setAttribute("data-date", m.when.iso ? m.when.iso.slice(0, 10) : "");
         var head = el("div", "daygroup__date");
         head.innerHTML = '<span class="num">' + m.when.day + "</span><span>" +
           esc(cap(m.when.weekday) + " " + m.when.day + " " + m.when.monthName) + "</span>";
@@ -328,8 +329,11 @@
       if (is) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
     });
     updateStickyOffsets();
-    // scroll to top of main on view change (not on first load)
-    if (showView._ready) window.scrollTo({ top: 0, behavior: "auto" });
+    // cambio vista: il calendario parte dal giorno corrente, gli altri dall'alto
+    if (showView._ready) {
+      if (name === "calendario") jumpCalendarToday();
+      else window.scrollTo({ top: 0, behavior: "auto" });
+    }
     document.title = (name === "home" ? "Zibello Arena Bocce 2026" :
       cap(name) + " · Zibello Arena Bocce 2026");
   }
@@ -341,6 +345,35 @@
     var fb = document.querySelector(".filterbar");
     if (fb) document.documentElement.style.setProperty("--filterbar-h",
       (fb.offsetParent === null ? 0 : fb.offsetHeight) + "px");
+  }
+
+  // porta il calendario al giorno corrente (o al primo giorno futuro)
+  function scrollCalendarToToday() {
+    var groups = document.querySelectorAll("#calendar-list .daygroup[data-date]");
+    if (!groups.length) return;
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var target = null;
+    for (var i = 0; i < groups.length; i++) {
+      var ds = groups[i].getAttribute("data-date");
+      if (!ds) continue;
+      if (new Date(ds + "T00:00:00").getTime() >= today.getTime()) { target = groups[i]; break; }
+    }
+    if (!target) target = groups[groups.length - 1]; // torneo concluso -> ultima giornata
+    var header = document.querySelector(".site-header");
+    var fb = document.querySelector(".filterbar");
+    var offset = (header ? header.offsetHeight : 0) + (fb ? fb.offsetHeight : 0) + 18;
+    var y = target.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top: y < 0 ? 0 : y, behavior: "auto" });
+  }
+  // scroll al giorno corrente, ricalcolato dopo il caricamento dei font
+  // (altrimenti il reflow sposta la posizione e lo scroll atterra storto)
+  function jumpCalendarToday() {
+    requestAnimationFrame(function () {
+      scrollCalendarToToday();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(scrollCalendarToToday);
+      }
+    });
   }
   function route() { showView(currentView()); }
 
@@ -369,6 +402,7 @@
     }
     route();
     updateStickyOffsets();
+    if (currentView() === "calendario") jumpCalendarToday();
     showView._ready = true;
   }
 

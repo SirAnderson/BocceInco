@@ -189,13 +189,13 @@
     allTeams().forEach(function (t) {
       var o = el("option"); o.value = t; o.textContent = t; sel.appendChild(o);
     });
-    sel.addEventListener("change", function () { filterState.team = sel.value; syncTeamUrl(); renderCalendar(); });
+    sel.addEventListener("change", function () { filterState.team = sel.value; syncTeamUrl(); renderCalendar(true); });
     // todo toggle
     var todo = $("#filter-todo");
     todo.addEventListener("click", function () {
       filterState.todo = !filterState.todo;
       todo.setAttribute("aria-pressed", String(filterState.todo));
-      renderCalendar();
+      renderCalendar(true);
     });
     // condividi
     var share = $("#filter-share");
@@ -212,6 +212,26 @@
     if (!g || g.offsetParent === null) return;  // non visibile: non valutare (dimensioni 0)
     g.classList.toggle("is-end", g.scrollLeft + g.clientWidth >= g.scrollWidth - 2);
   }
+
+  // indicatore della tab attiva che scorre (nav in alto + bottom bar)
+  function positionIndicator(nav, ind, mode) {
+    if (!nav || !ind) return;
+    var active = nav.querySelector('[aria-current="page"]');
+    if (!active || active.offsetParent === null || !active.offsetWidth) { ind.style.width = "0px"; return; }
+    if (mode === "center") {
+      var w = 30;
+      ind.style.width = w + "px";
+      ind.style.transform = "translateX(" + Math.round(active.offsetLeft + (active.offsetWidth - w) / 2) + "px)";
+    } else {
+      var pad = parseFloat(getComputedStyle(active).paddingLeft) || 0;
+      ind.style.width = Math.round(active.offsetWidth - pad * 2) + "px";
+      ind.style.transform = "translateX(" + Math.round(active.offsetLeft + pad) + "px)";
+    }
+  }
+  function updateNavIndicators() {
+    positionIndicator($(".nav"), $(".nav__indicator"), "inset");
+    positionIndicator($(".bottomnav"), $(".bottomnav__indicator"), "center");
+  }
   function makeFbtn(label, val, pressed) {
     var b = el("button", "fbtn", esc(label));
     b.setAttribute("aria-pressed", String(!!pressed));
@@ -223,7 +243,7 @@
     document.querySelectorAll("#filter-gironi .fbtn").forEach(function (b) {
       b.setAttribute("aria-pressed", String(b.getAttribute("data-val") === val));
     });
-    renderCalendar();
+    renderCalendar(true);
   }
   function matchPassesFilter(m) {
     if (filterState.todo && m.played) return false;
@@ -233,7 +253,7 @@
     }
     return true;
   }
-  function renderCalendar() {
+  function renderCalendar(animate) {
     var list = $("#calendar-list");
     list.innerHTML = "";
     var ms = T.matches.filter(function (m) { return m.phase === "girone" && m.when && m.when.iso; })
@@ -243,13 +263,15 @@
       list.appendChild(el("div", "empty-note", "Nessuna partita con questi filtri."));
       return;
     }
-    var curKey = null, group = null;
+    var anim = animate && !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    var curKey = null, group = null, gi = 0;
     ms.forEach(function (m) {
       var k = dayKey(m);
       if (k !== curKey) {
         curKey = k;
         group = el("div", "daygroup");
         group.setAttribute("data-date", m.when.iso ? m.when.iso.slice(0, 10) : "");
+        if (anim) { group.style.setProperty("--i", gi++); group.classList.add("is-enter"); }
         var head = el("div", "daygroup__date");
         head.innerHTML = '<span class="num">' + m.when.day + "</span><span>" +
           esc(cap(m.when.weekday) + " " + m.when.day + " " + m.when.monthName) + "</span>";
@@ -573,6 +595,7 @@
       var is = a.getAttribute("href") === "#" + name;
       if (is) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
     });
+    updateNavIndicators();
     updateStickyOffsets();
     // cambio vista: il calendario parte dal giorno corrente, gli altri dall'alto
     if (name === "calendario") requestAnimationFrame(updateGironeScrollHint);
@@ -668,8 +691,13 @@
         if (elm) ro.observe(elm);
       });
     }
-    route();
+    route();                 // posiziona l'indicatore nav (prima di is-live: niente slide al caricamento)
     updateStickyOffsets();
+    requestAnimationFrame(function () {
+      document.querySelectorAll(".nav__indicator, .bottomnav__indicator").forEach(function (el2) { el2.classList.add("is-live"); });
+    });
+    window.addEventListener("resize", updateNavIndicators);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(updateNavIndicators);
     if (currentView() === "calendario") jumpCalendarToday();
     else if (currentView() === "home") jumpHomeToMyTeam();
     showView._ready = true;

@@ -130,7 +130,7 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 /* Logo ufficiale Zibello Arena (SVG estratto dal PDF) */
 .brand__logo { height: 40px; width: auto; display: block; }
 
-.nav { margin-left: auto; }
+.nav { margin-left: auto; position: relative; }
 .nav__list { display: flex; gap: var(--sp-1); list-style: none; padding: 0; overflow-x: auto; scrollbar-width: none; }
 .nav__list::-webkit-scrollbar { display: none; }
 .nav__link {
@@ -140,10 +140,13 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 }
 .nav__link:hover { color: var(--ink); background: var(--line-soft); }
 .nav__link[aria-current="page"] { color: var(--white); }
-.nav__link[aria-current="page"]::after {
-  content: ""; position: absolute; left: 0.85rem; right: 0.85rem; bottom: 2px; height: 3px;
+/* indicatore che scorre tra le tab (riposizionato da JS) */
+.nav__indicator {
+  position: absolute; bottom: 2px; left: 0; height: 3px; width: 0; transform: translateX(0);
   background: var(--red); border-radius: var(--r-pill); box-shadow: 0 0 12px var(--red-glow);
+  pointer-events: none;
 }
+.nav__indicator.is-live { transition: transform 260ms var(--ease), width 260ms var(--ease); }
 
 /* Bottom tab bar (solo mobile) */
 .bottomnav { display: none; }
@@ -157,6 +160,12 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 .bottomnav__link:active { background: var(--line-soft); }
 .bottomnav__link[aria-current="page"] { color: var(--white); }
 .bottomnav__link[aria-current="page"] svg { color: var(--red); filter: drop-shadow(0 0 8px var(--red-glow)); }
+.bottomnav__indicator {
+  position: absolute; top: 0; left: 0; height: 3px; width: 0; transform: translateX(0);
+  background: var(--red); border-radius: var(--r-pill); box-shadow: 0 0 10px var(--red-glow);
+  pointer-events: none;
+}
+.bottomnav__indicator.is-live { transition: transform 260ms var(--ease), width 260ms var(--ease); }
 
 /* ---- Views ------------------------------------------------------------- */
 main { display: block; padding-bottom: var(--sp-8); }
@@ -276,6 +285,9 @@ main { display: block; padding-bottom: var(--sp-8); }
 
 /* ---- Match row --------------------------------------------------------- */
 .daygroup { margin-bottom: var(--sp-6); }
+/* ingresso al cambio filtro: le giornate salgono in stagger (no view-open) */
+.daygroup.is-enter { animation: dayIn 300ms var(--ease) both; animation-delay: calc(var(--i, 0) * 34ms); }
+@keyframes dayIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 .daygroup__date {
   position: sticky; top: calc(var(--header-h, 64px) + var(--filterbar-h, 0px)); z-index: var(--z-sticky);
   display: flex; align-items: center; gap: var(--sp-3);

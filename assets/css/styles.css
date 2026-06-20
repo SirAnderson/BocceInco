@@ -424,6 +424,7 @@ main { display: block; padding-bottom: var(--sp-8); }
   #filter-gironi::-webkit-scrollbar { display: none; }
   #filter-gironi .fbtn { flex: 0 0 auto; }
   .select { flex: 1 1 8rem; }
+  .filter-group--share { margin-left: 0; }
 }
 
 /* ---- Reduced motion ---------------------------------------------------- */

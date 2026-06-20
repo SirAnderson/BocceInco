@@ -265,8 +265,8 @@
         "<thead><tr>" +
           '<th class="c-pos" scope="col">#</th>' +
           '<th scope="col">Squadra</th>' +
-          '<th class="c-num" scope="col" title="Vinte / Giocate">V/G</th>' +
-          '<th class="c-num" scope="col" title="Differenza punti">Diff</th>' +
+          '<th class="c-num" scope="col" aria-label="Vinte su partite giocate" title="Vinte / Giocate">V/G</th>' +
+          '<th class="c-num" scope="col" aria-label="Differenza punti" title="Differenza punti">Diff</th>' +
         "</tr></thead>";
       var tb = el("tbody");
       rows.forEach(function (r, i) {

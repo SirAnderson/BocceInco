@@ -182,7 +182,7 @@ main { display: block; padding-bottom: var(--sp-8); }
 .eyebrow { font-size: var(--fs-300); letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); font-weight: 700; }
 
 /* ---- Hero -------------------------------------------------------------- */
-.hero { position: relative; text-align: center; padding-top: clamp(1.5rem, 5vw, 3.5rem); }
+.hero { position: relative; text-align: center; padding-top: clamp(1rem, 4vw, 2.5rem); }
 .hero__glow {
   position: absolute; inset: -10% 0 auto 0; height: 360px; z-index: -1; pointer-events: none;
   background: radial-gradient(50% 60% at 50% 35%, var(--red-glow), transparent 70%);
@@ -190,15 +190,15 @@ main { display: block; padding-bottom: var(--sp-8); }
   animation: emberPulse 6s ease-in-out infinite;
 }
 .hero__emblem {
-  width: clamp(72px, 15vw, 108px); height: auto; margin: 0 auto var(--sp-3);
+  width: clamp(62px, 12.5vw, 90px); height: auto; margin: 0 auto var(--sp-2);
   filter: drop-shadow(0 6px 30px var(--red-glow));
   animation: emberRise 900ms var(--ease) both;
 }
 .hero__logo-h1 { margin: var(--sp-2) auto 0; animation: emberRise 900ms var(--ease) 80ms both; }
-.hero__logo { display: block; width: clamp(206px, 50vw, 400px); height: auto; margin-inline: auto; filter: drop-shadow(0 4px 24px rgb(0 0 0 / 0.35)); }
+.hero__logo { display: block; width: clamp(184px, 44vw, 320px); height: auto; margin-inline: auto; filter: drop-shadow(0 4px 24px rgb(0 0 0 / 0.35)); }
 .hero__event {
   margin-top: var(--sp-3); font-family: var(--font-display); text-transform: uppercase;
-  letter-spacing: 0.16em; color: var(--ink-soft); font-size: clamp(0.95rem, 3vw, 1.3rem);
+  letter-spacing: 0.16em; color: var(--ink-soft); font-size: clamp(0.85rem, 2.6vw, 1.15rem);
   animation: emberRise 900ms var(--ease) 160ms both;
 }
 .hero__tagline { margin: var(--sp-4) auto 0; max-width: 46ch; color: var(--ink-soft); font-size: var(--fs-500); animation: emberRise 900ms var(--ease) 240ms both; }
@@ -339,7 +339,11 @@ main { display: block; padding-bottom: var(--sp-8); }
 .standing tr.is-qualified .team { color: var(--white); }
 .standing .diff--pos { color: var(--white); }
 .standing .diff--neg { color: var(--ink-mute); }
-.standings-note { margin-top: var(--sp-5); color: var(--ink-mute); font-size: var(--fs-300); max-width: 72ch; }
+.standings-legend { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5); margin: var(--sp-5) 0 0; padding: 0; color: var(--ink-mute); font-size: var(--fs-300); }
+.standings-legend .legend-item { display: inline-flex; align-items: baseline; gap: 0.4rem; }
+.standings-legend dt { font-family: var(--font-display); font-weight: 700; color: var(--ink); letter-spacing: 0.02em; }
+.standings-legend dd { margin: 0; }
+.standings-note { margin-top: var(--sp-2); color: var(--ink-mute); font-size: var(--fs-300); max-width: 72ch; }
 
 /* In testa ai gironi: prime due */
 .leader-list { padding: var(--sp-2) var(--sp-3) var(--sp-3); }

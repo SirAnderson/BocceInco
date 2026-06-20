@@ -306,6 +306,10 @@ main { display: block; padding-bottom: var(--sp-8); }
 .fbtn:hover { border-color: var(--white); color: var(--white); }
 .fbtn[aria-pressed="true"] { background: var(--white); color: var(--navy); border-color: var(--white); }
 .fbtn--gir[aria-pressed="true"] { background: var(--gc); color: var(--gfg); border-color: var(--gc); }
+.filter-group--share { margin-left: auto; }
+.fbtn--share { display: inline-flex; align-items: center; gap: 0.4rem; border-color: color-mix(in oklab, var(--red) 50%, var(--line)); color: var(--ink); }
+.fbtn--share:hover { border-color: var(--red); color: var(--white); background: var(--red-soft); }
+.fbtn--share svg { width: 16px; height: 16px; flex-shrink: 0; }
 .select {
   appearance: none; padding: 0.4rem 2rem 0.4rem 0.8rem; border-radius: var(--r);
   border: 1px solid var(--line); background: var(--surface-2); color: var(--ink);

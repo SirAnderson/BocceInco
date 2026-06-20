@@ -189,7 +189,7 @@
     allTeams().forEach(function (t) {
       var o = el("option"); o.value = t; o.textContent = t; sel.appendChild(o);
     });
-    sel.addEventListener("change", function () { filterState.team = sel.value; renderCalendar(); });
+    sel.addEventListener("change", function () { filterState.team = sel.value; syncTeamUrl(); renderCalendar(); });
     // todo toggle
     var todo = $("#filter-todo");
     todo.addEventListener("click", function () {
@@ -197,6 +197,9 @@
       todo.setAttribute("aria-pressed", String(filterState.todo));
       renderCalendar();
     });
+    // condividi
+    var share = $("#filter-share");
+    if (share) share.addEventListener("click", shareCalendar);
   }
   function makeFbtn(label, val, pressed) {
     var b = el("button", "fbtn", esc(label));
@@ -391,6 +394,7 @@
     if (syncCalendar) {
       filterState.team = myteam || "ALL";
       var ft = $("#filter-team"); if (ft) ft.value = myteam || "ALL";
+      syncTeamUrl();
       renderCalendar();
     }
   }
@@ -412,6 +416,53 @@
     renderMyTeam();
   }
 
+  /* ---- URL squadra + condivisione ------------------------------------- */
+  // ?team=Nome nel calendario -> link diretto e condivisibile (es. WhatsApp).
+  // Non tocca "La mia squadra" salvata: e' solo il filtro del calendario.
+  function applyTeamParam() {
+    try {
+      var t = new URLSearchParams(location.search).get("team");
+      if (t && allTeams().indexOf(t) >= 0) {
+        filterState.team = t;
+        var ft = $("#filter-team"); if (ft) ft.value = t;
+      }
+    } catch (e) {}
+  }
+  function syncTeamUrl() {
+    try {
+      var url = new URL(location.href);
+      if (filterState.team && filterState.team !== "ALL") url.searchParams.set("team", filterState.team);
+      else url.searchParams.delete("team");
+      history.replaceState(null, "", url.toString());
+    } catch (e) {}
+  }
+  function calendarShareUrl() {
+    var url = new URL(location.href);
+    if (filterState.team && filterState.team !== "ALL") url.searchParams.set("team", filterState.team);
+    else url.searchParams.delete("team");
+    url.hash = "calendario";
+    return url.toString();
+  }
+  function shareCalendar() {
+    var team = filterState.team;
+    var label = (team && team !== "ALL") ? ("Calendario di " + team) : "Calendario del torneo";
+    var text = label + " · Zibello Arena Bocce 2026";
+    var link = calendarShareUrl();
+    if (navigator.share) {
+      navigator.share({ title: "Zibello Arena Bocce", text: text, url: link }).catch(function () {});
+      return;
+    }
+    var wa = "https://wa.me/?text=" + encodeURIComponent(text + " " + link);
+    var win = window.open(wa, "_blank", "noopener");
+    if (!win) flashShare("Popup bloccato");
+    else flashShare("Apro WhatsApp…");
+  }
+  function flashShare(msg) {
+    var lbl = $("#filter-share-label"); if (!lbl) return;
+    var prev = lbl.textContent; lbl.textContent = msg;
+    setTimeout(function () { lbl.textContent = prev; }, 1800);
+  }
+
   /* ---- Router ---------------------------------------------------------- */
   function currentView() {
     var h = (location.hash || "").replace("#", "");
@@ -430,6 +481,7 @@
     // cambio vista: il calendario parte dal giorno corrente, gli altri dall'alto
     if (showView._ready) {
       if (name === "calendario") jumpCalendarToday();
+      else if (name === "home") jumpHomeToMyTeam();
       else window.scrollTo({ top: 0, behavior: "auto" });
     }
     document.title = (name === "home" ? "Zibello Arena Bocce 2026" :
@@ -473,6 +525,23 @@
       }
     });
   }
+
+  // la Home atterra direttamente su "La mia squadra" (sotto l'header)
+  function scrollHomeToMyTeam() {
+    var sec = $("#myteam"); if (!sec) return;
+    var header = document.querySelector(".site-header");
+    var offset = (header ? header.offsetHeight : 0) + 14;
+    var y = sec.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top: y < 0 ? 0 : y, behavior: "auto" });
+  }
+  function jumpHomeToMyTeam() {
+    requestAnimationFrame(function () {
+      scrollHomeToMyTeam();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(scrollHomeToMyTeam);
+      }
+    });
+  }
   function route() { showView(currentView()); }
 
   /* ---- Boot ------------------------------------------------------------ */
@@ -485,6 +554,7 @@
     renderHome();
     buildFilters();
     buildMyTeam();
+    applyTeamParam();
     renderCalendar();
     renderStandings();
     renderBracket();
@@ -502,6 +572,7 @@
     route();
     updateStickyOffsets();
     if (currentView() === "calendario") jumpCalendarToday();
+    else if (currentView() === "home") jumpHomeToMyTeam();
     showView._ready = true;
   }
 

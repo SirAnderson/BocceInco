@@ -2,7 +2,7 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-06-20 12:07",
+    "generatedAt": "2026-06-21 10:11",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
@@ -608,6 +608,28 @@
     {
       "id": 24,
       "phase": "girone",
+      "phaseLabel": "Girone B",
+      "group": "B",
+      "when": {
+        "label": "martedì 23/06 20:00",
+        "weekday": "martedì",
+        "day": 23,
+        "month": 6,
+        "monthName": "giugno",
+        "time": "20:00",
+        "iso": "2026-06-23T20:00:00",
+        "dateLabel": "23 giugno"
+      },
+      "team1": "I Toghini",
+      "team2": "Apostadores",
+      "score1": null,
+      "score2": null,
+      "played": false,
+      "winner": null
+    },
+    {
+      "id": 25,
+      "phase": "girone",
       "phaseLabel": "Girone A",
       "group": "A",
       "when": {
@@ -628,7 +650,7 @@
       "winner": null
     },
     {
-      "id": 25,
+      "id": 26,
       "phase": "girone",
       "phaseLabel": "Girone F",
       "group": "F",
@@ -650,7 +672,7 @@
       "winner": null
     },
     {
-      "id": 26,
+      "id": 27,
       "phase": "girone",
       "phaseLabel": "Girone E",
       "group": "E",
@@ -672,7 +694,7 @@
       "winner": null
     },
     {
-      "id": 27,
+      "id": 28,
       "phase": "girone",
       "phaseLabel": "Girone H",
       "group": "H",
@@ -694,7 +716,7 @@
       "winner": null
     },
     {
-      "id": 28,
+      "id": 29,
       "phase": "girone",
       "phaseLabel": "Girone G",
       "group": "G",
@@ -710,28 +732,6 @@
       },
       "team1": "I Masalén",
       "team2": "I Diavoli",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 29,
-      "phase": "girone",
-      "phaseLabel": "Girone B",
-      "group": "B",
-      "when": {
-        "label": "martedì 23/06 23:00",
-        "weekday": "martedì",
-        "day": 23,
-        "month": 6,
-        "monthName": "giugno",
-        "time": "23:00",
-        "iso": "2026-06-23T23:00:00",
-        "dateLabel": "23 giugno"
-      },
-      "team1": "I Toghini",
-      "team2": "Apostadores",
       "score1": null,
       "score2": null,
       "played": false,
@@ -872,8 +872,8 @@
     {
       "id": 36,
       "phase": "girone",
-      "phaseLabel": "Girone C",
-      "group": "C",
+      "phaseLabel": "Girone B",
+      "group": "B",
       "when": {
         "label": "giovedì 25/06 20:30",
         "weekday": "giovedì",
@@ -884,8 +884,8 @@
         "iso": "2026-06-25T20:30:00",
         "dateLabel": "25 giugno"
       },
-      "team1": "0Sbat",
-      "team2": "I Cugini",
+      "team1": "Apostadores",
+      "team2": "The Doctors",
       "score1": null,
       "score2": null,
       "played": false,
@@ -894,8 +894,8 @@
     {
       "id": 37,
       "phase": "girone",
-      "phaseLabel": "Girone B",
-      "group": "B",
+      "phaseLabel": "Girone C",
+      "group": "C",
       "when": {
         "label": "giovedì 25/06 21:00",
         "weekday": "giovedì",
@@ -906,8 +906,8 @@
         "iso": "2026-06-25T21:00:00",
         "dateLabel": "25 giugno"
       },
-      "team1": "Apostadores",
-      "team2": "The Doctors",
+      "team1": "0Sbat",
+      "team2": "I Cugini",
       "score1": null,
       "score2": null,
       "played": false,

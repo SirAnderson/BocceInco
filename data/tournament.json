@@ -2,7 +2,7 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-06-21 10:11",
+    "generatedAt": "2026-06-21 10:26",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
@@ -831,13 +831,13 @@
       "phaseLabel": "Girone A",
       "group": "A",
       "when": {
-        "label": "mercoledì 24/06 22:30",
+        "label": "mercoledì 24/06 22:00",
         "weekday": "mercoledì",
         "day": 24,
         "month": 6,
         "monthName": "giugno",
-        "time": "22:30",
-        "iso": "2026-06-24T22:30:00",
+        "time": "22:00",
+        "iso": "2026-06-24T22:00:00",
         "dateLabel": "24 giugno"
       },
       "team1": "Gli Allenati",

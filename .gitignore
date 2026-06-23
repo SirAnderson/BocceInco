@@ -15,6 +15,9 @@ venv/
 Thumbs.db
 desktop.ini
 
+# File di lock temporanei di Office (Excel tiene il file aperto)
+~$*
+
 # File temporanei di anteprima generati durante il lavoro
 Resources/_preview_*
 

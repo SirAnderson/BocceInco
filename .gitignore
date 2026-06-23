@@ -1,5 +1,6 @@
-# Harness / editor
-.claude/
+# Harness / editor (versioniamo solo le skill condivise)
+.claude/*
+!.claude/skills/
 .vscode/
 .idea/
 
@@ -16,3 +17,6 @@ desktop.ini
 
 # File temporanei di anteprima generati durante il lavoro
 Resources/_preview_*
+
+# Report cambiamenti generato da tools/report_changes.py
+_report_*.html

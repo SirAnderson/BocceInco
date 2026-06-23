@@ -269,13 +269,15 @@ def main():
     ko = [m for m in matches if m["phase"] != "girone"]
     print(f"Partite fase finale: {len(ko)}")
     print("\nClassifiche (ordine calcolato):")
+    # Baseline atteso = classifiche calcolate da TUTTI i risultati inseriti finora.
+    # Va aggiornato quando nuovi risultati cambiano l'ordine (il check sotto lo segnala).
     expected = {
         "A": ["Gli Zebis", "Gli Allenati", "Wood&Beton", "Beverly INPS"],
         "B": ["I Toghini", "The Doctors", "Apostadores", "Lord&Chri"],
-        "C": ["Chocolate Starfishes", "0Sbat", "La Coppia", "I Cugini"],
-        "D": ["Tironi di Bocce", "Mirkae", "Il Boccino della Discordia", "BocciAli"],
-        "E": ["Bad Boys", "Gnammestrazzi", "Ricci di Mare", "Le Cognate"],
-        "F": ["A&M", "Zaccaria", "T alla seconda", "I Cavalli"],
+        "C": ["0Sbat", "Chocolate Starfishes", "La Coppia", "I Cugini"],
+        "D": ["Mirkae", "Tironi di Bocce", "Il Boccino della Discordia", "BocciAli"],
+        "E": ["Bad Boys", "Gnammestrazzi", "Le Cognate", "Ricci di Mare"],
+        "F": ["Zaccaria", "A&M", "I Cavalli", "T alla seconda"],
         "G": ["I Diavoli", "I Masalén", "Bocce da Urlo", "Gli Hummarell"],
         "H": ["Ghirarda", "Team Rocket", "Atletico Cavalclown 2.0", "Le Sbocciate"],
     }
@@ -290,8 +292,8 @@ def main():
         print(f"  Girone {letter}: {flag} " +
               " | ".join(f"{r['pos']}.{r['team']}({r['won']}/{r['played']} {r['diff']:+d})"
                          for r in standings[letter]))
-    print("\nVERIFICA ordine vs PDF classifiche:",
-          "TUTTO COERENTE" if ok_all else "DISCREPANZE PRESENTI")
+    print("\nVERIFICA ordine vs baseline atteso:",
+          "TUTTO COERENTE" if ok_all else "DISCREPANZE PRESENTI (aggiornare il baseline)")
     print(f"\nScritto: {out_js.relative_to(ROOT)} , {out_json.relative_to(ROOT)}")
     print("Cache-busting index.html:", ("?v=" + stamp) if bumped else "nessuna modifica")
 

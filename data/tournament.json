@@ -2,7 +2,7 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-06-26 09:03",
+    "generatedAt": "2026-06-26 11:29",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
@@ -938,6 +938,28 @@
     {
       "id": 39,
       "phase": "girone",
+      "phaseLabel": "Girone H",
+      "group": "H",
+      "when": {
+        "label": "lunedì 29/06 20:30",
+        "weekday": "lunedì",
+        "day": 29,
+        "month": 6,
+        "monthName": "giugno",
+        "time": "20:30",
+        "iso": "2026-06-29T20:30:00",
+        "dateLabel": "29 giugno"
+      },
+      "team1": "Ghirarda",
+      "team2": "Le Sbocciate",
+      "score1": null,
+      "score2": null,
+      "played": false,
+      "winner": null
+    },
+    {
+      "id": 40,
+      "phase": "girone",
       "phaseLabel": "Girone A",
       "group": "A",
       "when": {
@@ -958,7 +980,7 @@
       "winner": null
     },
     {
-      "id": 40,
+      "id": 41,
       "phase": "girone",
       "phaseLabel": "Girone E",
       "group": "E",
@@ -980,7 +1002,7 @@
       "winner": null
     },
     {
-      "id": 41,
+      "id": 42,
       "phase": "girone",
       "phaseLabel": "Girone G",
       "group": "G",
@@ -1002,10 +1024,10 @@
       "winner": null
     },
     {
-      "id": 42,
+      "id": 43,
       "phase": "girone",
-      "phaseLabel": "Girone H",
-      "group": "H",
+      "phaseLabel": "Girone B",
+      "group": "B",
       "when": {
         "label": "lunedì 29/06 22:30",
         "weekday": "lunedì",
@@ -1014,28 +1036,6 @@
         "monthName": "giugno",
         "time": "22:30",
         "iso": "2026-06-29T22:30:00",
-        "dateLabel": "29 giugno"
-      },
-      "team1": "Ghirarda",
-      "team2": "Le Sbocciate",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 43,
-      "phase": "girone",
-      "phaseLabel": "Girone B",
-      "group": "B",
-      "when": {
-        "label": "lunedì 29/06 23:00",
-        "weekday": "lunedì",
-        "day": 29,
-        "month": 6,
-        "monthName": "giugno",
-        "time": "23:00",
-        "iso": "2026-06-29T23:00:00",
         "dateLabel": "29 giugno"
       },
       "team1": "I Toghini",

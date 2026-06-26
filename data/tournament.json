@@ -2,11 +2,11 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-06-25 17:51",
+    "generatedAt": "2026-06-26 08:59",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
-    "playedMatches": 32
+    "playedMatches": 38
   },
   "groups": [
     {
@@ -842,10 +842,10 @@
       },
       "team1": "Apostadores",
       "team2": "The Doctors",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 3,
+      "score2": 6,
+      "played": true,
+      "winner": 2
     },
     {
       "id": 35,
@@ -864,10 +864,10 @@
       },
       "team1": "0Sbat",
       "team2": "I Cugini",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 2,
+      "score2": 7,
+      "played": true,
+      "winner": 2
     },
     {
       "id": 36,
@@ -886,10 +886,10 @@
       },
       "team1": "Le Cognate",
       "team2": "Bad Boys",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 3,
+      "score2": 10,
+      "played": true,
+      "winner": 2
     },
     {
       "id": 37,
@@ -908,10 +908,10 @@
       },
       "team1": "Apostadores",
       "team2": "Lord&Chri",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 0,
+      "score2": 9,
+      "played": true,
+      "winner": 2
     },
     {
       "id": 38,
@@ -930,10 +930,10 @@
       },
       "team1": "Le Sbocciate",
       "team2": "Team Rocket",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 1,
+      "score2": 9,
+      "played": true,
+      "winner": 2
     },
     {
       "id": 39,
@@ -952,10 +952,10 @@
       },
       "team1": "I Masalén",
       "team2": "Gli Hummarell",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 1,
+      "score2": 10,
+      "played": true,
+      "winner": 2
     },
     {
       "id": 40,
@@ -1161,94 +1161,6 @@
       "phaseLabel": "Ottavi di finale",
       "group": null,
       "when": {
-        "label": "mercoledì 01/07 20:30",
-        "weekday": "mercoledì",
-        "day": 1,
-        "month": 7,
-        "monthName": "luglio",
-        "time": "20:30",
-        "iso": "2026-07-01T20:30:00",
-        "dateLabel": "1 luglio"
-      },
-      "team1": null,
-      "team2": null,
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 50,
-      "phase": "ottavi",
-      "phaseLabel": "Ottavi di finale",
-      "group": null,
-      "when": {
-        "label": "mercoledì 01/07 21:15",
-        "weekday": "mercoledì",
-        "day": 1,
-        "month": 7,
-        "monthName": "luglio",
-        "time": "21:15",
-        "iso": "2026-07-01T21:15:00",
-        "dateLabel": "1 luglio"
-      },
-      "team1": null,
-      "team2": null,
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 51,
-      "phase": "ottavi",
-      "phaseLabel": "Ottavi di finale",
-      "group": null,
-      "when": {
-        "label": "mercoledì 01/07 22:00",
-        "weekday": "mercoledì",
-        "day": 1,
-        "month": 7,
-        "monthName": "luglio",
-        "time": "22:00",
-        "iso": "2026-07-01T22:00:00",
-        "dateLabel": "1 luglio"
-      },
-      "team1": null,
-      "team2": null,
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 52,
-      "phase": "ottavi",
-      "phaseLabel": "Ottavi di finale",
-      "group": null,
-      "when": {
-        "label": "mercoledì 01/07 22:45",
-        "weekday": "mercoledì",
-        "day": 1,
-        "month": 7,
-        "monthName": "luglio",
-        "time": "22:45",
-        "iso": "2026-07-01T22:45:00",
-        "dateLabel": "1 luglio"
-      },
-      "team1": null,
-      "team2": null,
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 53,
-      "phase": "ottavi",
-      "phaseLabel": "Ottavi di finale",
-      "group": null,
-      "when": {
         "label": "giovedì 02/07 20:30",
         "weekday": "giovedì",
         "day": 2,
@@ -1266,7 +1178,7 @@
       "winner": null
     },
     {
-      "id": 54,
+      "id": 50,
       "phase": "ottavi",
       "phaseLabel": "Ottavi di finale",
       "group": null,
@@ -1288,7 +1200,7 @@
       "winner": null
     },
     {
-      "id": 55,
+      "id": 51,
       "phase": "ottavi",
       "phaseLabel": "Ottavi di finale",
       "group": null,
@@ -1310,7 +1222,7 @@
       "winner": null
     },
     {
-      "id": 56,
+      "id": 52,
       "phase": "ottavi",
       "phaseLabel": "Ottavi di finale",
       "group": null,
@@ -1332,11 +1244,108 @@
       "winner": null
     },
     {
+      "id": 53,
+      "phase": "ottavi",
+      "phaseLabel": "Ottavi di finale",
+      "group": null,
+      "when": {
+        "label": "martedì 07/07 20:30",
+        "weekday": "martedì",
+        "day": 7,
+        "month": 7,
+        "monthName": "luglio",
+        "time": "20:30",
+        "iso": "2026-07-07T20:30:00",
+        "dateLabel": "7 luglio"
+      },
+      "team1": null,
+      "team2": null,
+      "score1": null,
+      "score2": null,
+      "played": false,
+      "winner": null
+    },
+    {
+      "id": 54,
+      "phase": "ottavi",
+      "phaseLabel": "Ottavi di finale",
+      "group": null,
+      "when": {
+        "label": "martedì 07/07 21:15",
+        "weekday": "martedì",
+        "day": 7,
+        "month": 7,
+        "monthName": "luglio",
+        "time": "21:15",
+        "iso": "2026-07-07T21:15:00",
+        "dateLabel": "7 luglio"
+      },
+      "team1": null,
+      "team2": null,
+      "score1": null,
+      "score2": null,
+      "played": false,
+      "winner": null
+    },
+    {
+      "id": 55,
+      "phase": "ottavi",
+      "phaseLabel": "Ottavi di finale",
+      "group": null,
+      "when": {
+        "label": "martedì 07/07 22:00",
+        "weekday": "martedì",
+        "day": 7,
+        "month": 7,
+        "monthName": "luglio",
+        "time": "22:00",
+        "iso": "2026-07-07T22:00:00",
+        "dateLabel": "7 luglio"
+      },
+      "team1": null,
+      "team2": null,
+      "score1": null,
+      "score2": null,
+      "played": false,
+      "winner": null
+    },
+    {
+      "id": 56,
+      "phase": "ottavi",
+      "phaseLabel": "Ottavi di finale",
+      "group": null,
+      "when": {
+        "label": "martedì 07/07 22:45",
+        "weekday": "martedì",
+        "day": 7,
+        "month": 7,
+        "monthName": "luglio",
+        "time": "22:45",
+        "iso": "2026-07-07T22:45:00",
+        "dateLabel": "7 luglio"
+      },
+      "team1": null,
+      "team2": null,
+      "score1": null,
+      "score2": null,
+      "played": false,
+      "winner": null
+    },
+    {
       "id": 57,
       "phase": "quarti",
       "phaseLabel": "Quarti di finale",
       "group": null,
-      "when": null,
+      "when": {
+        "label": "giovedì 09/07 20:30",
+        "weekday": "giovedì",
+        "day": 9,
+        "month": 7,
+        "monthName": "luglio",
+        "time": "20:30",
+        "iso": "2026-07-09T20:30:00",
+        "dateLabel": "9 luglio"
+      },
       "team1": null,
       "team2": null,
       "score1": null,
@@ -1349,7 +1358,16 @@
       "phase": "quarti",
       "phaseLabel": "Quarti di finale",
       "group": null,
-      "when": null,
+      "when": {
+        "label": "giovedì 09/07 21:15",
+        "weekday": "giovedì",
+        "day": 9,
+        "month": 7,
+        "monthName": "luglio",
+        "time": "21:15",
+        "iso": "2026-07-09T21:15:00",
+        "dateLabel": "9 luglio"
+      },
       "team1": null,
       "team2": null,
       "score1": null,
@@ -1362,7 +1380,16 @@
       "phase": "quarti",
       "phaseLabel": "Quarti di finale",
       "group": null,
-      "when": null,
+      "when": {
+        "label": "giovedì 09/07 22:00",
+        "weekday": "giovedì",
+        "day": 9,
+        "month": 7,
+        "monthName": "luglio",
+        "time": "22:00",
+        "iso": "2026-07-09T22:00:00",
+        "dateLabel": "9 luglio"
+      },
       "team1": null,
       "team2": null,
       "score1": null,
@@ -1375,7 +1402,16 @@
       "phase": "quarti",
       "phaseLabel": "Quarti di finale",
       "group": null,
-      "when": null,
+      "when": {
+        "label": "giovedì 09/07 22:45",
+        "weekday": "giovedì",
+        "day": 9,
+        "month": 7,
+        "monthName": "luglio",
+        "time": "22:45",
+        "iso": "2026-07-09T22:45:00",
+        "dateLabel": "9 luglio"
+      },
       "team1": null,
       "team2": null,
       "score1": null,
@@ -1492,44 +1528,44 @@
       },
       {
         "team": "The Doctors",
-        "played": 2,
-        "won": 1,
+        "played": 3,
+        "won": 2,
         "lost": 1,
-        "pf": 11,
-        "pa": 12,
-        "diff": -1,
+        "pf": 17,
+        "pa": 15,
+        "diff": 2,
         "pos": 2
       },
       {
         "team": "Lord&Chri",
-        "played": 1,
-        "won": 0,
+        "played": 2,
+        "won": 1,
         "lost": 1,
-        "pf": 3,
+        "pf": 12,
         "pa": 8,
-        "diff": -5,
+        "diff": 4,
         "pos": 3
       },
       {
         "team": "Apostadores",
-        "played": 1,
+        "played": 3,
         "won": 0,
-        "lost": 1,
-        "pf": 3,
-        "pa": 9,
-        "diff": -6,
+        "lost": 3,
+        "pf": 6,
+        "pa": 24,
+        "diff": -18,
         "pos": 4
       }
     ],
     "C": [
       {
         "team": "0Sbat",
-        "played": 2,
+        "played": 3,
         "won": 2,
-        "lost": 0,
-        "pf": 14,
-        "pa": 9,
-        "diff": 5,
+        "lost": 1,
+        "pf": 16,
+        "pa": 16,
+        "diff": 0,
         "pos": 1
       },
       {
@@ -1544,12 +1580,12 @@
       },
       {
         "team": "I Cugini",
-        "played": 1,
-        "won": 0,
+        "played": 2,
+        "won": 1,
         "lost": 1,
-        "pf": 5,
-        "pa": 6,
-        "diff": -1,
+        "pf": 12,
+        "pa": 8,
+        "diff": 4,
         "pos": 3
       },
       {
@@ -1608,12 +1644,12 @@
     "E": [
       {
         "team": "Bad Boys",
-        "played": 1,
-        "won": 1,
+        "played": 2,
+        "won": 2,
         "lost": 0,
-        "pf": 10,
-        "pa": 3,
-        "diff": 7,
+        "pf": 20,
+        "pa": 6,
+        "diff": 14,
         "pos": 1
       },
       {
@@ -1628,12 +1664,12 @@
       },
       {
         "team": "Le Cognate",
-        "played": 2,
+        "played": 3,
         "won": 1,
-        "lost": 1,
-        "pf": 10,
-        "pa": 14,
-        "diff": -4,
+        "lost": 2,
+        "pf": 13,
+        "pa": 24,
+        "diff": -11,
         "pos": 3
       },
       {
@@ -1701,13 +1737,13 @@
         "pos": 1
       },
       {
-        "team": "I Masalén",
-        "played": 1,
-        "won": 0,
+        "team": "Gli Hummarell",
+        "played": 2,
+        "won": 1,
         "lost": 1,
-        "pf": 5,
-        "pa": 9,
-        "diff": -4,
+        "pf": 11,
+        "pa": 12,
+        "diff": -1,
         "pos": 2
       },
       {
@@ -1721,17 +1757,27 @@
         "pos": 3
       },
       {
-        "team": "Gli Hummarell",
-        "played": 1,
+        "team": "I Masalén",
+        "played": 2,
         "won": 0,
-        "lost": 1,
-        "pf": 1,
-        "pa": 11,
-        "diff": -10,
+        "lost": 2,
+        "pf": 6,
+        "pa": 19,
+        "diff": -13,
         "pos": 4
       }
     ],
     "H": [
+      {
+        "team": "Team Rocket",
+        "played": 3,
+        "won": 2,
+        "lost": 1,
+        "pf": 24,
+        "pa": 13,
+        "diff": 11,
+        "pos": 1
+      },
       {
         "team": "Atletico Cavalclown 2.0",
         "played": 3,
@@ -1740,7 +1786,7 @@
         "pf": 16,
         "pa": 19,
         "diff": -3,
-        "pos": 1
+        "pos": 2
       },
       {
         "team": "Ghirarda",
@@ -1750,26 +1796,16 @@
         "pf": 15,
         "pa": 13,
         "diff": 2,
-        "pos": 2
-      },
-      {
-        "team": "Team Rocket",
-        "played": 2,
-        "won": 1,
-        "lost": 1,
-        "pf": 15,
-        "pa": 12,
-        "diff": 3,
         "pos": 3
       },
       {
         "team": "Le Sbocciate",
-        "played": 1,
+        "played": 2,
         "won": 0,
-        "lost": 1,
-        "pf": 4,
-        "pa": 6,
-        "diff": -2,
+        "lost": 2,
+        "pf": 5,
+        "pa": 15,
+        "diff": -10,
         "pos": 4
       }
     ]

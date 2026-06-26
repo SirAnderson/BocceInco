@@ -278,8 +278,8 @@ def main():
         "D": ["Mirkae", "Il Boccino della Discordia", "Tironi di Bocce", "BocciAli"],
         "E": ["Bad Boys", "Gnammestrazzi", "Le Cognate", "Ricci di Mare"],
         "F": ["Zaccaria", "A&M", "I Cavalli", "T alla seconda"],
-        "G": ["I Diavoli", "I Masalén", "Bocce da Urlo", "Gli Hummarell"],
-        "H": ["Atletico Cavalclown 2.0", "Ghirarda", "Team Rocket", "Le Sbocciate"],
+        "G": ["I Diavoli", "Gli Hummarell", "Bocce da Urlo", "I Masalén"],
+        "H": ["Team Rocket", "Atletico Cavalclown 2.0", "Ghirarda", "Le Sbocciate"],
     }
     ok_all = True
     for letter in sorted(standings):

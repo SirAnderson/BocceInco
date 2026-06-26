@@ -2,7 +2,7 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-06-26 08:59",
+    "generatedAt": "2026-06-26 09:03",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
@@ -586,28 +586,6 @@
     {
       "id": 23,
       "phase": "girone",
-      "phaseLabel": "Girone E",
-      "group": "E",
-      "when": {
-        "label": "lunedì 22/06 23:00",
-        "weekday": "lunedì",
-        "day": 22,
-        "month": 6,
-        "monthName": "giugno",
-        "time": "23:00",
-        "iso": "2026-06-22T23:00:00",
-        "dateLabel": "22 giugno"
-      },
-      "team1": "Bad Boys",
-      "team2": "Ricci di Mare",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 24,
-      "phase": "girone",
       "phaseLabel": "Girone B",
       "group": "B",
       "when": {
@@ -628,7 +606,7 @@
       "winner": 1
     },
     {
-      "id": 25,
+      "id": 24,
       "phase": "girone",
       "phaseLabel": "Girone A",
       "group": "A",
@@ -650,7 +628,7 @@
       "winner": 2
     },
     {
-      "id": 26,
+      "id": 25,
       "phase": "girone",
       "phaseLabel": "Girone H",
       "group": "H",
@@ -672,7 +650,7 @@
       "winner": 1
     },
     {
-      "id": 27,
+      "id": 26,
       "phase": "girone",
       "phaseLabel": "Girone G",
       "group": "G",
@@ -694,7 +672,7 @@
       "winner": 2
     },
     {
-      "id": 28,
+      "id": 27,
       "phase": "girone",
       "phaseLabel": "Girone D",
       "group": "D",
@@ -716,7 +694,7 @@
       "winner": 1
     },
     {
-      "id": 29,
+      "id": 28,
       "phase": "girone",
       "phaseLabel": "Girone A",
       "group": "A",
@@ -738,7 +716,7 @@
       "winner": 1
     },
     {
-      "id": 30,
+      "id": 29,
       "phase": "girone",
       "phaseLabel": "Girone C",
       "group": "C",
@@ -760,7 +738,7 @@
       "winner": 1
     },
     {
-      "id": 31,
+      "id": 30,
       "phase": "girone",
       "phaseLabel": "Girone F",
       "group": "F",
@@ -782,7 +760,7 @@
       "winner": 2
     },
     {
-      "id": 32,
+      "id": 31,
       "phase": "girone",
       "phaseLabel": "Girone A",
       "group": "A",
@@ -804,7 +782,7 @@
       "winner": 1
     },
     {
-      "id": 33,
+      "id": 32,
       "phase": "girone",
       "phaseLabel": "Girone D",
       "group": "D",
@@ -826,7 +804,7 @@
       "winner": 1
     },
     {
-      "id": 34,
+      "id": 33,
       "phase": "girone",
       "phaseLabel": "Girone B",
       "group": "B",
@@ -848,7 +826,7 @@
       "winner": 2
     },
     {
-      "id": 35,
+      "id": 34,
       "phase": "girone",
       "phaseLabel": "Girone C",
       "group": "C",
@@ -870,7 +848,7 @@
       "winner": 2
     },
     {
-      "id": 36,
+      "id": 35,
       "phase": "girone",
       "phaseLabel": "Girone E",
       "group": "E",
@@ -892,7 +870,7 @@
       "winner": 2
     },
     {
-      "id": 37,
+      "id": 36,
       "phase": "girone",
       "phaseLabel": "Girone B",
       "group": "B",
@@ -914,7 +892,7 @@
       "winner": 2
     },
     {
-      "id": 38,
+      "id": 37,
       "phase": "girone",
       "phaseLabel": "Girone H",
       "group": "H",
@@ -936,7 +914,7 @@
       "winner": 2
     },
     {
-      "id": 39,
+      "id": 38,
       "phase": "girone",
       "phaseLabel": "Girone G",
       "group": "G",
@@ -958,7 +936,7 @@
       "winner": 2
     },
     {
-      "id": 40,
+      "id": 39,
       "phase": "girone",
       "phaseLabel": "Girone A",
       "group": "A",
@@ -980,7 +958,7 @@
       "winner": null
     },
     {
-      "id": 41,
+      "id": 40,
       "phase": "girone",
       "phaseLabel": "Girone E",
       "group": "E",
@@ -1002,7 +980,7 @@
       "winner": null
     },
     {
-      "id": 42,
+      "id": 41,
       "phase": "girone",
       "phaseLabel": "Girone G",
       "group": "G",
@@ -1024,7 +1002,7 @@
       "winner": null
     },
     {
-      "id": 43,
+      "id": 42,
       "phase": "girone",
       "phaseLabel": "Girone H",
       "group": "H",
@@ -1046,7 +1024,7 @@
       "winner": null
     },
     {
-      "id": 44,
+      "id": 43,
       "phase": "girone",
       "phaseLabel": "Girone B",
       "group": "B",
@@ -1062,6 +1040,28 @@
       },
       "team1": "I Toghini",
       "team2": "Lord&Chri",
+      "score1": null,
+      "score2": null,
+      "played": false,
+      "winner": null
+    },
+    {
+      "id": 44,
+      "phase": "girone",
+      "phaseLabel": "Girone E",
+      "group": "E",
+      "when": {
+        "label": "martedì 30/06 20:30",
+        "weekday": "martedì",
+        "day": 30,
+        "month": 6,
+        "monthName": "giugno",
+        "time": "20:30",
+        "iso": "2026-06-30T20:30:00",
+        "dateLabel": "30 giugno"
+      },
+      "team1": "Bad Boys",
+      "team2": "Ricci di Mare",
       "score1": null,
       "score2": null,
       "played": false,

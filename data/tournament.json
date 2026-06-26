@@ -2,7 +2,7 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-06-26 11:29",
+    "generatedAt": "2026-06-26 11:44",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
@@ -1092,8 +1092,8 @@
     {
       "id": 46,
       "phase": "girone",
-      "phaseLabel": "Girone C",
-      "group": "C",
+      "phaseLabel": "Girone F",
+      "group": "F",
       "when": {
         "label": "martedì 30/06 21:30",
         "weekday": "martedì",
@@ -1104,8 +1104,8 @@
         "iso": "2026-06-30T21:30:00",
         "dateLabel": "30 giugno"
       },
-      "team1": "Chocolate Starfishes",
-      "team2": "La Coppia",
+      "team1": "T alla seconda",
+      "team2": "I Cavalli",
       "score1": null,
       "score2": null,
       "played": false,
@@ -1126,8 +1126,8 @@
         "iso": "2026-06-30T22:00:00",
         "dateLabel": "30 giugno"
       },
-      "team1": "La Coppia",
-      "team2": "I Cugini",
+      "team1": "Chocolate Starfishes",
+      "team2": "La Coppia",
       "score1": null,
       "score2": null,
       "played": false,
@@ -1136,8 +1136,8 @@
     {
       "id": 48,
       "phase": "girone",
-      "phaseLabel": "Girone F",
-      "group": "F",
+      "phaseLabel": "Girone C",
+      "group": "C",
       "when": {
         "label": "martedì 30/06 22:30",
         "weekday": "martedì",
@@ -1148,8 +1148,8 @@
         "iso": "2026-06-30T22:30:00",
         "dateLabel": "30 giugno"
       },
-      "team1": "T alla seconda",
-      "team2": "I Cavalli",
+      "team1": "La Coppia",
+      "team2": "I Cugini",
       "score1": null,
       "score2": null,
       "played": false,

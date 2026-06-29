@@ -2,7 +2,7 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-06-26 11:44",
+    "generatedAt": "2026-06-29 10:14",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
@@ -960,28 +960,6 @@
     {
       "id": 40,
       "phase": "girone",
-      "phaseLabel": "Girone A",
-      "group": "A",
-      "when": {
-        "label": "lunedì 29/06 21:00",
-        "weekday": "lunedì",
-        "day": 29,
-        "month": 6,
-        "monthName": "giugno",
-        "time": "21:00",
-        "iso": "2026-06-29T21:00:00",
-        "dateLabel": "29 giugno"
-      },
-      "team1": "Beverly INPS",
-      "team2": "Wood&Beton",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 41,
-      "phase": "girone",
       "phaseLabel": "Girone E",
       "group": "E",
       "when": {
@@ -1002,7 +980,7 @@
       "winner": null
     },
     {
-      "id": 42,
+      "id": 41,
       "phase": "girone",
       "phaseLabel": "Girone G",
       "group": "G",
@@ -1024,7 +1002,7 @@
       "winner": null
     },
     {
-      "id": 43,
+      "id": 42,
       "phase": "girone",
       "phaseLabel": "Girone B",
       "group": "B",
@@ -1046,7 +1024,7 @@
       "winner": null
     },
     {
-      "id": 44,
+      "id": 43,
       "phase": "girone",
       "phaseLabel": "Girone E",
       "group": "E",
@@ -1068,7 +1046,7 @@
       "winner": null
     },
     {
-      "id": 45,
+      "id": 44,
       "phase": "girone",
       "phaseLabel": "Girone G",
       "group": "G",
@@ -1090,7 +1068,7 @@
       "winner": null
     },
     {
-      "id": 46,
+      "id": 45,
       "phase": "girone",
       "phaseLabel": "Girone F",
       "group": "F",
@@ -1112,7 +1090,7 @@
       "winner": null
     },
     {
-      "id": 47,
+      "id": 46,
       "phase": "girone",
       "phaseLabel": "Girone C",
       "group": "C",
@@ -1134,7 +1112,7 @@
       "winner": null
     },
     {
-      "id": 48,
+      "id": 47,
       "phase": "girone",
       "phaseLabel": "Girone C",
       "group": "C",
@@ -1150,6 +1128,28 @@
       },
       "team1": "La Coppia",
       "team2": "I Cugini",
+      "score1": null,
+      "score2": null,
+      "played": false,
+      "winner": null
+    },
+    {
+      "id": 48,
+      "phase": "girone",
+      "phaseLabel": "Girone A",
+      "group": "A",
+      "when": {
+        "label": "martedì 30/06 23:00",
+        "weekday": "martedì",
+        "day": 30,
+        "month": 6,
+        "monthName": "giugno",
+        "time": "23:00",
+        "iso": "2026-06-30T23:00:00",
+        "dateLabel": "30 giugno"
+      },
+      "team1": "Beverly INPS",
+      "team2": "Wood&Beton",
       "score1": null,
       "score2": null,
       "played": false,

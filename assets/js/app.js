@@ -162,6 +162,10 @@
   /* ---- CALENDARIO ------------------------------------------------------ */
   var filterState = { gir: "ALL", team: "ALL", todo: false };
 
+  // "Classifica completa": mostra anche PF/PS nelle classifiche (default off, persistito).
+  var FULL_KEY = "zibello.stand.full";
+  var fullStandings = false;
+
   var MYTEAM_KEY = "zibello.myteam";
   var myteam = "";
   var _allTeams = null;
@@ -292,6 +296,8 @@
   function renderStandings() {
     var grid = $("#standings-grid");
     grid.innerHTML = "";
+    var full = fullStandings;
+    grid.classList.toggle("is-full", full);
     T.groups.forEach(function (g) {
       var rows = T.standings[g.letter] || [];
       var anyPlayed = rows.some(function (r) { return r.played > 0; });
@@ -308,6 +314,9 @@
           '<th class="c-pos" scope="col">#</th>' +
           '<th scope="col">Squadra</th>' +
           '<th class="c-num" scope="col" aria-label="Vinte su partite giocate" title="Vinte / Giocate">V/G</th>' +
+          (full ?
+            '<th class="c-num" scope="col" aria-label="Punti fatti" title="Punti fatti">PF</th>' +
+            '<th class="c-num" scope="col" aria-label="Punti subiti" title="Punti subiti">PS</th>' : "") +
           '<th class="c-num" scope="col" aria-label="Differenza punti" title="Differenza punti">Diff</th>' +
         "</tr></thead>";
       var tb = el("tbody");
@@ -318,6 +327,9 @@
           '<td class="c-pos"><span class="pos-badge">' + r.pos + "</span></td>" +
           '<td class="team">' + esc(r.team) + "</td>" +
           '<td class="c-num">' + r.won + "/" + r.played + "</td>" +
+          (full ?
+            '<td class="c-num">' + r.pf + "</td>" +
+            '<td class="c-num">' + r.pa + "</td>" : "") +
           '<td class="c-num ' + (r.diff >= 0 ? "diff--pos" : "diff--neg") + '">' + signed(r.diff) + "</td>";
         tb.appendChild(tr);
       });
@@ -325,6 +337,23 @@
       card.appendChild(table);
       grid.appendChild(card);
     });
+  }
+  function applyStandingsFull() {
+    var btn = $("#standings-full");
+    if (btn) btn.setAttribute("aria-pressed", String(fullStandings));
+    var legend = $(".standings-legend");
+    if (legend) legend.classList.toggle("is-full", fullStandings);
+    renderStandings();
+  }
+  function buildStandingsToggle() {
+    fullStandings = lsGet(FULL_KEY) === "1";
+    var btn = $("#standings-full");
+    if (btn) btn.addEventListener("click", function () {
+      fullStandings = !fullStandings;
+      lsSet(FULL_KEY, fullStandings ? "1" : "");
+      applyStandingsFull();
+    });
+    applyStandingsFull();
   }
 
   /* ---- TABELLONE ------------------------------------------------------- */
@@ -727,7 +756,7 @@
     buildMyTeam();
     applyTeamParam();
     renderCalendar();
-    renderStandings();
+    buildStandingsToggle();
     renderBracket();
     window.addEventListener("hashchange", route);
     window.addEventListener("resize", updateStickyOffsets);

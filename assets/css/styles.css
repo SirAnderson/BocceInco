@@ -387,6 +387,13 @@ main { display: block; padding-bottom: var(--sp-8); }
 .standings-legend .legend-item { display: inline-flex; align-items: baseline; gap: 0.4rem; }
 .standings-legend dt { font-family: var(--font-display); font-weight: 700; color: var(--ink); letter-spacing: 0.02em; }
 .standings-legend dd { margin: 0; }
+/* voci PF/PS: visibili solo con "Classifica completa" attiva */
+.standings-legend .legend-item--full { display: none; }
+.standings-legend.is-full .legend-item--full { display: inline-flex; }
+/* "completa" = 2 colonne in piu': celle piu' compatte per non sforare le card strette su mobile */
+.standings-grid.is-full th, .standings-grid.is-full td { padding-left: var(--sp-2); padding-right: var(--sp-2); }
+/* nell'header Classifiche titolo e toggle sono centrati tra loro (gli altri header restano baseline) */
+#view-classifiche .section__head { align-items: center; }
 .standings-note { margin-top: var(--sp-2); color: var(--ink-mute); font-size: var(--fs-300); max-width: 72ch; }
 
 /* "La mia classifica" dentro il box La mia squadra: riusa la tabella di .standing

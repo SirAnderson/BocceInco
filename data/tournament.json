@@ -2,11 +2,11 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-06-29 10:14",
+    "generatedAt": "2026-06-30 09:47",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
-    "playedMatches": 38
+    "playedMatches": 43
   },
   "groups": [
     {
@@ -952,13 +952,35 @@
       },
       "team1": "Ghirarda",
       "team2": "Le Sbocciate",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 10,
+      "score2": 3,
+      "played": true,
+      "winner": 1
     },
     {
       "id": 40,
+      "phase": "girone",
+      "phaseLabel": "Girone E",
+      "group": "E",
+      "when": {
+        "label": "lunedì 29/06 21:00",
+        "weekday": "lunedì",
+        "day": 29,
+        "month": 6,
+        "monthName": "giugno",
+        "time": "21:00",
+        "iso": "2026-06-29T21:00:00",
+        "dateLabel": "29 giugno"
+      },
+      "team1": "Bad Boys",
+      "team2": "Ricci di Mare",
+      "score1": 7,
+      "score2": 6,
+      "played": true,
+      "winner": 1
+    },
+    {
+      "id": 41,
       "phase": "girone",
       "phaseLabel": "Girone E",
       "group": "E",
@@ -974,13 +996,13 @@
       },
       "team1": "Gnammestrazzi",
       "team2": "Ricci di Mare",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 3,
+      "score2": 6,
+      "played": true,
+      "winner": 2
     },
     {
-      "id": 41,
+      "id": 42,
       "phase": "girone",
       "phaseLabel": "Girone G",
       "group": "G",
@@ -996,13 +1018,13 @@
       },
       "team1": "Gli Hummarell",
       "team2": "Bocce da Urlo",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 11,
+      "score2": 3,
+      "played": true,
+      "winner": 1
     },
     {
-      "id": 42,
+      "id": 43,
       "phase": "girone",
       "phaseLabel": "Girone B",
       "group": "B",
@@ -1018,32 +1040,10 @@
       },
       "team1": "I Toghini",
       "team2": "Lord&Chri",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 43,
-      "phase": "girone",
-      "phaseLabel": "Girone E",
-      "group": "E",
-      "when": {
-        "label": "martedì 30/06 20:30",
-        "weekday": "martedì",
-        "day": 30,
-        "month": 6,
-        "monthName": "giugno",
-        "time": "20:30",
-        "iso": "2026-06-30T20:30:00",
-        "dateLabel": "30 giugno"
-      },
-      "team1": "Bad Boys",
-      "team2": "Ricci di Mare",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 4,
+      "score2": 7,
+      "played": true,
+      "winner": 2
     },
     {
       "id": 44,
@@ -1518,13 +1518,23 @@
     "B": [
       {
         "team": "I Toghini",
-        "played": 2,
+        "played": 3,
         "won": 2,
-        "lost": 0,
-        "pf": 18,
-        "pa": 6,
-        "diff": 12,
+        "lost": 1,
+        "pf": 22,
+        "pa": 13,
+        "diff": 9,
         "pos": 1
+      },
+      {
+        "team": "Lord&Chri",
+        "played": 3,
+        "won": 2,
+        "lost": 1,
+        "pf": 19,
+        "pa": 12,
+        "diff": 7,
+        "pos": 2
       },
       {
         "team": "The Doctors",
@@ -1534,16 +1544,6 @@
         "pf": 17,
         "pa": 15,
         "diff": 2,
-        "pos": 2
-      },
-      {
-        "team": "Lord&Chri",
-        "played": 2,
-        "won": 1,
-        "lost": 1,
-        "pf": 12,
-        "pa": 8,
-        "diff": 4,
         "pos": 3
       },
       {
@@ -1644,23 +1644,33 @@
     "E": [
       {
         "team": "Bad Boys",
-        "played": 2,
-        "won": 2,
+        "played": 3,
+        "won": 3,
         "lost": 0,
-        "pf": 20,
-        "pa": 6,
-        "diff": 14,
+        "pf": 27,
+        "pa": 12,
+        "diff": 15,
         "pos": 1
       },
       {
-        "team": "Gnammestrazzi",
-        "played": 2,
+        "team": "Ricci di Mare",
+        "played": 3,
         "won": 1,
-        "lost": 1,
-        "pf": 12,
-        "pa": 14,
-        "diff": -2,
+        "lost": 2,
+        "pf": 17,
+        "pa": 16,
+        "diff": 1,
         "pos": 2
+      },
+      {
+        "team": "Gnammestrazzi",
+        "played": 3,
+        "won": 1,
+        "lost": 2,
+        "pf": 15,
+        "pa": 20,
+        "diff": -5,
+        "pos": 3
       },
       {
         "team": "Le Cognate",
@@ -1670,16 +1680,6 @@
         "pf": 13,
         "pa": 24,
         "diff": -11,
-        "pos": 3
-      },
-      {
-        "team": "Ricci di Mare",
-        "played": 1,
-        "won": 0,
-        "lost": 1,
-        "pf": 5,
-        "pa": 6,
-        "diff": -1,
         "pos": 4
       }
     ],
@@ -1738,23 +1738,13 @@
       },
       {
         "team": "Gli Hummarell",
-        "played": 2,
-        "won": 1,
+        "played": 3,
+        "won": 2,
         "lost": 1,
-        "pf": 11,
-        "pa": 12,
-        "diff": -1,
+        "pf": 22,
+        "pa": 15,
+        "diff": 7,
         "pos": 2
-      },
-      {
-        "team": "Bocce da Urlo",
-        "played": 1,
-        "won": 0,
-        "lost": 1,
-        "pf": 1,
-        "pa": 10,
-        "diff": -9,
-        "pos": 3
       },
       {
         "team": "I Masalén",
@@ -1764,6 +1754,16 @@
         "pf": 6,
         "pa": 19,
         "diff": -13,
+        "pos": 3
+      },
+      {
+        "team": "Bocce da Urlo",
+        "played": 2,
+        "won": 0,
+        "lost": 2,
+        "pf": 4,
+        "pa": 21,
+        "diff": -17,
         "pos": 4
       }
     ],
@@ -1779,6 +1779,16 @@
         "pos": 1
       },
       {
+        "team": "Ghirarda",
+        "played": 3,
+        "won": 2,
+        "lost": 1,
+        "pf": 25,
+        "pa": 16,
+        "diff": 9,
+        "pos": 2
+      },
+      {
         "team": "Atletico Cavalclown 2.0",
         "played": 3,
         "won": 2,
@@ -1786,26 +1796,16 @@
         "pf": 16,
         "pa": 19,
         "diff": -3,
-        "pos": 2
-      },
-      {
-        "team": "Ghirarda",
-        "played": 2,
-        "won": 1,
-        "lost": 1,
-        "pf": 15,
-        "pa": 13,
-        "diff": 2,
         "pos": 3
       },
       {
         "team": "Le Sbocciate",
-        "played": 2,
+        "played": 3,
         "won": 0,
-        "lost": 2,
-        "pf": 5,
-        "pa": 15,
-        "diff": -10,
+        "lost": 3,
+        "pf": 8,
+        "pa": 25,
+        "diff": -17,
         "pos": 4
       }
     ]

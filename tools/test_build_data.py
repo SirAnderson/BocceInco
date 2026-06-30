@@ -220,6 +220,42 @@ class TestScenariReali(unittest.TestCase):
             order(bd.compute_standings(g, matches), "F"),
             ["Zaccaria", "A&M", "I Cavalli", "T alla seconda"])
 
+    def test_pareggio_a_tre_usa_differenza_totale(self):
+        """Triangolo (3 a pari vittorie, 1-1-1 negli scontri diretti): a parità
+        di vittorie interne decide la DIFFERENZA GENERALE, non quella interna.
+        A,B,C battono ciascuna la successiva (ciclo) e tutte D.
+        Diff interna: B(+8) > A(-1) > C(-7).  Diff totale: A(+19) > B(+9) > C(-2).
+        La regola usa la totale -> ordine A, B, C, D."""
+        g = [group("X", ["A", "B", "C", "D"])]
+        matches = [
+            played("X", "A", "B", 8, 7),    # ciclo
+            played("X", "B", "C", 11, 2),
+            played("X", "C", "A", 9, 7),
+            played("X", "A", "D", 23, 3),   # margini diversi contro D -> diff totale
+            played("X", "B", "D", 6, 5),
+            played("X", "C", "D", 9, 4),
+        ]
+        self.assertEqual(order(bd.compute_standings(g, matches), "X"),
+                         ["A", "B", "C", "D"])
+
+    def test_girone_H_triangolo_differenza_totale(self):
+        """Caso reale Girone H: Atletico, Ghirarda, Team Rocket a 2 vittorie in
+        triangolo. Per differenza generale (TR +11, Ghi +9, Atl -3) il 1° è
+        Team Rocket, non Atletico (che lo scontro a coppie metterebbe 1°)."""
+        g = [group("H", ["Atletico Cavalclown 2.0", "Ghirarda",
+                          "Team Rocket", "Le Sbocciate"])]
+        matches = [
+            played("H", "Ghirarda", "Team Rocket", 9, 6),
+            played("H", "Atletico Cavalclown 2.0", "Le Sbocciate", 6, 4),
+            played("H", "Atletico Cavalclown 2.0", "Team Rocket", 3, 9),
+            played("H", "Atletico Cavalclown 2.0", "Ghirarda", 7, 6),
+            played("H", "Le Sbocciate", "Team Rocket", 1, 9),
+            played("H", "Ghirarda", "Le Sbocciate", 10, 3),
+        ]
+        self.assertEqual(
+            order(bd.compute_standings(g, matches), "H"),
+            ["Team Rocket", "Ghirarda", "Atletico Cavalclown 2.0", "Le Sbocciate"])
+
 
 # --- smoke test sul file Excel reale (invarianti strutturali) ----------------
 

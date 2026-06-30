@@ -151,7 +151,10 @@ def load_matches(wb):
 
 
 def compute_standings(groups, matches):
-    """Classifiche per girone. Regola: Vittorie -> Scontro diretto -> Differenza."""
+    """Classifiche per girone. Regola: Vittorie -> classifica avulsa tra le
+    pari-merito (scontri diretti -> differenza generale -> punti fatti) -> alfabetico.
+    Per i pari a 2 l'avulsa coincide con lo scontro diretto; per i pari a 3+
+    (es. triangolo 1-1-1) si usa la differenza generale, non quella interna."""
     standings = {}
     for g in groups:
         letter = g["letter"]
@@ -175,35 +178,30 @@ def compute_standings(groups, matches):
                 else:
                     rec["lost"] += 1
 
-        def h2h(a, b):
-            """Scontro diretto: >0 se a meglio di b, <0 se peggio, 0 se non decisivo."""
-            wa = wb_ = 0
+        def internal_wins(team, subset):
+            """Vittorie nei soli scontri diretti tra le squadre di 'subset'."""
+            w = 0
             for m in group_matches:
-                pair = {m["team1"], m["team2"]}
-                if pair == {a, b}:
-                    aw = (m["team1"] == a and m["winner"] == 1) or \
-                         (m["team2"] == a and m["winner"] == 2)
-                    if aw:
-                        wa += 1
-                    else:
-                        wb_ += 1
-            return wa - wb_
+                if m["team1"] in subset and m["team2"] in subset:
+                    if (m["team1"] == team and m["winner"] == 1) or \
+                       (m["team2"] == team and m["winner"] == 2):
+                        w += 1
+            return w
 
-        import functools
+        import itertools
 
-        def cmp(x, y):
-            if x["won"] != y["won"]:
-                return y["won"] - x["won"]            # piu' vittorie prima
-            h = h2h(x["team"], y["team"])
-            if h != 0:
-                return -h                              # vincitore scontro diretto prima
-            if x["diff"] != y["diff"]:
-                return y["diff"] - x["diff"]           # differenza migliore prima
-            if x["pf"] != y["pf"]:
-                return y["pf"] - x["pf"]               # piu' punti fatti
-            return -1 if x["team"] < y["team"] else 1  # ordine alfabetico
-
-        ordered = sorted(rows.values(), key=functools.cmp_to_key(cmp))
+        # Ordina per vittorie totali; dentro ogni gruppo a pari vittorie applica
+        # la classifica avulsa: scontri diretti tra le pari-merito -> differenza
+        # GENERALE -> punti fatti -> alfabetico. (Per 2 squadre l'avulsa = scontro
+        # diretto; per 3+ in triangolo decide la differenza generale.)
+        by_wins = sorted(rows.values(), key=lambda r: -r["won"])
+        ordered = []
+        for _, grp in itertools.groupby(by_wins, key=lambda r: r["won"]):
+            grp = list(grp)
+            subset = {r["team"] for r in grp}
+            grp.sort(key=lambda r: (-internal_wins(r["team"], subset),
+                                    -r["diff"], -r["pf"], r["team"]))
+            ordered.extend(grp)
         for i, rec in enumerate(ordered, 1):
             rec["pos"] = i
         standings[letter] = ordered
@@ -273,13 +271,13 @@ def main():
     # Va aggiornato quando nuovi risultati cambiano l'ordine (il check sotto lo segnala).
     expected = {
         "A": ["Gli Allenati", "Gli Zebis", "Beverly INPS", "Wood&Beton"],
-        "B": ["I Toghini", "The Doctors", "Lord&Chri", "Apostadores"],
+        "B": ["I Toghini", "Lord&Chri", "The Doctors", "Apostadores"],
         "C": ["0Sbat", "Chocolate Starfishes", "I Cugini", "La Coppia"],
         "D": ["Mirkae", "Il Boccino della Discordia", "Tironi di Bocce", "BocciAli"],
-        "E": ["Bad Boys", "Gnammestrazzi", "Le Cognate", "Ricci di Mare"],
+        "E": ["Bad Boys", "Ricci di Mare", "Gnammestrazzi", "Le Cognate"],
         "F": ["Zaccaria", "A&M", "I Cavalli", "T alla seconda"],
-        "G": ["I Diavoli", "Gli Hummarell", "Bocce da Urlo", "I Masalén"],
-        "H": ["Team Rocket", "Atletico Cavalclown 2.0", "Ghirarda", "Le Sbocciate"],
+        "G": ["I Diavoli", "Gli Hummarell", "I Masalén", "Bocce da Urlo"],
+        "H": ["Team Rocket", "Ghirarda", "Atletico Cavalclown 2.0", "Le Sbocciate"],
     }
     ok_all = True
     for letter in sorted(standings):

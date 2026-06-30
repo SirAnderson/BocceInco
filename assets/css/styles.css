@@ -389,6 +389,18 @@ main { display: block; padding-bottom: var(--sp-8); }
 .standings-legend dd { margin: 0; }
 .standings-note { margin-top: var(--sp-2); color: var(--ink-mute); font-size: var(--fs-300); max-width: 72ch; }
 
+/* "La mia classifica" dentro il box La mia squadra: riusa la tabella di .standing
+   senza il guscio-card (niente card annidata), separata dalle colonne da un filetto. */
+.myteam-card__standings { padding: var(--sp-4); border-top: 1px solid var(--line-soft); }
+.myteam-card__standings .myteam-card__label { margin-bottom: var(--sp-3); }
+.standing--bare { border: 0; border-radius: 0; background: none; overflow: visible; }
+/* riga della propria squadra: tinta nel colore del girone + tag "tu" leggibile */
+.myteam-card__standings tbody tr.is-me { background: color-mix(in oklab, var(--gc, var(--red)) 18%, transparent); }
+.myteam-card__standings tbody tr.is-me .team { color: var(--white); font-weight: 700; }
+.myteam-tag { display: inline-block; vertical-align: middle; margin-left: 0.5rem; padding: 0.1em 0.5em;
+  border-radius: var(--r-pill); background: var(--gc, var(--red)); color: var(--gfg, var(--white));
+  font-size: 0.65em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+
 /* In testa ai gironi: prime due */
 .leader-list { padding: var(--sp-2) var(--sp-3) var(--sp-3); }
 .leader { display: grid; grid-template-columns: 1.3rem 1fr auto; align-items: baseline; gap: var(--sp-2); padding: 0.4rem 0.25rem; }

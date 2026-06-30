@@ -6,6 +6,12 @@
   "use strict";
 
   var T = window.TOURNAMENT;
+
+  // FLAG — box "La mia classifica" nel riquadro La mia squadra (Home).
+  // Mettere a false quando iniziano le eliminatorie (~01/07): i gironi non
+  // interessano piu' in home page. Poi rilanciare tools/build_data.py (cache-bust).
+  var SHOW_MY_STANDINGS = true;
+
   var VIEWS = ["home", "calendario", "classifiche", "tabellone"];
   var KO_SHORT = {
     "Ottavi di finale": "Ottavi", "Quarti di finale": "Quarti",
@@ -406,6 +412,40 @@
     }
     return col;
   }
+  function myStandingsBlock(gir) {
+    var rows = T.standings[gir] || [];
+    var anyPlayed = rows.some(function (r) { return r.played > 0; });
+    var wrap = el("div", "myteam-card__standings");
+    wrap.setAttribute("data-gir", gir);
+    wrap.appendChild(el("div", "myteam-card__label", "La mia classifica"));
+    var box = el("div", "standing standing--bare");
+    var table = el("table");
+    table.innerHTML =
+      "<thead><tr>" +
+        '<th class="c-pos" scope="col">#</th>' +
+        '<th scope="col">Squadra</th>' +
+        '<th class="c-num" scope="col" aria-label="Vinte su partite giocate" title="Vinte / Giocate">V/G</th>' +
+        '<th class="c-num" scope="col" aria-label="Differenza punti" title="Differenza punti">Diff</th>' +
+      "</tr></thead>";
+    var tb = el("tbody");
+    rows.forEach(function (r, i) {
+      var cls = [];
+      if (anyPlayed && i < 2) cls.push("is-qualified");
+      if (r.team === myteam) cls.push("is-me");
+      var tr = el("tr", cls.join(" ") || null);
+      tr.innerHTML =
+        '<td class="c-pos"><span class="pos-badge">' + r.pos + "</span></td>" +
+        '<td class="team">' + esc(r.team) +
+          (r.team === myteam ? ' <span class="myteam-tag">tu</span>' : "") + "</td>" +
+        '<td class="c-num">' + r.won + "/" + r.played + "</td>" +
+        '<td class="c-num ' + (r.diff >= 0 ? "diff--pos" : "diff--neg") + '">' + signed(r.diff) + "</td>";
+      tb.appendChild(tr);
+    });
+    table.appendChild(tb);
+    box.appendChild(table);
+    wrap.appendChild(box);
+    return wrap;
+  }
   function renderMyTeam() {
     var panel = $("#myteam-panel"), clear = $("#myteam-clear"), label = $(".myteam__label"), sel = $("#myteam-select");
     if (sel && sel.value !== myteam) sel.value = myteam;
@@ -430,6 +470,7 @@
     cols.appendChild(panelCol("Prossime partite", teamUpcomingMatches(myteam), "Nessuna partita in programma."));
     cols.appendChild(panelCol("Ultimo risultato", last ? [last] : [], "Ancora nessun risultato."));
     card.appendChild(cols);
+    if (SHOW_MY_STANDINGS && gir) card.appendChild(myStandingsBlock(gir));
     panel.hidden = false; panel.innerHTML = ""; panel.appendChild(card);
   }
   function ordinal(n) { return n + "º"; }

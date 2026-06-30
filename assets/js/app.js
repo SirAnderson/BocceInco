@@ -394,7 +394,15 @@
         col.appendChild(item);
       });
     } else {
-      col.appendChild(el("div", "empty-note", esc(emptyText)));
+      // Riserva lo spazio della riga-data (assente qui) cosi' il riquadro vuoto
+      // si allinea alla card dell'altra colonna invece di salire alla data.
+      var empty = el("div", "myteam-card__match");
+      var spacer = el("div", "myteam-card__when");
+      spacer.setAttribute("aria-hidden", "true");
+      spacer.textContent = " ";
+      empty.appendChild(spacer);
+      empty.appendChild(el("div", "empty-note", esc(emptyText)));
+      col.appendChild(empty);
     }
     return col;
   }

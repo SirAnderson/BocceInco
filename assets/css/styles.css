@@ -270,6 +270,9 @@ main { display: block; padding-bottom: var(--sp-8); }
 @media (min-width: 620px) { .myteam-card__cols { grid-template-columns: 1fr 1fr; } }
 .myteam-card__label { font-size: var(--fs-300); text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-mute); margin-bottom: var(--sp-2); font-weight: 700; }
 .myteam-card__when { font-size: var(--fs-300); color: var(--ink-soft); margin-bottom: var(--sp-2); text-transform: capitalize; }
+/* spacer invisibile (aria-hidden) per allineare il riquadro "vuoto" alla card dell'altra colonna: serve solo nel layout a 2 colonne */
+.myteam-card__when[aria-hidden="true"] { display: none; }
+@media (min-width: 620px) { .myteam-card__when[aria-hidden="true"] { display: block; } }
 .myteam-card__match + .myteam-card__match { margin-top: var(--sp-3); }
 
 /* ---- Chip girone ------------------------------------------------------- */

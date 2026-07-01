@@ -2,7 +2,7 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-07-01 13:02",
+    "generatedAt": "2026-07-01 16:21",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
@@ -1226,14 +1226,14 @@
       "phaseLabel": "Ottavi di finale",
       "group": null,
       "when": {
-        "label": "mercoledì 08/07 21:00",
-        "weekday": "mercoledì",
-        "day": 8,
+        "label": "giovedì 09/07 20:00",
+        "weekday": "giovedì",
+        "day": 9,
         "month": 7,
         "monthName": "luglio",
-        "time": "21:00",
-        "iso": "2026-07-08T21:00:00",
-        "dateLabel": "8 luglio"
+        "time": "20:00",
+        "iso": "2026-07-09T20:00:00",
+        "dateLabel": "9 luglio"
       },
       "team1": "I Toghini",
       "team2": "Gli Zebis",

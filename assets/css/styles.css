@@ -283,6 +283,7 @@ main { display: block; padding-bottom: var(--sp-8); }
   .myteam-card__head { padding-top: var(--sp-3); padding-bottom: var(--sp-3); }
   .myteam-card__cols { gap: var(--sp-3); padding-top: var(--sp-3); padding-bottom: var(--sp-3); }
   .myteam-card .myteam-card__standings { padding-top: var(--sp-3); padding-bottom: var(--sp-3); }
+  .myteam-card .myteam-card__next { padding-top: var(--sp-3); padding-bottom: var(--sp-3); }
   .myteam-card__label { margin-bottom: var(--sp-1); }
   .myteam-card__match + .myteam-card__match { margin-top: var(--sp-2); }
 }
@@ -300,6 +301,7 @@ main { display: block; padding-bottom: var(--sp-8); }
   border: 1px solid color-mix(in oklab, var(--gc, var(--white)) 55%, #000 12%);
 }
 .gchip--letter { width: 1.7rem; padding-inline: 0; }
+.gchip--phase { background: var(--surface-3); color: var(--ink); border-color: var(--line); white-space: nowrap; }
 .gchip--lg { font-size: var(--fs-400); padding: 0.3rem 0.7rem; }
 
 /* ---- Match row --------------------------------------------------------- */
@@ -321,7 +323,7 @@ main { display: block; padding-bottom: var(--sp-8); }
 .nextday .num { font-family: var(--font-display); font-size: 1.6rem; color: var(--red); }
 
 .match {
-  display: grid; grid-template-columns: 2.2rem 1fr auto; align-items: center; gap: var(--sp-3);
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--sp-3);
   padding: var(--sp-3) var(--sp-4); border: 1px solid var(--line-soft); border-radius: var(--r);
   background: color-mix(in oklab, var(--surface) 38%, transparent);
   transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease), transform var(--dur) var(--ease);
@@ -420,6 +422,15 @@ main { display: block; padding-bottom: var(--sp-8); }
 /* riga della propria squadra: tinta nel colore del girone + tag "tu" leggibile */
 .myteam-card__standings tbody tr.is-me { background: color-mix(in oklab, var(--gc, var(--red)) 18%, transparent); }
 .myteam-card__standings tbody tr.is-me .team { color: var(--white); font-weight: 700; }
+/* Verso la finale: turno successivo + avversarie del match "gemello" */
+.myteam-card__next { padding: var(--sp-4); border-top: 1px solid var(--line-soft); }
+.myteam-card__next .myteam-card__label { margin-bottom: var(--sp-2); }
+.vf { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--sp-3); row-gap: var(--sp-1); }
+.vf__round { flex: none; color: var(--red); font-weight: 600; font-size: 0.9rem; }
+.vf__round::before { content: "\203A"; font-weight: 700; margin-right: 0.3rem; }
+.vf__opps { min-width: 0; line-height: 1.5; }
+.vf-opp { color: var(--white); font-weight: 700; font-size: 0.95rem; }
+.vf__or, .vf__sep { color: var(--ink-mute); font-size: 0.85rem; }
 .myteam-tag { display: inline-block; vertical-align: middle; margin-left: 0.5rem; padding: 0.1em 0.5em;
   border-radius: var(--r-pill); background: var(--gc, var(--red)); color: var(--gfg, var(--white));
   font-size: 0.65em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
@@ -448,6 +459,8 @@ main { display: block; padding-bottom: var(--sp-8); }
 .tie__slot + .tie__slot { padding-top: 0.1rem; }
 .tie__name { color: var(--ink-soft); font-weight: 600; font-size: var(--fs-400); }
 .tie__name--tbd { color: var(--ink-mute); font-style: italic; font-weight: 500; }
+.tie__slot--win .tie__name { color: var(--white); font-weight: 700; }
+.tie__slot--lose .tie__name { color: var(--ink-mute); }
 .tie__seed { font-size: var(--fs-300); color: var(--ink-mute); }
 .tie__when { padding: 0.1rem var(--sp-3) 0.45rem; text-align: left; font-size: 0.72rem; color: var(--ink-mute); font-variant-numeric: tabular-nums; letter-spacing: 0.01em; }
 /* linee di collegamento del tabellone (overlay SVG dietro ai tie) */
@@ -493,7 +506,7 @@ main { display: block; padding-bottom: var(--sp-8); }
 
 /* ---- Responsive -------------------------------------------------------- */
 @media (max-width: 560px) {
-  .match { grid-template-columns: 1.9rem 1fr auto; gap: var(--sp-2); padding: var(--sp-3); }
+  .match { grid-template-columns: auto 1fr auto; gap: var(--sp-2); padding: var(--sp-3); }
   .match__score { font-size: 1.7rem; }
   .site-header__inner { min-height: 52px; }
   .site-footer__inner { flex-direction: column; gap: var(--sp-3); text-align: center; justify-content: center; }

@@ -39,6 +39,85 @@
   }
   function dayKey(m) { return m.when ? m.when.day + "/" + m.when.month : "?"; }
 
+  /* ---- motore avanzamento tabellone (KO) ------------------------------- */
+  // Gli ottavi sono seedati nei dati in ordine di tabellone (OTT1..OTT8).
+  // Quarti/semi/finale portano solo gli orari: le squadre si ricavano dai
+  // vincenti per adiacenza (ott[2k] & ott[2k+1] -> quarto k; quar -> semi; ...).
+  // Finche' un match "sorgente" non e' deciso, lo slot mostra "Vincente O/Q/S{n}".
+  function koByPhase(phase) {
+    return T.matches.filter(function (m) { return m.phase === phase; });
+  }
+  var _bracket = null;
+  function resolveBracket() {
+    if (_bracket) return _bracket;
+    function mk(data, t1, t2, l1, l2) {
+      var both = !!(t1 && t2);
+      var played = !!(data && data.played) && both;
+      var winner = played ? data.winner : null;
+      return {
+        data: data, id: data ? data.id : null,
+        team1: t1 || null, team2: t2 || null,
+        label1: t1 || l1, label2: t2 || l2,
+        played: played,
+        score1: played ? data.score1 : null, score2: played ? data.score2 : null,
+        winner: winner,
+        winnerName: winner === 1 ? t1 : winner === 2 ? t2 : null,
+        loserName: winner === 1 ? t2 : winner === 2 ? t1 : null
+      };
+    }
+    function win(arr, i) { return arr[i] ? arr[i].winnerName : null; }
+    function lose(arr, i) { return arr[i] ? arr[i].loserName : null; }
+    function fed(letter, i) { return "Vincente " + letter + (i + 1); }
+
+    var R = {};
+    R.ottavi = koByPhase("ottavi").map(function (m) {
+      return mk(m, m.team1, m.team2, "Da definire", "Da definire");
+    });
+    R.quarti = koByPhase("quarti").map(function (m, k) {
+      return mk(m, win(R.ottavi, 2 * k), win(R.ottavi, 2 * k + 1), fed("O", 2 * k), fed("O", 2 * k + 1));
+    });
+    R.semifinali = koByPhase("semifinali").map(function (m, k) {
+      return mk(m, win(R.quarti, 2 * k), win(R.quarti, 2 * k + 1), fed("Q", 2 * k), fed("Q", 2 * k + 1));
+    });
+    R.finale = koByPhase("finale").map(function (m) {
+      return mk(m, win(R.semifinali, 0), win(R.semifinali, 1), fed("S", 0), fed("S", 1));
+    });
+    R.finale3 = koByPhase("finale3").map(function (m) {
+      return mk(m, lose(R.semifinali, 0), lose(R.semifinali, 1), "Perdente S1", "Perdente S2");
+    });
+    _bracket = R;
+    return R;
+  }
+  var _koMap = null;
+  function koMap() {
+    if (_koMap) return _koMap;
+    var R = resolveBracket(), map = {};
+    ["ottavi", "quarti", "semifinali", "finale", "finale3"].forEach(function (ph) {
+      R[ph].forEach(function (rm) { if (rm.id != null) map[rm.id] = rm; });
+    });
+    _koMap = map;
+    return map;
+  }
+  // Vista normalizzata per le liste (home, calendario, my team): per i KO usa
+  // le squadre/label calcolate dall'avanzamento invece dei campi grezzi (vuoti).
+  function displayMatch(m) {
+    if (m.phase === "girone") {
+      return { n1: m.team1 || "Da definire", n2: m.team2 || "Da definire",
+        tbd1: !m.team1, tbd2: !m.team2, played: m.played,
+        score1: m.score1, score2: m.score2, winner: m.winner };
+    }
+    var rm = koMap()[m.id] || {};
+    return { n1: rm.label1 || "Da definire", n2: rm.label2 || "Da definire",
+      tbd1: !rm.team1, tbd2: !rm.team2, played: !!rm.played,
+      score1: rm.score1, score2: rm.score2, winner: rm.winner };
+  }
+  // La squadra t partecipa (davvero, non solo potenzialmente) al match m?
+  function teamPlays(m, t) {
+    if (m.phase === "girone") return m.team1 === t || m.team2 === t;
+    var rm = koMap()[m.id] || {};
+    return rm.team1 === t || rm.team2 === t;
+  }
+
   /* ---- girone chip ----------------------------------------------------- */
   function gchip(letter, opts) {
     opts = opts || {};
@@ -48,20 +127,16 @@
     return span;
   }
   function phaseBadge(label) {
-    var span = el("span", "gchip gchip--letter");
-    span.style.background = "var(--surface-3)";
-    span.style.color = "var(--ink)";
-    span.style.borderColor = "var(--line)";
-    span.style.width = "auto";
-    span.style.padding = "0.15rem 0.5rem";
+    var span = el("span", "gchip gchip--phase");
     span.title = label;
-    span.textContent = (KO_SHORT[label] || label).replace(" di finale", "").slice(0, 9);
+    span.textContent = KO_SHORT[label] || label;
     return span;
   }
 
   /* ---- match row ------------------------------------------------------- */
   function matchRow(m, opts) {
     opts = opts || {};
+    var d = displayMatch(m);
     var row = el("div", "match" + (opts.next ? " match--next" : ""));
     row.setAttribute("data-id", m.id);
 
@@ -70,20 +145,19 @@
     left.appendChild(m.phase === "girone" ? gchip(m.group, { letterOnly: true }) : phaseBadge(m.phaseLabel));
     row.appendChild(left);
 
-    // squadre
+    // squadre (per i KO: squadre calcolate o "Vincente O/Q/S{n}")
     var teams = el("div", "match__teams");
-    var t1 = m.team1 || "Da definire", t2 = m.team2 || "Da definire";
-    var w1 = m.played && m.winner === 1, w2 = m.played && m.winner === 2;
-    teams.appendChild(teamLine(t1, w1, m.played, !m.team1));
-    teams.appendChild(teamLine(t2, w2, m.played, !m.team2));
+    var w1 = d.played && d.winner === 1, w2 = d.played && d.winner === 2;
+    teams.appendChild(teamLine(d.n1, w1, d.played, d.tbd1));
+    teams.appendChild(teamLine(d.n2, w2, d.played, d.tbd2));
     row.appendChild(teams);
 
     // punteggio / orario
-    if (m.played) {
+    if (d.played) {
       var sc = el("div", "match__score");
-      sc.innerHTML = '<span class="' + (w1 ? "" : "s--lose") + '">' + m.score1 + "</span>" +
+      sc.innerHTML = '<span class="' + (w1 ? "" : "s--lose") + '">' + d.score1 + "</span>" +
                      '<span class="vs">–</span>' +
-                     '<span class="' + (w2 ? "" : "s--lose") + '">' + m.score2 + "</span>";
+                     '<span class="' + (w2 ? "" : "s--lose") + '">' + d.score2 + "</span>";
       row.appendChild(sc);
     } else {
       var tm = el("div", "match__time");
@@ -107,8 +181,8 @@
 
   /* ---- HOME ------------------------------------------------------------ */
   function renderHome() {
-    var played = T.matches.filter(function (m) { return m.phase === "girone" && m.played; });
-    var upcoming = T.matches.filter(function (m) { return m.phase === "girone" && !m.played && m.when && m.when.iso; }).sort(byIso);
+    var played = T.matches.filter(function (m) { return displayMatch(m).played; });
+    var upcoming = T.matches.filter(function (m) { return !displayMatch(m).played && m.when && m.when.iso; }).sort(byIso);
     var lastResults = played.slice().sort(byIso).reverse();
 
     // prossima giornata: solo il giorno successivo, con tutte le sue partite
@@ -256,17 +330,17 @@
     renderCalendar(true);
   }
   function matchPassesFilter(m) {
-    if (filterState.todo && m.played) return false;
+    if (filterState.todo && displayMatch(m).played) return false;
     if (filterState.gir !== "ALL") { if (m.group !== filterState.gir) return false; }
     if (filterState.team !== "ALL") {
-      if (m.team1 !== filterState.team && m.team2 !== filterState.team) return false;
+      if (!teamPlays(m, filterState.team)) return false;
     }
     return true;
   }
   function renderCalendar(animate) {
     var list = $("#calendar-list");
     list.innerHTML = "";
-    var ms = T.matches.filter(function (m) { return m.phase === "girone" && m.when && m.when.iso; })
+    var ms = T.matches.filter(function (m) { return m.when && m.when.iso; })
                       .filter(matchPassesFilter).sort(byIso);
     $("#cal-count").textContent = ms.length + (ms.length === 1 ? " partita" : " partite");
     if (!ms.length) {
@@ -364,15 +438,17 @@
     var dd = ("0" + w.day).slice(-2), mm = ("0" + w.month).slice(-2);
     return (wd ? wd + " " : "") + dd + "/" + mm + " " + w.time;
   }
-  function buildTie(m) {
-    var tie = el("div", "tie" + (m.phase === "finale" ? " tie--final" : ""));
-    tie.setAttribute("data-phase", m.phase);
-    tie.appendChild(slot(m.team1));
-    tie.appendChild(slot(m.team2));
-    // La data si mostra solo per gli ottavi (gli unici gia' calendarizzati);
-    // quarti, semifinali e finale restano "TBD" finche' non sono fissati.
-    var when = m.phase === "ottavi" ? whenShort(m.when) : null;
-    tie.appendChild(el("div", "tie__when", esc(when || "TBD")));
+  function buildTie(rm, phase) {
+    var tie = el("div", "tie" + (phase === "finale" ? " tie--final" : ""));
+    tie.setAttribute("data-phase", phase);
+    var w1 = rm.played && rm.winner === 1, w2 = rm.played && rm.winner === 2;
+    tie.appendChild(tieSlot(rm.label1, rm.team1, w1, rm.played && !w1));
+    tie.appendChild(tieSlot(rm.label2, rm.team2, w2, rm.played && !w2));
+    // Riga in basso: punteggio se giocata, altrimenti l'orario se fissato
+    // (ottavi e quarti ce l'hanno), altrimenti "TBD".
+    var bottom = rm.played ? (rm.score1 + "–" + rm.score2)
+                           : (whenShort(rm.data && rm.data.when) || "TBD");
+    tie.appendChild(el("div", "tie__when", esc(bottom)));
     return tie;
   }
   function renderBracket() {
@@ -386,20 +462,21 @@
       ["semifinali", "Semifinali"],
       ["finale", "Finale"]
     ];
+    var R = resolveBracket();
     phases.forEach(function (p) {
-      var ms = T.matches.filter(function (m) { return m.phase === p[0]; });
-      if (!ms.length) return;
+      var arr = R[p[0]];
+      if (!arr || !arr.length) return;
       var isFinals = p[0] === "finale";
       var col = el("div", "round" + (isFinals ? " round--finals" : ""));
       col.appendChild(el("div", "round__title", p[1]));
       var body = el("div", "round__body");
-      ms.forEach(function (m) { body.appendChild(buildTie(m)); });
+      arr.forEach(function (rm) { body.appendChild(buildTie(rm, p[0])); });
       // Finale 3°/4° posto: nella stessa colonna, subito sotto la finale.
       if (isFinals) {
-        T.matches.filter(function (m) { return m.phase === "finale3"; }).forEach(function (m) {
+        R.finale3.forEach(function (rm) {
           var third = el("div", "tie-third");
           third.appendChild(el("div", "tie__cap", "3°/4° posto"));
-          third.appendChild(buildTie(m));
+          third.appendChild(buildTie(rm, "finale3"));
           body.appendChild(third);
         });
       }
@@ -407,12 +484,11 @@
       box.appendChild(col);
     });
   }
-  function slot(team, seedLabel) {
-    var s = el("div", "tie__slot");
+  function tieSlot(label, team, isWin, isLose) {
+    var s = el("div", "tie__slot" + (isWin ? " tie__slot--win" : "") + (isLose ? " tie__slot--lose" : ""));
     var nm = el("span", "tie__name" + (team ? "" : " tie__name--tbd"));
-    nm.textContent = team || "Da definire";
+    nm.textContent = label;
     s.appendChild(nm);
-    if (seedLabel) s.appendChild(el("span", "tie__seed", esc(seedLabel)));
     return s;
   }
   function bracketTies(box, phase) {
@@ -561,12 +637,12 @@
   }
   function teamUpcomingMatches(t) {
     return T.matches.filter(function (m) {
-      return m.phase === "girone" && !m.played && m.when && m.when.iso && (m.team1 === t || m.team2 === t);
+      return !displayMatch(m).played && m.when && m.when.iso && teamPlays(m, t);
     }).sort(byIso);
   }
   function teamLastMatch(t) {
     return T.matches.filter(function (m) {
-      return m.played && (m.team1 === t || m.team2 === t);
+      return displayMatch(m).played && teamPlays(m, t);
     }).sort(byIso).reverse()[0] || null;
   }
   function panelCol(label, matches, emptyText) {
@@ -627,6 +703,64 @@
     wrap.appendChild(box);
     return wrap;
   }
+  /* ---- Verso la finale: avversarie del turno successivo --------------- */
+  var KO_MAIN = ["ottavi", "quarti", "semifinali", "finale"];
+  var NEXT_ROUND = { ottavi: "quarti", quarti: "semifinali", semifinali: "finale" };
+  var NEXT_ROUND_LABEL = { quarti: "Ai quarti", semifinali: "In semifinale", finale: "In finale" };
+  var KO_PREV = { quarti: "ottavi", semifinali: "quarti", finale: "semifinali" };
+  // Squadre reali ancora in corsa per vincere il match (round, i): la vincente se
+  // gia' decisa; le 2 squadre se e' un ottavo (foglia); altrimenti l'unione dei due
+  // match sorgente. Restituisce sempre nomi reali, mai placeholder "Vincente O..".
+  function aliveTeamsFor(R, round, i) {
+    var m = R[round] && R[round][i];
+    if (!m) return [];
+    if (m.winnerName) return [m.winnerName];
+    if (round === "ottavi") return [m.team1, m.team2].filter(Boolean);
+    var prev = KO_PREV[round];
+    return aliveTeamsFor(R, prev, 2 * i).concat(aliveTeamsFor(R, prev, 2 * i + 1));
+  }
+  // Avversarie del turno successivo per la squadra t. null se t non e' qualificata,
+  // e' stata eliminata, o e' gia' in finale. Le avversarie sono le squadre reali
+  // ancora in corsa per il match "gemello" (indice i^1): due nel caso semplice,
+  // di piu' se quel ramo ha ancora partite da giocare, una se gia' deciso.
+  function teamNextOpponents(t) {
+    var R = resolveBracket();
+    var cur = null, curRound = null, curIndex = -1;
+    KO_MAIN.forEach(function (ph) {
+      (R[ph] || []).forEach(function (rm, i) {
+        if (rm.team1 === t || rm.team2 === t) { cur = rm; curRound = ph; curIndex = i; }
+      });
+    });
+    if (!cur) return null;                                // non qualificata agli ottavi
+    if (cur.played && cur.winnerName !== t) return null;  // eliminata (match KO perso)
+    var nextPh = NEXT_ROUND[curRound];
+    if (!nextPh) return null;                             // gia' in finale: nessun turno dopo
+    var opps = aliveTeamsFor(R, curRound, curIndex ^ 1);
+    if (!opps.length) return null;
+    return { roundLabel: NEXT_ROUND_LABEL[nextPh], opponents: opps };
+  }
+  function myNextBlock(info) {
+    var wrap = el("div", "myteam-card__next");
+    wrap.appendChild(el("div", "myteam-card__label", "Verso la finale"));
+    var vf = el("div", "vf");
+    vf.appendChild(el("span", "vf__round", esc(info.roundLabel)));
+    var opps = el("div", "vf__opps");
+    var n = info.opponents.length;
+    info.opponents.forEach(function (name, i) {
+      if (i === n - 1 && n > 1) {              // "... o ultima"
+        opps.appendChild(document.createTextNode(" "));
+        opps.appendChild(el("span", "vf__or", "o"));
+        opps.appendChild(document.createTextNode(" "));
+      } else if (i > 0) {                      // "prima, seconda, ..."
+        opps.appendChild(el("span", "vf__sep", ","));
+        opps.appendChild(document.createTextNode(" "));
+      }
+      opps.appendChild(el("span", "vf-opp", esc(name)));
+    });
+    vf.appendChild(opps);
+    wrap.appendChild(vf);
+    return wrap;
+  }
   function renderMyTeam() {
     var panel = $("#myteam-panel"), clear = $("#myteam-clear"), label = $(".myteam__label"), sel = $("#myteam-select");
     if (sel && sel.value !== myteam) sel.value = myteam;
@@ -648,6 +782,8 @@
     cols.appendChild(panelCol("Prossime partite", teamUpcomingMatches(myteam), "Nessuna partita in programma."));
     cols.appendChild(panelCol("Ultimo risultato", last ? [last] : [], "Ancora nessun risultato."));
     card.appendChild(cols);
+    var next = teamNextOpponents(myteam);
+    if (next) card.appendChild(myNextBlock(next));
     if (SHOW_MY_STANDINGS && gir) card.appendChild(myStandingsBlock(gir));
     panel.hidden = false; panel.innerHTML = ""; panel.appendChild(card);
   }

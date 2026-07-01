@@ -482,6 +482,9 @@ main { display: block; padding-bottom: var(--sp-8); }
      (1 round per volta, via translateX). Lo scroll verticale resta nativo. */
   .bracket-scroll { height: clamp(380px, 62vh, 540px); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; -webkit-overflow-scrolling: touch; }
   .bracket { transition: transform 320ms var(--ease); will-change: transform; }
+  /* Spazio in fondo: l'ultimo tie deve poter salire sopra la bottom-nav fissa
+     (con la barra indirizzi del browser il contenitore sfora dietro la nav). */
+  .bracket-scroll .bracket { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
   .round { min-width: 248px; }
   .round__title { display: none; } /* i chip fanno da etichetta round su mobile */
 }

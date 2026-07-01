@@ -421,17 +421,42 @@ main { display: block; padding-bottom: var(--sp-8); }
 /* ---- Tabellone (bracket) ----------------------------------------------- */
 .bracket-scroll { overflow-x: auto; padding-bottom: var(--sp-4); }
 .bracket { display: flex; gap: clamp(1rem, 4vw, 2.5rem); min-width: max-content; padding-top: var(--sp-2); }
-.round { display: flex; flex-direction: column; justify-content: space-around; gap: var(--sp-3); min-width: 200px; }
+.round { display: flex; flex-direction: column; min-width: 200px; }
+.round__body { flex: 1; display: flex; flex-direction: column; justify-content: space-around; gap: var(--sp-3); }
 .round__title { font-family: var(--font-display); font-size: 1.1rem; color: var(--white); text-transform: uppercase; letter-spacing: 0.04em; text-align: center; padding-bottom: var(--sp-2); border-bottom: 2px solid var(--red); margin-bottom: var(--sp-2); }
 .tie {
   border: 1px solid var(--line-soft); border-radius: var(--r); overflow: hidden;
   background: color-mix(in oklab, var(--surface) 45%, transparent);
 }
-.tie__slot { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); padding: 0.55rem var(--sp-3); }
-.tie__slot + .tie__slot { border-top: 1px solid var(--line-soft); }
+.tie__slot { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); padding: 0.5rem var(--sp-3) 0.2rem; }
+.tie__slot + .tie__slot { padding-top: 0.1rem; }
 .tie__name { color: var(--ink-soft); font-weight: 600; font-size: var(--fs-400); }
 .tie__name--tbd { color: var(--ink-mute); font-style: italic; font-weight: 500; }
 .tie__seed { font-size: var(--fs-300); color: var(--ink-mute); }
+.tie__when { padding: 0.1rem var(--sp-3) 0.45rem; text-align: left; font-size: 0.72rem; color: var(--ink-mute); font-variant-numeric: tabular-nums; letter-spacing: 0.01em; }
+/* linee di collegamento del tabellone (overlay SVG dietro ai tie) */
+.bracket { position: relative; }
+.round { position: relative; z-index: 1; }
+.bracket__links { position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none; overflow: visible; }
+.bracket__link { fill: none; stroke: color-mix(in oklab, var(--red) 32%, var(--line)); stroke-width: 1.5; }
+/* finale 3°/4° posto: nella colonna Finale, sotto la finale (gruppo centrato) */
+.round--finals .round__body { justify-content: center; gap: var(--sp-5); }
+.tie__cap { margin-bottom: var(--sp-2); text-align: center; font-size: var(--fs-300); color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.06em; }
+/* navigazione tabellone: chip per round (mobile) + finestra con snap e pan verticale */
+.bracket-rounds { display: none; }
+.bracket-round-chip { flex: 0 0 auto; padding: 0.4rem 0.85rem; border-radius: var(--r-pill); border: 1px solid var(--line); background: none; color: var(--ink-mute); font-weight: 600; font-size: var(--fs-300); white-space: nowrap; transition: color var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease); }
+.bracket-round-chip[aria-selected="true"] { background: var(--white); color: var(--navy); border-color: var(--white); }
+@media (max-width: 760px) {
+  .bracket-rounds { display: flex; gap: var(--sp-2); overflow-x: auto; scrollbar-width: none; margin-bottom: var(--sp-4); }
+  .bracket-rounds::-webkit-scrollbar { display: none; }
+  /* niente scroll orizzontale nativo: la paginazione la gestisce lo swipe/chip
+     (1 round per volta, via translateX). Lo scroll verticale resta nativo. */
+  .bracket-scroll { height: clamp(380px, 62vh, 540px); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; -webkit-overflow-scrolling: touch; }
+  .bracket { transition: transform 320ms var(--ease); will-change: transform; }
+  .round { min-width: 248px; }
+  .round__title { display: none; } /* i chip fanno da etichetta round su mobile */
+}
+@media (prefers-reduced-motion: reduce) { .bracket { transition: none; } }
 .tie--final { border-color: color-mix(in oklab, var(--red) 50%, transparent); box-shadow: 0 0 30px -10px var(--red-glow); }
 .tie--final .round__title { color: var(--red); }
 

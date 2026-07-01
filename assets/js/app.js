@@ -357,33 +357,52 @@
   }
 
   /* ---- TABELLONE ------------------------------------------------------- */
+  // Orario compatto per il tabellone: "Mar 30/06 20:30" (giorno settimana a 3 lettere).
+  function whenShort(w) {
+    if (!w || !w.time) return null;
+    var wd = w.weekday ? cap(w.weekday.slice(0, 3)) : "";
+    var dd = ("0" + w.day).slice(-2), mm = ("0" + w.month).slice(-2);
+    return (wd ? wd + " " : "") + dd + "/" + mm + " " + w.time;
+  }
+  function buildTie(m) {
+    var tie = el("div", "tie" + (m.phase === "finale" ? " tie--final" : ""));
+    tie.setAttribute("data-phase", m.phase);
+    tie.appendChild(slot(m.team1));
+    tie.appendChild(slot(m.team2));
+    // Orario "Mar 30/06 20:30" dal JSON; placeholder dove la fase non e' ancora
+    // calendarizzata, cosi' testiamo l'ingombro nel tabellone.
+    tie.appendChild(el("div", "tie__when", esc(whenShort(m.when) || "Mar 30/06 20:30")));
+    return tie;
+  }
   function renderBracket() {
     var box = $("#bracket");
     box.innerHTML = "";
+    // Albero principale: la finale e' la sola della sua colonna, quindi resta
+    // centrata tra i due semifinali (i connettori convergono correttamente).
     var phases = [
       ["ottavi", "Ottavi"],
       ["quarti", "Quarti"],
       ["semifinali", "Semifinali"],
-      ["finale", "Finali"]
+      ["finale", "Finale"]
     ];
     phases.forEach(function (p) {
-      var key = p[0];
-      var ms = T.matches.filter(function (m) {
-        return key === "finale" ? (m.phase === "finale" || m.phase === "finale3") : m.phase === key;
-      });
+      var ms = T.matches.filter(function (m) { return m.phase === p[0]; });
       if (!ms.length) return;
-      var col = el("div", "round");
+      var isFinals = p[0] === "finale";
+      var col = el("div", "round" + (isFinals ? " round--finals" : ""));
       col.appendChild(el("div", "round__title", p[1]));
-      ms.forEach(function (m, i) {
-        var isFinal = m.phase === "finale";
-        var tie = el("div", "tie" + (isFinal ? " tie--final" : ""));
-        var label = m.phase === "finale" ? "1° / 2° posto"
-                  : m.phase === "finale3" ? "3° / 4° posto"
-                  : (KO_SHORT[m.phaseLabel] || p[1]) + " " + (i + 1);
-        tie.appendChild(slot(m.team1, label));
-        tie.appendChild(slot(m.team2, ""));
-        col.appendChild(tie);
-      });
+      var body = el("div", "round__body");
+      ms.forEach(function (m) { body.appendChild(buildTie(m)); });
+      // Finale 3°/4° posto: nella stessa colonna, subito sotto la finale.
+      if (isFinals) {
+        T.matches.filter(function (m) { return m.phase === "finale3"; }).forEach(function (m) {
+          var third = el("div", "tie-third");
+          third.appendChild(el("div", "tie__cap", "3°/4° posto"));
+          third.appendChild(buildTie(m));
+          body.appendChild(third);
+        });
+      }
+      col.appendChild(body);
       box.appendChild(col);
     });
   }
@@ -394,6 +413,138 @@
     s.appendChild(nm);
     if (seedLabel) s.appendChild(el("span", "tie__seed", esc(seedLabel)));
     return s;
+  }
+  function bracketTies(box, phase) {
+    return [].slice.call(box.querySelectorAll('.tie[data-phase="' + phase + '"]'));
+  }
+  // Linee di collegamento del tabellone: overlay SVG calcolato dalle posizioni
+  // reali dei tie. Va (ri)disegnato quando la vista e' visibile e al resize.
+  function drawBracketConnectors() {
+    var box = $("#bracket"); if (!box) return;
+    var ns = "http://www.w3.org/2000/svg";
+    var svg = box.querySelector(".bracket__links");
+    var brect = box.getBoundingClientRect();
+    var ott = bracketTies(box, "ottavi"), quar = bracketTies(box, "quarti"),
+        semi = bracketTies(box, "semifinali"), fin = bracketTies(box, "finale");
+    // vista nascosta o non ancora misurabile -> svuota e esci
+    if (!brect.width || !ott.length) { if (svg) svg.innerHTML = ""; return; }
+    if (!svg) {
+      svg = document.createElementNS(ns, "svg");
+      svg.setAttribute("class", "bracket__links");
+      svg.setAttribute("aria-hidden", "true");
+      box.insertBefore(svg, box.firstChild);
+    }
+    var W = box.scrollWidth, H = box.scrollHeight;
+    svg.setAttribute("width", W); svg.setAttribute("height", H);
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    function rel(el) {
+      var r = el.getBoundingClientRect();
+      return { r: r.right - brect.left, l: r.left - brect.left, cy: r.top - brect.top + r.height / 2 };
+    }
+    var pairs = [];
+    function link(children, parents) {
+      children.forEach(function (c, i) { var p = parents[Math.floor(i / 2)]; if (p) pairs.push([c, p]); });
+    }
+    link(ott, quar);
+    link(quar, semi);
+    if (fin[0]) semi.forEach(function (s) { pairs.push([s, fin[0]]); }); // esclude la finale 3°/4°
+    pairs.forEach(function (pr) {
+      var c = rel(pr[0]), p = rel(pr[1]), midX = (c.r + p.l) / 2;
+      var path = document.createElementNS(ns, "path");
+      path.setAttribute("class", "bracket__link");
+      path.setAttribute("d", "M" + c.r + " " + c.cy + " H" + midX + " V" + p.cy + " H" + p.l);
+      svg.appendChild(path);
+    });
+  }
+
+  /* ---- Navigazione tabellone (mobile): chip round + snap + pan verticale --- */
+  function isMobileBracket() { return window.matchMedia("(max-width: 760px)").matches; }
+  function bracketRoundEls() { return [].slice.call($("#bracket").querySelectorAll(".round")); }
+  function offsetTopWithin(el, ancestor) {
+    var y = 0;
+    while (el && el !== ancestor) { y += el.offsetTop; el = el.offsetParent; }
+    return y;
+  }
+  function buildRoundChips() {
+    var bar = $("#bracket-rounds"); if (!bar) return;
+    bar.innerHTML = "";
+    bracketRoundEls().forEach(function (col, i) {
+      var t = col.querySelector(".round__title");
+      var chip = el("button", "bracket-round-chip");
+      chip.type = "button";
+      chip.setAttribute("role", "tab");
+      chip.setAttribute("aria-selected", i === 0 ? "true" : "false");
+      chip.textContent = t ? t.textContent : "R" + (i + 1);
+      chip.addEventListener("click", function () { goToRound(i, true); });
+      bar.appendChild(chip);
+    });
+  }
+  function setActiveChip(i) {
+    var bar = $("#bracket-rounds"); if (!bar) return;
+    [].forEach.call(bar.children, function (c, idx) {
+      c.setAttribute("aria-selected", idx === i ? "true" : "false");
+    });
+  }
+  var _round = 0;
+  function prefersReduce() {
+    return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+  function panTopFor(i) {
+    var box = $("#bracket"), sc = $(".bracket-scroll"), col = bracketRoundEls()[i];
+    if (!box || !sc || !col || !isMobileBracket()) return 0;
+    var first = col.querySelector(".round__body .tie"); if (!first) return 0;
+    var max = Math.max(0, box.scrollHeight - sc.clientHeight);
+    // porta il primo tie del round verso il top, coerente per tutti i round
+    // (finale inclusa: sotto compare la 3°/4° posto).
+    return Math.min(Math.max(0, offsetTopWithin(first, box) - 10), max);
+  }
+  // Paginazione discreta (mobile): l'albero e' traslato in orizzontale per
+  // centrare il round attivo. Lo scroll orizzontale nativo e' disattivato; lo
+  // swipe sposta di UN solo round per volta. Con la translateX si centra anche
+  // la Finale (nessun limite di fine-scroll). Lo scroll verticale resta nativo.
+  function positionBracket(i, smooth) {
+    var box = $("#bracket"), sc = $(".bracket-scroll"), col = bracketRoundEls()[i];
+    if (!box || !sc || !col) return;
+    if (!isMobileBracket()) { box.style.transform = ""; return; } // desktop: albero intero
+    if (!smooth) box.style.transition = "none";
+    var tx = Math.round(sc.clientWidth / 2 - (col.offsetLeft + col.offsetWidth / 2));
+    box.style.transform = "translateX(" + tx + "px)";
+    if (!smooth) { void box.offsetWidth; box.style.transition = ""; } // reflow, poi ripristina la transizione
+    sc.scrollTo({ top: panTopFor(i), behavior: (smooth && !prefersReduce()) ? "smooth" : "auto" });
+  }
+  function goToRound(i, smooth) {
+    var n = bracketRoundEls().length; if (!n) return;
+    _round = Math.max(0, Math.min(n - 1, i));
+    setActiveChip(_round);
+    positionBracket(_round, smooth);
+  }
+  function setupBracketSwipe(sc) {
+    if (sc._swipeWired) return; sc._swipeWired = true;
+    var x0 = 0, y0 = 0, lock = null, on = false;
+    sc.addEventListener("touchstart", function (e) {
+      if (e.touches.length !== 1) { on = false; return; }
+      x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; lock = null; on = true;
+    }, { passive: true });
+    sc.addEventListener("touchmove", function (e) {
+      if (!on || lock) return;
+      var dx = e.touches[0].clientX - x0, dy = e.touches[0].clientY - y0;
+      if (Math.abs(dx) > 12 || Math.abs(dy) > 12) lock = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
+    }, { passive: true });
+    sc.addEventListener("touchend", function (e) {
+      if (!on) return; on = false;
+      if (lock !== "x" || !isMobileBracket()) return;
+      var t = e.changedTouches && e.changedTouches[0]; if (!t) return;
+      var dx = t.clientX - x0;
+      if (Math.abs(dx) > 40) goToRound(_round + (dx < 0 ? 1 : -1), true); // un solo round per swipe
+    }, { passive: true });
+  }
+  function setupBracketScroll() {
+    var sc = $(".bracket-scroll"); if (!sc) return;
+    buildRoundChips();
+    setupBracketSwipe(sc);
+    if (isMobileBracket()) { goToRound(Math.min(_round, bracketRoundEls().length - 1), false); }
+    else { $("#bracket").style.transform = ""; sc.scrollTop = 0; }
   }
 
   /* ---- LA MIA SQUADRA -------------------------------------------------- */
@@ -677,6 +828,7 @@
     updateStickyOffsets();
     // cambio vista: il calendario parte dal giorno corrente, gli altri dall'alto
     if (name === "calendario") requestAnimationFrame(updateGironeScrollHint);
+    if (name === "tabellone") requestAnimationFrame(function () { drawBracketConnectors(); setupBracketScroll(); });
     if (showView._ready) {
       if (name === "calendario") jumpCalendarToday();
       else if (name === "home") jumpHomeToMyTeam();
@@ -760,6 +912,7 @@
     renderBracket();
     window.addEventListener("hashchange", route);
     window.addEventListener("resize", updateStickyOffsets);
+    window.addEventListener("resize", function () { if (currentView() === "tabellone") { drawBracketConnectors(); setupBracketScroll(); } });
     // tiene --filterbar-h e --header-h sempre allineati all'altezza reale
     // (cambi di wrapping, breakpoint, caricamento font, mostra/nascondi vista)
     if (window.ResizeObserver) {

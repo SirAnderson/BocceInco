@@ -369,9 +369,10 @@
     tie.setAttribute("data-phase", m.phase);
     tie.appendChild(slot(m.team1));
     tie.appendChild(slot(m.team2));
-    // Orario "Mar 30/06 20:30" dal JSON; placeholder dove la fase non e' ancora
-    // calendarizzata, cosi' testiamo l'ingombro nel tabellone.
-    tie.appendChild(el("div", "tie__when", esc(whenShort(m.when) || "Mar 30/06 20:30")));
+    // La data si mostra solo per gli ottavi (gli unici gia' calendarizzati);
+    // quarti, semifinali e finale restano "TBD" finche' non sono fissati.
+    var when = m.phase === "ottavi" ? whenShort(m.when) : null;
+    tie.appendChild(el("div", "tie__when", esc(when || "TBD")));
     return tie;
   }
   function renderBracket() {
@@ -640,11 +641,8 @@
     var st = teamStanding(myteam), gir = st ? st.letter : null;
     var card = el("div", "myteam-card");
     if (gir) card.setAttribute("data-gir", gir);
-    var pos = st ? ordinal(st.row.pos) + " posto · " + st.row.won + "/" + st.row.played + " · " + signed(st.row.diff) : "";
     card.innerHTML =
-      '<div class="myteam-card__head">' + (gir ? chipHTML(gir, false) : "") +
-        '<div><div class="myteam-card__name">' + esc(myteam) + "</div>" +
-        (pos ? '<div class="myteam-card__pos">' + esc(pos) + "</div>" : "") + "</div></div>";
+      '<div class="myteam-card__head"><div class="myteam-card__name">' + esc(myteam) + "</div></div>";
     var last = teamLastMatch(myteam);
     var cols = el("div", "myteam-card__cols");
     cols.appendChild(panelCol("Prossime partite", teamUpcomingMatches(myteam), "Nessuna partita in programma."));

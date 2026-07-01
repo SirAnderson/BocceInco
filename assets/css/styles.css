@@ -264,12 +264,28 @@ main { display: block; padding-bottom: var(--sp-8); }
 }
 .myteam-card { position: relative; z-index: 1; border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: color-mix(in oklab, var(--surface) 52%, transparent); border-top: 3px solid var(--gc, var(--red)); }
 .myteam-card__head { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-4); border-bottom: 1px solid var(--line-soft); }
-.myteam-card__name { font-family: var(--font-display); font-size: 1.5rem; color: var(--white); text-transform: uppercase; letter-spacing: 0.01em; line-height: 1; }
-.myteam-card__pos { color: var(--ink-mute); font-size: var(--fs-300); margin-top: 5px; font-variant-numeric: tabular-nums; }
+.myteam-card__name { font-family: var(--font-display); font-size: 1.25rem; color: var(--white); text-transform: uppercase; letter-spacing: 0.01em; line-height: 1; }
 .myteam-card__cols { display: grid; gap: var(--sp-5); padding: var(--sp-4); }
 @media (min-width: 620px) { .myteam-card__cols { grid-template-columns: 1fr 1fr; } }
-.myteam-card__label { font-size: var(--fs-300); text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-mute); margin-bottom: var(--sp-2); font-weight: 700; }
-.myteam-card__when { font-size: var(--fs-300); color: var(--ink-soft); margin-bottom: var(--sp-2); text-transform: capitalize; }
+.myteam-card__label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-mute); margin-bottom: var(--sp-2); font-weight: 700; }
+.myteam-card__when { font-size: 0.68rem; color: var(--ink-soft); margin-bottom: var(--sp-2); text-transform: capitalize; }
+/* My Team: font leggermente piu' piccoli in tutto il box (libera spazio verticale) */
+.myteam-card .match__team .name { font-size: 0.85rem; }
+.myteam-card .match__score { font-size: 1.5rem; }
+.myteam-card .match__time { font-size: 1.2rem; }
+.myteam-card__standings table { font-size: 0.82rem; }
+.myteam-card__standings .standing thead th { font-size: 0.68rem; }
+/* celle/righe piu' compatte, in linea con i font ridotti */
+.myteam-card .match { padding: var(--sp-2) var(--sp-3); }
+.myteam-card__standings .standing th, .myteam-card__standings .standing td { padding: 0.32rem var(--sp-2); }
+/* Mobile: spaziatura piu' compatta tra testata, colonne e classifica */
+@media (max-width: 620px) {
+  .myteam-card__head { padding-top: var(--sp-3); padding-bottom: var(--sp-3); }
+  .myteam-card__cols { gap: var(--sp-3); padding-top: var(--sp-3); padding-bottom: var(--sp-3); }
+  .myteam-card .myteam-card__standings { padding-top: var(--sp-3); padding-bottom: var(--sp-3); }
+  .myteam-card__label { margin-bottom: var(--sp-1); }
+  .myteam-card__match + .myteam-card__match { margin-top: var(--sp-2); }
+}
 /* spacer invisibile (aria-hidden) per allineare il riquadro "vuoto" alla card dell'altra colonna: serve solo nel layout a 2 colonne */
 .myteam-card__when[aria-hidden="true"] { display: none; }
 @media (min-width: 620px) { .myteam-card__when[aria-hidden="true"] { display: block; } }

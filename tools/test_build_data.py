@@ -257,6 +257,27 @@ class TestScenariReali(unittest.TestCase):
             ["Team Rocket", "Ghirarda", "Atletico Cavalclown 2.0", "Le Sbocciate"])
 
 
+# --- parsing etichette KO (ordine di tabellone) ------------------------------
+
+class TestKoPhase(unittest.TestCase):
+
+    def test_ottavi_quarti_semi_numerati(self):
+        self.assertEqual(bd.ko_phase("OTT1"), ("ottavi", "Ottavi di finale", 1))
+        self.assertEqual(bd.ko_phase("OTT8"), ("ottavi", "Ottavi di finale", 8))
+        self.assertEqual(bd.ko_phase("QUAR3"), ("quarti", "Quarti di finale", 3))
+        self.assertEqual(bd.ko_phase("SEMI2"), ("semifinali", "Semifinali", 2))
+
+    def test_finali(self):
+        self.assertEqual(bd.ko_phase("FIN 1°")[0], "finale")
+        self.assertEqual(bd.ko_phase("FIN 3°")[0], "finale3")
+        self.assertEqual(bd.ko_phase("FIN1")[0], "finale")
+
+    def test_senza_numero_e_non_ko(self):
+        self.assertEqual(bd.ko_phase("OTT"), ("ottavi", "Ottavi di finale", 0))
+        self.assertIsNone(bd.ko_phase("A"))
+        self.assertIsNone(bd.ko_phase(""))
+
+
 # --- smoke test sul file Excel reale (invarianti strutturali) ----------------
 
 @unittest.skipUnless(bd.XLSX.exists(), f"File Excel non trovato: {bd.XLSX}")

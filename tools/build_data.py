@@ -34,13 +34,28 @@ MESI = {1: "gennaio", 2: "febbraio", 3: "marzo", 4: "aprile", 5: "maggio",
         6: "giugno", 7: "luglio", 8: "agosto", 9: "settembre",
         10: "ottobre", 11: "novembre", 12: "dicembre"}
 
-KNOCKOUT = {
-    "OTT": ("ottavi", "Ottavi di finale"),
-    "QUAR": ("quarti", "Quarti di finale"),
-    "SEMI": ("semifinali", "Semifinali"),
-    "FIN 3°": ("finale3", "Finale 3°/4° posto"),
-    "FIN 1°": ("finale", "Finale"),
-}
+# Fasi KO. L'etichetta nella colonna girone puo' portare l'ordine di tabellone
+# (OTT1..OTT8, QUAR1..QUAR4, SEMI1/2); le coppie si formano per ordine crescente
+# (QUAR1 = OTT1 vs OTT2, ecc.). Le finali restano FIN 1° / FIN 3°.
+KO_PREFIXES = [
+    ("OTT", ("ottavi", "Ottavi di finale")),
+    ("QUAR", ("quarti", "Quarti di finale")),
+    ("SEMI", ("semifinali", "Semifinali")),
+    ("FIN3", ("finale3", "Finale 3°/4° posto")),
+    ("FIN1", ("finale", "Finale")),
+]
+PHASE_RANK = {"ottavi": 0, "quarti": 1, "semifinali": 2, "finale3": 3, "finale": 4}
+
+
+def ko_phase(gir):
+    """'OTT3' -> ('ottavi', 'Ottavi di finale', 3); 'FIN 1°' -> ('finale', ..., 0).
+    None se non e' una fase KO (es. lettera di girone)."""
+    g = str(gir).upper().replace("°", "").replace(" ", "")  # OTT3, QUAR1, FIN1, FIN3
+    for prefix, (phase, label) in KO_PREFIXES:
+        if g.startswith(prefix):
+            num = g[len(prefix):]
+            return phase, label, int(num) if num.isdigit() else 0
+    return None
 
 
 def cell_hex(cell):
@@ -109,7 +124,6 @@ def load_groups(wb):
 def load_matches(wb):
     ws = wb["Calendario26"]
     matches = []
-    mid = 0
     for r in range(2, ws.max_row + 1):
         when_raw = ws.cell(r, 1).value
         gir = ws.cell(r, 2).value
@@ -119,23 +133,21 @@ def load_matches(wb):
         p2 = ws.cell(r, 6).value
         gir = str(gir).strip() if gir is not None else ""
         has_teams = bool(s1 and str(s1).strip()) and bool(s2 and str(s2).strip())
-        is_ko = gir in KNOCKOUT
-        if not has_teams and not is_ko:
+        ko = ko_phase(gir)
+        if not has_teams and not ko:
             continue  # riga vuota / separatore
         when = parse_when(when_raw)
         played = p1 is not None and p2 is not None and str(p1) != "" and str(p2) != ""
         sc1 = int(round(float(p1))) if played else None
         sc2 = int(round(float(p2))) if played else None
-        mid += 1
-        if is_ko:
-            phase, phase_label = KNOCKOUT[gir]
+        if ko:
+            phase, phase_label, order = ko
         else:
-            phase, phase_label = "girone", f"Girone {gir}"
+            phase, phase_label, order = "girone", f"Girone {gir}", 0
         winner = None
         if played:
             winner = 1 if sc1 > sc2 else (2 if sc2 > sc1 else 0)
         matches.append({
-            "id": mid,
             "phase": phase,
             "phaseLabel": phase_label,
             "group": gir if phase == "girone" else None,
@@ -146,8 +158,18 @@ def load_matches(wb):
             "score2": sc2,
             "played": played,
             "winner": winner,
+            "_order": order,
         })
-    return matches
+    # I match KO vanno in ordine di tabellone (OTT1..OTT8, QUAR1..); i gironi
+    # restano in ordine di foglio (il calendario ordina comunque per data/ora).
+    girone = [m for m in matches if m["phase"] == "girone"]
+    ko = [m for m in matches if m["phase"] != "girone"]
+    ko.sort(key=lambda m: (PHASE_RANK.get(m["phase"], 9), m["_order"]))
+    ordered = girone + ko
+    for i, m in enumerate(ordered, 1):
+        m["id"] = i
+        del m["_order"]
+    return ordered
 
 
 def compute_standings(groups, matches):

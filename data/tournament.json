@@ -2,7 +2,7 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-07-01 11:15",
+    "generatedAt": "2026-07-01 13:02",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
@@ -100,7 +100,6 @@
   ],
   "matches": [
     {
-      "id": 1,
       "phase": "girone",
       "phaseLabel": "Girone E",
       "group": "E",
@@ -119,10 +118,10 @@
       "score1": 9,
       "score2": 4,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 1
     },
     {
-      "id": 2,
       "phase": "girone",
       "phaseLabel": "Girone H",
       "group": "H",
@@ -141,10 +140,10 @@
       "score1": 9,
       "score2": 6,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 2
     },
     {
-      "id": 3,
       "phase": "girone",
       "phaseLabel": "Girone D",
       "group": "D",
@@ -163,10 +162,10 @@
       "score1": 6,
       "score2": 4,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 3
     },
     {
-      "id": 4,
       "phase": "girone",
       "phaseLabel": "Girone A",
       "group": "A",
@@ -185,10 +184,10 @@
       "score1": 3,
       "score2": 9,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 4
     },
     {
-      "id": 5,
       "phase": "girone",
       "phaseLabel": "Girone H",
       "group": "H",
@@ -207,10 +206,10 @@
       "score1": 6,
       "score2": 4,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 5
     },
     {
-      "id": 6,
       "phase": "girone",
       "phaseLabel": "Girone B",
       "group": "B",
@@ -229,10 +228,10 @@
       "score1": 9,
       "score2": 3,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 6
     },
     {
-      "id": 7,
       "phase": "girone",
       "phaseLabel": "Girone D",
       "group": "D",
@@ -251,10 +250,10 @@
       "score1": 8,
       "score2": 7,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 7
     },
     {
-      "id": 8,
       "phase": "girone",
       "phaseLabel": "Girone F",
       "group": "F",
@@ -273,10 +272,10 @@
       "score1": 9,
       "score2": 6,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 8
     },
     {
-      "id": 9,
       "phase": "girone",
       "phaseLabel": "Girone G",
       "group": "G",
@@ -295,10 +294,10 @@
       "score1": 10,
       "score2": 1,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 9
     },
     {
-      "id": 10,
       "phase": "girone",
       "phaseLabel": "Girone B",
       "group": "B",
@@ -317,10 +316,10 @@
       "score1": 8,
       "score2": 3,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 10
     },
     {
-      "id": 11,
       "phase": "girone",
       "phaseLabel": "Girone A",
       "group": "A",
@@ -339,10 +338,10 @@
       "score1": 0,
       "score2": 10,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 11
     },
     {
-      "id": 12,
       "phase": "girone",
       "phaseLabel": "Girone F",
       "group": "F",
@@ -361,10 +360,10 @@
       "score1": 4,
       "score2": 8,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 12
     },
     {
-      "id": 13,
       "phase": "girone",
       "phaseLabel": "Girone D",
       "group": "D",
@@ -383,10 +382,10 @@
       "score1": 2,
       "score2": 9,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 13
     },
     {
-      "id": 14,
       "phase": "girone",
       "phaseLabel": "Girone C",
       "group": "C",
@@ -405,10 +404,10 @@
       "score1": 6,
       "score2": 5,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 14
     },
     {
-      "id": 15,
       "phase": "girone",
       "phaseLabel": "Girone E",
       "group": "E",
@@ -427,10 +426,10 @@
       "score1": 3,
       "score2": 10,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 15
     },
     {
-      "id": 16,
       "phase": "girone",
       "phaseLabel": "Girone H",
       "group": "H",
@@ -449,10 +448,10 @@
       "score1": 3,
       "score2": 9,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 16
     },
     {
-      "id": 17,
       "phase": "girone",
       "phaseLabel": "Girone G",
       "group": "G",
@@ -471,10 +470,10 @@
       "score1": 11,
       "score2": 1,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 17
     },
     {
-      "id": 18,
       "phase": "girone",
       "phaseLabel": "Girone C",
       "group": "C",
@@ -493,10 +492,10 @@
       "score1": 8,
       "score2": 6,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 18
     },
     {
-      "id": 19,
       "phase": "girone",
       "phaseLabel": "Girone D",
       "group": "D",
@@ -515,10 +514,10 @@
       "score1": 9,
       "score2": 1,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 19
     },
     {
-      "id": 20,
       "phase": "girone",
       "phaseLabel": "Girone F",
       "group": "F",
@@ -537,10 +536,10 @@
       "score1": 7,
       "score2": 4,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 20
     },
     {
-      "id": 21,
       "phase": "girone",
       "phaseLabel": "Girone E",
       "group": "E",
@@ -559,10 +558,10 @@
       "score1": 6,
       "score2": 5,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 21
     },
     {
-      "id": 22,
       "phase": "girone",
       "phaseLabel": "Girone F",
       "group": "F",
@@ -581,10 +580,10 @@
       "score1": 6,
       "score2": 8,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 22
     },
     {
-      "id": 23,
       "phase": "girone",
       "phaseLabel": "Girone B",
       "group": "B",
@@ -603,10 +602,10 @@
       "score1": 9,
       "score2": 3,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 23
     },
     {
-      "id": 24,
       "phase": "girone",
       "phaseLabel": "Girone A",
       "group": "A",
@@ -625,10 +624,10 @@
       "score1": 2,
       "score2": 11,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 24
     },
     {
-      "id": 25,
       "phase": "girone",
       "phaseLabel": "Girone H",
       "group": "H",
@@ -647,10 +646,10 @@
       "score1": 7,
       "score2": 6,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 25
     },
     {
-      "id": 26,
       "phase": "girone",
       "phaseLabel": "Girone G",
       "group": "G",
@@ -669,10 +668,10 @@
       "score1": 5,
       "score2": 9,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 26
     },
     {
-      "id": 27,
       "phase": "girone",
       "phaseLabel": "Girone D",
       "group": "D",
@@ -691,10 +690,10 @@
       "score1": 6,
       "score2": 5,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 27
     },
     {
-      "id": 28,
       "phase": "girone",
       "phaseLabel": "Girone A",
       "group": "A",
@@ -713,10 +712,10 @@
       "score1": 9,
       "score2": 1,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 28
     },
     {
-      "id": 29,
       "phase": "girone",
       "phaseLabel": "Girone C",
       "group": "C",
@@ -735,10 +734,10 @@
       "score1": 6,
       "score2": 3,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 29
     },
     {
-      "id": 30,
       "phase": "girone",
       "phaseLabel": "Girone F",
       "group": "F",
@@ -757,10 +756,10 @@
       "score1": 4,
       "score2": 7,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 30
     },
     {
-      "id": 31,
       "phase": "girone",
       "phaseLabel": "Girone A",
       "group": "A",
@@ -779,10 +778,10 @@
       "score1": 10,
       "score2": 2,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 31
     },
     {
-      "id": 32,
       "phase": "girone",
       "phaseLabel": "Girone D",
       "group": "D",
@@ -801,10 +800,10 @@
       "score1": 8,
       "score2": 1,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 32
     },
     {
-      "id": 33,
       "phase": "girone",
       "phaseLabel": "Girone B",
       "group": "B",
@@ -823,10 +822,10 @@
       "score1": 3,
       "score2": 6,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 33
     },
     {
-      "id": 34,
       "phase": "girone",
       "phaseLabel": "Girone C",
       "group": "C",
@@ -845,10 +844,10 @@
       "score1": 2,
       "score2": 7,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 34
     },
     {
-      "id": 35,
       "phase": "girone",
       "phaseLabel": "Girone E",
       "group": "E",
@@ -867,10 +866,10 @@
       "score1": 3,
       "score2": 10,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 35
     },
     {
-      "id": 36,
       "phase": "girone",
       "phaseLabel": "Girone B",
       "group": "B",
@@ -889,10 +888,10 @@
       "score1": 0,
       "score2": 9,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 36
     },
     {
-      "id": 37,
       "phase": "girone",
       "phaseLabel": "Girone H",
       "group": "H",
@@ -911,10 +910,10 @@
       "score1": 1,
       "score2": 9,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 37
     },
     {
-      "id": 38,
       "phase": "girone",
       "phaseLabel": "Girone G",
       "group": "G",
@@ -933,10 +932,10 @@
       "score1": 1,
       "score2": 10,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 38
     },
     {
-      "id": 39,
       "phase": "girone",
       "phaseLabel": "Girone H",
       "group": "H",
@@ -955,10 +954,10 @@
       "score1": 10,
       "score2": 3,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 39
     },
     {
-      "id": 40,
       "phase": "girone",
       "phaseLabel": "Girone E",
       "group": "E",
@@ -977,10 +976,10 @@
       "score1": 7,
       "score2": 6,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 40
     },
     {
-      "id": 41,
       "phase": "girone",
       "phaseLabel": "Girone E",
       "group": "E",
@@ -999,10 +998,10 @@
       "score1": 3,
       "score2": 6,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 41
     },
     {
-      "id": 42,
       "phase": "girone",
       "phaseLabel": "Girone G",
       "group": "G",
@@ -1021,10 +1020,10 @@
       "score1": 11,
       "score2": 3,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 42
     },
     {
-      "id": 43,
       "phase": "girone",
       "phaseLabel": "Girone B",
       "group": "B",
@@ -1043,10 +1042,10 @@
       "score1": 4,
       "score2": 7,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 43
     },
     {
-      "id": 44,
       "phase": "girone",
       "phaseLabel": "Girone G",
       "group": "G",
@@ -1065,10 +1064,10 @@
       "score1": 3,
       "score2": 9,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 44
     },
     {
-      "id": 45,
       "phase": "girone",
       "phaseLabel": "Girone F",
       "group": "F",
@@ -1087,10 +1086,10 @@
       "score1": 5,
       "score2": 8,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 45
     },
     {
-      "id": 46,
       "phase": "girone",
       "phaseLabel": "Girone C",
       "group": "C",
@@ -1109,10 +1108,10 @@
       "score1": 9,
       "score2": 1,
       "played": true,
-      "winner": 1
+      "winner": 1,
+      "id": 46
     },
     {
-      "id": 47,
       "phase": "girone",
       "phaseLabel": "Girone C",
       "group": "C",
@@ -1131,10 +1130,10 @@
       "score1": 3,
       "score2": 9,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 47
     },
     {
-      "id": 48,
       "phase": "girone",
       "phaseLabel": "Girone A",
       "group": "A",
@@ -1153,98 +1152,10 @@
       "score1": 4,
       "score2": 7,
       "played": true,
-      "winner": 2
+      "winner": 2,
+      "id": 48
     },
     {
-      "id": 49,
-      "phase": "ottavi",
-      "phaseLabel": "Ottavi di finale",
-      "group": null,
-      "when": {
-        "label": "giovedì 02/07 21:00",
-        "weekday": "giovedì",
-        "day": 2,
-        "month": 7,
-        "monthName": "luglio",
-        "time": "21:00",
-        "iso": "2026-07-02T21:00:00",
-        "dateLabel": "2 luglio"
-      },
-      "team1": null,
-      "team2": null,
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 50,
-      "phase": "ottavi",
-      "phaseLabel": "Ottavi di finale",
-      "group": null,
-      "when": {
-        "label": "giovedì 02/07 21:30",
-        "weekday": "giovedì",
-        "day": 2,
-        "month": 7,
-        "monthName": "luglio",
-        "time": "21:30",
-        "iso": "2026-07-02T21:30:00",
-        "dateLabel": "2 luglio"
-      },
-      "team1": null,
-      "team2": null,
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 51,
-      "phase": "ottavi",
-      "phaseLabel": "Ottavi di finale",
-      "group": null,
-      "when": {
-        "label": "giovedì 02/07 22:00",
-        "weekday": "giovedì",
-        "day": 2,
-        "month": 7,
-        "monthName": "luglio",
-        "time": "22:00",
-        "iso": "2026-07-02T22:00:00",
-        "dateLabel": "2 luglio"
-      },
-      "team1": null,
-      "team2": null,
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 52,
-      "phase": "ottavi",
-      "phaseLabel": "Ottavi di finale",
-      "group": null,
-      "when": {
-        "label": "giovedì 02/07 22:30",
-        "weekday": "giovedì",
-        "day": 2,
-        "month": 7,
-        "monthName": "luglio",
-        "time": "22:30",
-        "iso": "2026-07-02T22:30:00",
-        "dateLabel": "2 luglio"
-      },
-      "team1": null,
-      "team2": null,
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
-    },
-    {
-      "id": 53,
       "phase": "ottavi",
       "phaseLabel": "Ottavi di finale",
       "group": null,
@@ -1258,59 +1169,59 @@
         "iso": "2026-07-07T21:00:00",
         "dateLabel": "7 luglio"
       },
-      "team1": null,
-      "team2": null,
+      "team1": "Gli Allenati",
+      "team2": "Il Boccino della Discordia",
       "score1": null,
       "score2": null,
       "played": false,
-      "winner": null
+      "winner": null,
+      "id": 49
     },
     {
-      "id": 54,
       "phase": "ottavi",
       "phaseLabel": "Ottavi di finale",
       "group": null,
       "when": {
-        "label": "martedì 07/07 21:30",
-        "weekday": "martedì",
-        "day": 7,
+        "label": "giovedì 02/07 20:30",
+        "weekday": "giovedì",
+        "day": 2,
         "month": 7,
         "monthName": "luglio",
-        "time": "21:30",
-        "iso": "2026-07-07T21:30:00",
-        "dateLabel": "7 luglio"
+        "time": "20:30",
+        "iso": "2026-07-02T20:30:00",
+        "dateLabel": "2 luglio"
       },
-      "team1": null,
-      "team2": null,
+      "team1": "I Cugini",
+      "team2": "Ghirarda",
       "score1": null,
       "score2": null,
       "played": false,
-      "winner": null
+      "winner": null,
+      "id": 50
     },
     {
-      "id": 55,
       "phase": "ottavi",
       "phaseLabel": "Ottavi di finale",
       "group": null,
       "when": {
-        "label": "martedì 07/07 22:00",
-        "weekday": "martedì",
-        "day": 7,
+        "label": "giovedì 02/07 21:00",
+        "weekday": "giovedì",
+        "day": 2,
         "month": 7,
         "monthName": "luglio",
-        "time": "22:00",
-        "iso": "2026-07-07T22:00:00",
-        "dateLabel": "7 luglio"
+        "time": "21:00",
+        "iso": "2026-07-02T21:00:00",
+        "dateLabel": "2 luglio"
       },
-      "team1": null,
-      "team2": null,
+      "team1": "Team Rocket",
+      "team2": "Gli Hummarell",
       "score1": null,
       "score2": null,
       "played": false,
-      "winner": null
+      "winner": null,
+      "id": 51
     },
     {
-      "id": 56,
       "phase": "ottavi",
       "phaseLabel": "Ottavi di finale",
       "group": null,
@@ -1324,15 +1235,103 @@
         "iso": "2026-07-08T21:00:00",
         "dateLabel": "8 luglio"
       },
-      "team1": null,
-      "team2": null,
+      "team1": "I Toghini",
+      "team2": "Gli Zebis",
       "score1": null,
       "score2": null,
       "played": false,
-      "winner": null
+      "winner": null,
+      "id": 52
     },
     {
-      "id": 57,
+      "phase": "ottavi",
+      "phaseLabel": "Ottavi di finale",
+      "group": null,
+      "when": {
+        "label": "martedì 07/07 21:30",
+        "weekday": "martedì",
+        "day": 7,
+        "month": 7,
+        "monthName": "luglio",
+        "time": "21:30",
+        "iso": "2026-07-07T21:30:00",
+        "dateLabel": "7 luglio"
+      },
+      "team1": "Mirkae",
+      "team2": "Chocolate Starfishes",
+      "score1": null,
+      "score2": null,
+      "played": false,
+      "winner": null,
+      "id": 53
+    },
+    {
+      "phase": "ottavi",
+      "phaseLabel": "Ottavi di finale",
+      "group": null,
+      "when": {
+        "label": "martedì 07/07 22:00",
+        "weekday": "martedì",
+        "day": 7,
+        "month": 7,
+        "monthName": "luglio",
+        "time": "22:00",
+        "iso": "2026-07-07T22:00:00",
+        "dateLabel": "7 luglio"
+      },
+      "team1": "Bad Boys",
+      "team2": "Zaccaria",
+      "score1": null,
+      "score2": null,
+      "played": false,
+      "winner": null,
+      "id": 54
+    },
+    {
+      "phase": "ottavi",
+      "phaseLabel": "Ottavi di finale",
+      "group": null,
+      "when": {
+        "label": "martedì 07/07 20:30",
+        "weekday": "martedì",
+        "day": 7,
+        "month": 7,
+        "monthName": "luglio",
+        "time": "20:30",
+        "iso": "2026-07-07T20:30:00",
+        "dateLabel": "7 luglio"
+      },
+      "team1": "A&M",
+      "team2": "Ricci di Mare",
+      "score1": null,
+      "score2": null,
+      "played": false,
+      "winner": null,
+      "id": 55
+    },
+    {
+      "phase": "ottavi",
+      "phaseLabel": "Ottavi di finale",
+      "group": null,
+      "when": {
+        "label": "martedì 07/07 22:30",
+        "weekday": "martedì",
+        "day": 7,
+        "month": 7,
+        "monthName": "luglio",
+        "time": "22:30",
+        "iso": "2026-07-07T22:30:00",
+        "dateLabel": "7 luglio"
+      },
+      "team1": "I Diavoli",
+      "team2": "Lord&Chri",
+      "score1": null,
+      "score2": null,
+      "played": false,
+      "winner": null,
+      "id": 56
+    },
+    {
       "phase": "quarti",
       "phaseLabel": "Quarti di finale",
       "group": null,
@@ -1351,10 +1350,10 @@
       "score1": null,
       "score2": null,
       "played": false,
-      "winner": null
+      "winner": null,
+      "id": 57
     },
     {
-      "id": 58,
       "phase": "quarti",
       "phaseLabel": "Quarti di finale",
       "group": null,
@@ -1373,10 +1372,10 @@
       "score1": null,
       "score2": null,
       "played": false,
-      "winner": null
+      "winner": null,
+      "id": 58
     },
     {
-      "id": 59,
       "phase": "quarti",
       "phaseLabel": "Quarti di finale",
       "group": null,
@@ -1395,10 +1394,10 @@
       "score1": null,
       "score2": null,
       "played": false,
-      "winner": null
+      "winner": null,
+      "id": 59
     },
     {
-      "id": 60,
       "phase": "quarti",
       "phaseLabel": "Quarti di finale",
       "group": null,
@@ -1417,10 +1416,10 @@
       "score1": null,
       "score2": null,
       "played": false,
-      "winner": null
+      "winner": null,
+      "id": 60
     },
     {
-      "id": 61,
       "phase": "semifinali",
       "phaseLabel": "Semifinali",
       "group": null,
@@ -1430,10 +1429,10 @@
       "score1": null,
       "score2": null,
       "played": false,
-      "winner": null
+      "winner": null,
+      "id": 61
     },
     {
-      "id": 62,
       "phase": "semifinali",
       "phaseLabel": "Semifinali",
       "group": null,
@@ -1443,10 +1442,10 @@
       "score1": null,
       "score2": null,
       "played": false,
-      "winner": null
+      "winner": null,
+      "id": 62
     },
     {
-      "id": 63,
       "phase": "finale3",
       "phaseLabel": "Finale 3°/4° posto",
       "group": null,
@@ -1456,10 +1455,10 @@
       "score1": null,
       "score2": null,
       "played": false,
-      "winner": null
+      "winner": null,
+      "id": 63
     },
     {
-      "id": 64,
       "phase": "finale",
       "phaseLabel": "Finale",
       "group": null,
@@ -1469,7 +1468,8 @@
       "score1": null,
       "score2": null,
       "played": false,
-      "winner": null
+      "winner": null,
+      "id": 64
     }
   ],
   "standings": {

@@ -270,13 +270,13 @@ def main():
     # Baseline atteso = classifiche calcolate da TUTTI i risultati inseriti finora.
     # Va aggiornato quando nuovi risultati cambiano l'ordine (il check sotto lo segnala).
     expected = {
-        "A": ["Gli Allenati", "Gli Zebis", "Beverly INPS", "Wood&Beton"],
+        "A": ["Gli Allenati", "Gli Zebis", "Wood&Beton", "Beverly INPS"],
         "B": ["I Toghini", "Lord&Chri", "The Doctors", "Apostadores"],
-        "C": ["0Sbat", "Chocolate Starfishes", "I Cugini", "La Coppia"],
+        "C": ["I Cugini", "Chocolate Starfishes", "0Sbat", "La Coppia"],
         "D": ["Mirkae", "Il Boccino della Discordia", "Tironi di Bocce", "BocciAli"],
         "E": ["Bad Boys", "Ricci di Mare", "Gnammestrazzi", "Le Cognate"],
-        "F": ["Zaccaria", "A&M", "I Cavalli", "T alla seconda"],
-        "G": ["I Diavoli", "Gli Hummarell", "I Masalén", "Bocce da Urlo"],
+        "F": ["A&M", "Zaccaria", "I Cavalli", "T alla seconda"],
+        "G": ["I Diavoli", "Gli Hummarell", "Bocce da Urlo", "I Masalén"],
         "H": ["Team Rocket", "Ghirarda", "Atletico Cavalclown 2.0", "Le Sbocciate"],
     }
     ok_all = True

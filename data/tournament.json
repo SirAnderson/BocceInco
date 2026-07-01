@@ -2,11 +2,11 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-06-30 09:47",
+    "generatedAt": "2026-07-01 11:15",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
-    "playedMatches": 43
+    "playedMatches": 48
   },
   "groups": [
     {
@@ -1062,10 +1062,10 @@
       },
       "team1": "I Masalén",
       "team2": "Bocce da Urlo",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 3,
+      "score2": 9,
+      "played": true,
+      "winner": 2
     },
     {
       "id": 45,
@@ -1084,10 +1084,10 @@
       },
       "team1": "T alla seconda",
       "team2": "I Cavalli",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 5,
+      "score2": 8,
+      "played": true,
+      "winner": 2
     },
     {
       "id": 46,
@@ -1106,10 +1106,10 @@
       },
       "team1": "Chocolate Starfishes",
       "team2": "La Coppia",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 9,
+      "score2": 1,
+      "played": true,
+      "winner": 1
     },
     {
       "id": 47,
@@ -1128,10 +1128,10 @@
       },
       "team1": "La Coppia",
       "team2": "I Cugini",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 3,
+      "score2": 9,
+      "played": true,
+      "winner": 2
     },
     {
       "id": 48,
@@ -1150,10 +1150,10 @@
       },
       "team1": "Beverly INPS",
       "team2": "Wood&Beton",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null
+      "score1": 4,
+      "score2": 7,
+      "played": true,
+      "winner": 2
     },
     {
       "id": 49,
@@ -1161,13 +1161,13 @@
       "phaseLabel": "Ottavi di finale",
       "group": null,
       "when": {
-        "label": "giovedì 02/07 20:30",
+        "label": "giovedì 02/07 21:00",
         "weekday": "giovedì",
         "day": 2,
         "month": 7,
         "monthName": "luglio",
-        "time": "20:30",
-        "iso": "2026-07-02T20:30:00",
+        "time": "21:00",
+        "iso": "2026-07-02T21:00:00",
         "dateLabel": "2 luglio"
       },
       "team1": null,
@@ -1183,13 +1183,13 @@
       "phaseLabel": "Ottavi di finale",
       "group": null,
       "when": {
-        "label": "giovedì 02/07 21:15",
+        "label": "giovedì 02/07 21:30",
         "weekday": "giovedì",
         "day": 2,
         "month": 7,
         "monthName": "luglio",
-        "time": "21:15",
-        "iso": "2026-07-02T21:15:00",
+        "time": "21:30",
+        "iso": "2026-07-02T21:30:00",
         "dateLabel": "2 luglio"
       },
       "team1": null,
@@ -1227,13 +1227,13 @@
       "phaseLabel": "Ottavi di finale",
       "group": null,
       "when": {
-        "label": "giovedì 02/07 22:45",
+        "label": "giovedì 02/07 22:30",
         "weekday": "giovedì",
         "day": 2,
         "month": 7,
         "monthName": "luglio",
-        "time": "22:45",
-        "iso": "2026-07-02T22:45:00",
+        "time": "22:30",
+        "iso": "2026-07-02T22:30:00",
         "dateLabel": "2 luglio"
       },
       "team1": null,
@@ -1249,13 +1249,13 @@
       "phaseLabel": "Ottavi di finale",
       "group": null,
       "when": {
-        "label": "martedì 07/07 20:30",
+        "label": "martedì 07/07 21:00",
         "weekday": "martedì",
         "day": 7,
         "month": 7,
         "monthName": "luglio",
-        "time": "20:30",
-        "iso": "2026-07-07T20:30:00",
+        "time": "21:00",
+        "iso": "2026-07-07T21:00:00",
         "dateLabel": "7 luglio"
       },
       "team1": null,
@@ -1271,13 +1271,13 @@
       "phaseLabel": "Ottavi di finale",
       "group": null,
       "when": {
-        "label": "martedì 07/07 21:15",
+        "label": "martedì 07/07 21:30",
         "weekday": "martedì",
         "day": 7,
         "month": 7,
         "monthName": "luglio",
-        "time": "21:15",
-        "iso": "2026-07-07T21:15:00",
+        "time": "21:30",
+        "iso": "2026-07-07T21:30:00",
         "dateLabel": "7 luglio"
       },
       "team1": null,
@@ -1315,14 +1315,14 @@
       "phaseLabel": "Ottavi di finale",
       "group": null,
       "when": {
-        "label": "martedì 07/07 22:45",
-        "weekday": "martedì",
-        "day": 7,
+        "label": "mercoledì 08/07 21:00",
+        "weekday": "mercoledì",
+        "day": 8,
         "month": 7,
         "monthName": "luglio",
-        "time": "22:45",
-        "iso": "2026-07-07T22:45:00",
-        "dateLabel": "7 luglio"
+        "time": "21:00",
+        "iso": "2026-07-08T21:00:00",
+        "dateLabel": "8 luglio"
       },
       "team1": null,
       "team2": null,
@@ -1495,23 +1495,23 @@
         "pos": 2
       },
       {
-        "team": "Beverly INPS",
-        "played": 2,
-        "won": 0,
+        "team": "Wood&Beton",
+        "played": 3,
+        "won": 1,
         "lost": 2,
-        "pf": 3,
-        "pa": 19,
-        "diff": -16,
+        "pf": 10,
+        "pa": 23,
+        "diff": -13,
         "pos": 3
       },
       {
-        "team": "Wood&Beton",
-        "played": 2,
+        "team": "Beverly INPS",
+        "played": 3,
         "won": 0,
-        "lost": 2,
-        "pf": 3,
-        "pa": 19,
-        "diff": -16,
+        "lost": 3,
+        "pf": 7,
+        "pa": 26,
+        "diff": -19,
         "pos": 4
       }
     ],
@@ -1559,6 +1559,26 @@
     ],
     "C": [
       {
+        "team": "I Cugini",
+        "played": 3,
+        "won": 2,
+        "lost": 1,
+        "pf": 21,
+        "pa": 11,
+        "diff": 10,
+        "pos": 1
+      },
+      {
+        "team": "Chocolate Starfishes",
+        "played": 3,
+        "won": 2,
+        "lost": 1,
+        "pf": 21,
+        "pa": 14,
+        "diff": 7,
+        "pos": 2
+      },
+      {
         "team": "0Sbat",
         "played": 3,
         "won": 2,
@@ -1566,36 +1586,16 @@
         "pf": 16,
         "pa": 16,
         "diff": 0,
-        "pos": 1
-      },
-      {
-        "team": "Chocolate Starfishes",
-        "played": 2,
-        "won": 1,
-        "lost": 1,
-        "pf": 12,
-        "pa": 13,
-        "diff": -1,
-        "pos": 2
-      },
-      {
-        "team": "I Cugini",
-        "played": 2,
-        "won": 1,
-        "lost": 1,
-        "pf": 12,
-        "pa": 8,
-        "diff": 4,
         "pos": 3
       },
       {
         "team": "La Coppia",
-        "played": 1,
+        "played": 3,
         "won": 0,
-        "lost": 1,
-        "pf": 3,
-        "pa": 6,
-        "diff": -3,
+        "lost": 3,
+        "pf": 7,
+        "pa": 24,
+        "diff": -17,
         "pos": 4
       }
     ],
@@ -1685,7 +1685,7 @@
     ],
     "F": [
       {
-        "team": "Zaccaria",
+        "team": "A&M",
         "played": 3,
         "won": 2,
         "lost": 1,
@@ -1695,7 +1695,7 @@
         "pos": 1
       },
       {
-        "team": "A&M",
+        "team": "Zaccaria",
         "played": 3,
         "won": 2,
         "lost": 1,
@@ -1706,22 +1706,22 @@
       },
       {
         "team": "I Cavalli",
-        "played": 2,
-        "won": 1,
+        "played": 3,
+        "won": 2,
         "lost": 1,
-        "pf": 11,
-        "pa": 12,
-        "diff": -1,
+        "pf": 19,
+        "pa": 17,
+        "diff": 2,
         "pos": 3
       },
       {
         "team": "T alla seconda",
-        "played": 2,
+        "played": 3,
         "won": 0,
-        "lost": 2,
-        "pf": 12,
-        "pa": 17,
-        "diff": -5,
+        "lost": 3,
+        "pf": 17,
+        "pa": 25,
+        "diff": -8,
         "pos": 4
       }
     ],
@@ -1747,23 +1747,23 @@
         "pos": 2
       },
       {
-        "team": "I Masalén",
-        "played": 2,
-        "won": 0,
+        "team": "Bocce da Urlo",
+        "played": 3,
+        "won": 1,
         "lost": 2,
-        "pf": 6,
-        "pa": 19,
-        "diff": -13,
+        "pf": 13,
+        "pa": 24,
+        "diff": -11,
         "pos": 3
       },
       {
-        "team": "Bocce da Urlo",
-        "played": 2,
+        "team": "I Masalén",
+        "played": 3,
         "won": 0,
-        "lost": 2,
-        "pf": 4,
-        "pa": 21,
-        "diff": -17,
+        "lost": 3,
+        "pf": 9,
+        "pa": 28,
+        "diff": -19,
         "pos": 4
       }
     ],

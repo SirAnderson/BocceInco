@@ -126,8 +126,9 @@
     span.textContent = opts.letterOnly ? letter : "Girone " + letter;
     return span;
   }
-  function phaseBadge(label) {
+  function phaseBadge(label, phase) {
     var span = el("span", "gchip gchip--phase");
+    if (phase) span.setAttribute("data-ko", phase);
     span.title = label;
     span.textContent = KO_SHORT[label] || label;
     return span;
@@ -142,7 +143,7 @@
 
     // colonna sinistra: girone o fase
     var left = el("div", "match__gir");
-    left.appendChild(m.phase === "girone" ? gchip(m.group, { letterOnly: true }) : phaseBadge(m.phaseLabel));
+    left.appendChild(m.phase === "girone" ? gchip(m.group, { letterOnly: true }) : phaseBadge(m.phaseLabel, m.phase));
     row.appendChild(left);
 
     // squadre (per i KO: squadre calcolate o "Vincente O/Q/S{n}")
@@ -340,10 +341,10 @@
   function renderCalendar(animate) {
     var list = $("#calendar-list");
     list.innerHTML = "";
-    // Per ora in calendario solo gironi e ottavi: i quarti (e oltre) hanno orari
-    // non ancora affidabili rispetto alla posizione di tabellone.
+    // In calendario: gironi, ottavi e quarti (questi ultimi ora numerati). Semi
+    // e finale restano fuori finche' non avranno date certe.
     var ms = T.matches.filter(function (m) {
-      return m.when && m.when.iso && (m.phase === "girone" || m.phase === "ottavi");
+      return m.when && m.when.iso && (m.phase === "girone" || m.phase === "ottavi" || m.phase === "quarti");
     }).filter(matchPassesFilter).sort(byIso);
     $("#cal-count").textContent = ms.length + (ms.length === 1 ? " partita" : " partite");
     if (!ms.length) {
@@ -447,11 +448,12 @@
     var w1 = rm.played && rm.winner === 1, w2 = rm.played && rm.winner === 2;
     tie.appendChild(tieSlot(rm.label1, rm.team1, w1, rm.played && !w1));
     tie.appendChild(tieSlot(rm.label2, rm.team2, w2, rm.played && !w2));
-    // Riga in basso: punteggio se giocata; l'orario solo per gli ottavi (gia'
-    // fissati). Quarti in su restano "TBD" finche' non sono calendarizzati per
-    // posizione di tabellone.
+    // Riga in basso: punteggio se giocata; l'orario per ottavi e quarti (ora
+    // numerati e mappati alla posizione di tabellone). Semi/finale restano "TBD"
+    // finche' non avranno date e numerazione.
+    var hasDate = phase === "ottavi" || phase === "quarti";
     var bottom = rm.played ? (rm.score1 + "–" + rm.score2)
-                           : (phase === "ottavi" ? (whenShort(rm.data && rm.data.when) || "TBD") : "TBD");
+                           : (hasDate ? (whenShort(rm.data && rm.data.when) || "TBD") : "TBD");
     tie.appendChild(el("div", "tie__when", esc(bottom)));
     return tie;
   }

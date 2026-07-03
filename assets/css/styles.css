@@ -301,7 +301,15 @@ main { display: block; padding-bottom: var(--sp-8); }
   border: 1px solid color-mix(in oklab, var(--gc, var(--white)) 55%, #000 12%);
 }
 .gchip--letter { width: 1.7rem; padding-inline: 0; }
-.gchip--phase { background: var(--surface-3); color: var(--ink); border-color: var(--line); white-space: nowrap; }
+/* Fasi eliminatorie: "brace crescente" — piu' ci si avvicina alla finale, piu'
+   la pill si scalda (dentro la palette brace, distinta dai pallini-girone). */
+.gchip--phase { color: var(--white); white-space: nowrap; border-color: var(--line);
+  background: color-mix(in oklab, var(--red) 40%, var(--surface-2)); }
+.gchip--phase[data-ko="ottavi"]     { background: color-mix(in oklab, var(--red) 12%, var(--surface-2)); }
+.gchip--phase[data-ko="quarti"]     { background: color-mix(in oklab, var(--red) 40%, var(--surface-2)); }
+.gchip--phase[data-ko="semifinali"] { background: color-mix(in oklab, var(--red) 62%, var(--surface-2)); }
+.gchip--phase[data-ko="finale3"]    { background: color-mix(in oklab, var(--red) 62%, var(--surface-2)); }
+.gchip--phase[data-ko="finale"]     { background: color-mix(in oklab, var(--red) 84%, var(--surface-2)); }
 .gchip--lg { font-size: var(--fs-400); padding: 0.3rem 0.7rem; }
 
 /* ---- Match row --------------------------------------------------------- */

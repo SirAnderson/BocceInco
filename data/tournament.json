@@ -2,7 +2,7 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-07-03 09:33",
+    "generatedAt": "2026-07-03 15:17",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
@@ -1345,7 +1345,7 @@
         "iso": "2026-07-09T20:30:00",
         "dateLabel": "9 luglio"
       },
-      "team1": "I Cugini",
+      "team1": null,
       "team2": null,
       "score1": null,
       "score2": null,
@@ -1367,7 +1367,7 @@
         "iso": "2026-07-09T21:15:00",
         "dateLabel": "9 luglio"
       },
-      "team1": "Gli Hummarell",
+      "team1": null,
       "team2": null,
       "score1": null,
       "score2": null,
@@ -1449,7 +1449,16 @@
       "phase": "finale3",
       "phaseLabel": "Finale 3°/4° posto",
       "group": null,
-      "when": null,
+      "when": {
+        "label": "venerdì 17/07 20:45",
+        "weekday": "venerdì",
+        "day": 17,
+        "month": 7,
+        "monthName": "luglio",
+        "time": "20:45",
+        "iso": "2026-07-17T20:45:00",
+        "dateLabel": "17 luglio"
+      },
       "team1": null,
       "team2": null,
       "score1": null,
@@ -1462,7 +1471,16 @@
       "phase": "finale",
       "phaseLabel": "Finale",
       "group": null,
-      "when": null,
+      "when": {
+        "label": "venerdì 17/07 21:30",
+        "weekday": "venerdì",
+        "day": 17,
+        "month": 7,
+        "monthName": "luglio",
+        "time": "21:30",
+        "iso": "2026-07-17T21:30:00",
+        "dateLabel": "17 luglio"
+      },
       "team1": null,
       "team2": null,
       "score1": null,

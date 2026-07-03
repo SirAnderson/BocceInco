@@ -4,7 +4,7 @@ Sistema visivo del sito **Zibello Arena Bocce**. Direzione: *notturna / arena* �
 
 ## Theme
 
-Tema **scuro committed**: il navy del brand riempie la pagina (strategia "drenched" sul fondo, accento rosso ≤ 15%). Non è un dashboard chiaro con accenti: il buio È il brand (le partite si giocano di sera). Un solo tema, nessun toggle chiaro/scuro.
+Tema **scuro committed**: il navy del brand riempie la pagina (strategia "drenched" sul fondo, accento rosso ≤ 15%). Non è un dashboard chiaro con accenti: il buio È il brand (le partite si giocano di sera). Un solo tema, nessun toggle chiaro/scuro. 
 
 ## Color
 

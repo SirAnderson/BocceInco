@@ -2,7 +2,7 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-07-01 16:21",
+    "generatedAt": "2026-07-03 09:33",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
@@ -1193,10 +1193,10 @@
       },
       "team1": "I Cugini",
       "team2": "Ghirarda",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null,
+      "score1": 9,
+      "score2": 2,
+      "played": true,
+      "winner": 1,
       "id": 50
     },
     {
@@ -1215,10 +1215,10 @@
       },
       "team1": "Team Rocket",
       "team2": "Gli Hummarell",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null,
+      "score1": 5,
+      "score2": 6,
+      "played": true,
+      "winner": 2,
       "id": 51
     },
     {
@@ -1345,7 +1345,7 @@
         "iso": "2026-07-09T20:30:00",
         "dateLabel": "9 luglio"
       },
-      "team1": null,
+      "team1": "I Cugini",
       "team2": null,
       "score1": null,
       "score2": null,
@@ -1367,7 +1367,7 @@
         "iso": "2026-07-09T21:15:00",
         "dateLabel": "9 luglio"
       },
-      "team1": null,
+      "team1": "Gli Hummarell",
       "team2": null,
       "score1": null,
       "score2": null,

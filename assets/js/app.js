@@ -709,11 +709,11 @@
     wrap.appendChild(box);
     return wrap;
   }
-  /* ---- Verso la finale: avversarie del turno successivo --------------- */
+  /* ---- Verso la finale: prima avversaria futura non ancora certa ------ */
   var KO_MAIN = ["ottavi", "quarti", "semifinali", "finale"];
-  var NEXT_ROUND = { ottavi: "quarti", quarti: "semifinali", semifinali: "finale" };
   var NEXT_ROUND_LABEL = { quarti: "Ai quarti", semifinali: "In semifinale", finale: "In finale" };
   var KO_PREV = { quarti: "ottavi", semifinali: "quarti", finale: "semifinali" };
+  var ROUND_LEVEL = { ottavi: 0, quarti: 1, semifinali: 2, finale: 3 };
   // Squadre reali ancora in corsa per vincere il match (round, i): la vincente se
   // gia' decisa; le 2 squadre se e' un ottavo (foglia); altrimenti l'unione dei due
   // match sorgente. Restituisce sempre nomi reali, mai placeholder "Vincente O..".
@@ -725,25 +725,66 @@
     var prev = KO_PREV[round];
     return aliveTeamsFor(R, prev, 2 * i).concat(aliveTeamsFor(R, prev, 2 * i + 1));
   }
-  // Avversarie del turno successivo per la squadra t. null se t non e' qualificata,
-  // e' stata eliminata, o e' gia' in finale. Le avversarie sono le squadre reali
-  // ancora in corsa per il match "gemello" (indice i^1): due nel caso semplice,
-  // di piu' se quel ramo ha ancora partite da giocare, una se gia' deciso.
+  // Avversaria di t nel suo match del turno 'round' (dato l'ottavo di partenza o):
+  // agli ottavi e' l'altra testa di serie; ai turni dopo e' chi arriva dal ramo
+  // gemello (una sola squadra se gia' deciso, piu' d'una se quel ramo e' aperto).
+  function opponentAt(R, t, o, round) {
+    if (round === "ottavi") {
+      var m = R.ottavi[o]; if (!m) return [];
+      var opp = m.team1 === t ? m.team2 : (m.team2 === t ? m.team1 : null);
+      return opp ? [opp] : [];
+    }
+    var prev = KO_PREV[round];
+    var idxPrev = Math.floor(o / Math.pow(2, ROUND_LEVEL[prev]));
+    return aliveTeamsFor(R, prev, idxPrev ^ 1);
+  }
+  // "Verso la finale": il PRIMO turno futuro in cui l'avversaria non e' ancora una
+  // sola squadra (i turni con avversaria gia' nota sono la "prossima partita" e non
+  // vanno ripetuti). null se non qualificata, eliminata, o tutto gia' deciso.
   function teamNextOpponents(t) {
     var R = resolveBracket();
-    var cur = null, curRound = null, curIndex = -1;
+    var o = -1;
+    R.ottavi.forEach(function (m, i) { if (m.team1 === t || m.team2 === t) o = i; });
+    if (o < 0) return null;                              // non qualificata agli ottavi
+    var cur = null, curRound = null;
     KO_MAIN.forEach(function (ph) {
-      (R[ph] || []).forEach(function (rm, i) {
-        if (rm.team1 === t || rm.team2 === t) { cur = rm; curRound = ph; curIndex = i; }
-      });
+      (R[ph] || []).forEach(function (rm) { if (rm.team1 === t || rm.team2 === t) { cur = rm; curRound = ph; } });
     });
-    if (!cur) return null;                                // non qualificata agli ottavi
-    if (cur.played && cur.winnerName !== t) return null;  // eliminata (match KO perso)
-    var nextPh = NEXT_ROUND[curRound];
-    if (!nextPh) return null;                             // gia' in finale: nessun turno dopo
-    var opps = aliveTeamsFor(R, curRound, curIndex ^ 1);
-    if (!opps.length) return null;
-    return { roundLabel: NEXT_ROUND_LABEL[nextPh], opponents: opps };
+    if (cur.played && cur.winnerName !== t) return null; // eliminata (match KO perso)
+    for (var k = ROUND_LEVEL[curRound]; k < KO_MAIN.length; k++) {
+      var opps = opponentAt(R, t, o, KO_MAIN[k]);
+      if (opps.length !== 1) return opps.length ? { roundLabel: NEXT_ROUND_LABEL[KO_MAIN[k]], opponents: opps } : null;
+    }
+    return null;                                         // avversarie note fino alla finale
+  }
+  var ELIM_LABEL = { ottavi: "Eliminata agli ottavi", quarti: "Eliminata ai quarti", semifinali: "Eliminata in semifinale", finale: "Finale persa" };
+  // Se t e' fuori dal torneo, dove si e' fermata: "gironi" (non qualificata) o il
+  // turno KO perso. null se ancora in corsa (o se il KO non e' ancora definito).
+  function teamEliminationInfo(t) {
+    var R = resolveBracket();
+    if (!R.ottavi.length) return null;                  // KO non ancora definito
+    var inKo = false;
+    R.ottavi.forEach(function (m) { if (m.team1 === t || m.team2 === t) inKo = true; });
+    if (!inKo) return { round: "gironi" };              // non qualificata agli ottavi
+    var cur = null, curRound = null;
+    KO_MAIN.forEach(function (ph) {
+      (R[ph] || []).forEach(function (rm) { if (rm.team1 === t || rm.team2 === t) { cur = rm; curRound = ph; } });
+    });
+    if (cur.played && cur.winnerName !== t) return { round: curRound };  // eliminata ai KO
+    return null;                                         // ancora in corsa
+  }
+  function myOutBlock(info, gir, st) {
+    var wrap = el("div", "myteam-card__out");
+    wrap.appendChild(el("div", "myteam-card__label", "Fine corsa"));
+    var txt;
+    if (info.round === "gironi") {
+      var pos = st && st.row ? st.row.pos : null;
+      txt = "Non qualificata" + (pos && gir ? " · " + ordinal(pos) + " nel girone " + gir : "");
+    } else {
+      txt = ELIM_LABEL[info.round] || "Eliminata";
+    }
+    wrap.appendChild(el("div", "out-line", esc(txt)));
+    return wrap;
   }
   function myNextBlock(info) {
     var wrap = el("div", "myteam-card__next");
@@ -784,12 +825,21 @@
     card.innerHTML =
       '<div class="myteam-card__head"><div class="myteam-card__name">' + esc(myteam) + "</div></div>";
     var last = teamLastMatch(myteam);
-    var cols = el("div", "myteam-card__cols");
-    cols.appendChild(panelCol("Prossime partite", teamUpcomingMatches(myteam), "Nessuna partita in programma."));
-    cols.appendChild(panelCol("Ultimo risultato", last ? [last] : [], "Ancora nessun risultato."));
-    card.appendChild(cols);
-    var next = teamNextOpponents(myteam);
-    if (next) card.appendChild(myNextBlock(next));
+    var out = teamEliminationInfo(myteam);
+    if (out) {
+      // Fuori dal torneo: niente "Prossime partite" (vuota), spazio a "Fine corsa".
+      card.appendChild(myOutBlock(out, gir, st));
+      var oneCol = el("div", "myteam-card__cols myteam-card__cols--single");
+      oneCol.appendChild(panelCol("Ultimo risultato", last ? [last] : [], "Ancora nessun risultato."));
+      card.appendChild(oneCol);
+    } else {
+      var cols = el("div", "myteam-card__cols");
+      cols.appendChild(panelCol("Prossime partite", teamUpcomingMatches(myteam), "Nessuna partita in programma."));
+      cols.appendChild(panelCol("Ultimo risultato", last ? [last] : [], "Ancora nessun risultato."));
+      card.appendChild(cols);
+      var next = teamNextOpponents(myteam);
+      if (next) card.appendChild(myNextBlock(next));
+    }
     if (SHOW_MY_STANDINGS && gir) card.appendChild(myStandingsBlock(gir));
     panel.hidden = false; panel.innerHTML = ""; panel.appendChild(card);
   }

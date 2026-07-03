@@ -284,6 +284,7 @@ main { display: block; padding-bottom: var(--sp-8); }
   .myteam-card__cols { gap: var(--sp-3); padding-top: var(--sp-3); padding-bottom: var(--sp-3); }
   .myteam-card .myteam-card__standings { padding-top: var(--sp-3); padding-bottom: var(--sp-3); }
   .myteam-card .myteam-card__next { padding-top: var(--sp-3); padding-bottom: var(--sp-3); }
+  .myteam-card .myteam-card__out { padding-top: var(--sp-3); padding-bottom: var(--sp-3); }
   .myteam-card__label { margin-bottom: var(--sp-1); }
   .myteam-card__match + .myteam-card__match { margin-top: var(--sp-2); }
 }
@@ -439,6 +440,11 @@ main { display: block; padding-bottom: var(--sp-8); }
 .vf__opps { min-width: 0; line-height: 1.5; }
 .vf-opp { color: var(--white); font-weight: 700; font-size: 0.95rem; }
 .vf__or, .vf__sep { color: var(--ink-mute); font-size: 0.85rem; }
+/* Fine corsa: squadra fuori dal torneo (KO o gironi), tono neutro. Con Prossime
+   partite nascoste, l'Ultimo risultato resta a piena larghezza. */
+.myteam-card__out { padding: var(--sp-4); }
+.myteam-card__out .out-line { color: var(--ink-soft); font-weight: 600; font-size: 0.95rem; }
+.myteam-card .myteam-card__cols--single { grid-template-columns: 1fr; border-top: 1px solid var(--line-soft); }
 .myteam-tag { display: inline-block; vertical-align: middle; margin-left: 0.5rem; padding: 0.1em 0.5em;
   border-radius: var(--r-pill); background: var(--gc, var(--red)); color: var(--gfg, var(--white));
   font-size: 0.65em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }

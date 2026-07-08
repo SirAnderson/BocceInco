@@ -5,7 +5,7 @@ description: Workflow per aggiornare i dati del torneo Bocce dopo modifiche al f
 
 # Aggiorna dati torneo
 
-Workflow consolidato per quando l'utente ha aggiornato `Resources/Calend Bocce 2026 (1).xlsx`.
+Workflow consolidato per quando l'utente ha aggiornato `Resources/Calend Bocce 2026.xlsx`.
 Esegui i passi **in ordine**. I passi 2 e 6 sono dei **cancelli**: non procedere se falliscono / senza OK.
 
 Tutti i comandi si lanciano dalla radice del progetto. Servono Python + `openpyxl`.
@@ -13,7 +13,7 @@ Risolvi le date relative usando la data odierna fornita nel contesto.
 
 ## 1. Check del file Excel
 - Esegui `git status --short`.
-- Verifica che `Resources/Calend Bocce 2026 (1).xlsx` risulti **modificato** (`M`). Se NON lo è,
+- Verifica che `Resources/Calend Bocce 2026.xlsx` risulti **modificato** (`M`). Se NON lo è,
   avvisa l'utente (forse non ha salvato/chiuso il file) e chiedi se procedere comunque.
 - Verifica che `data/tournament.json` e `data/tournament.js` siano **puliti** rispetto a HEAD:
   il confronto "prima/dopo" del passo 4 usa `git HEAD` come stato precedente. Se hanno già
@@ -54,7 +54,7 @@ Risolvi le date relative usando la data odierna fornita nel contesto.
 ## 6. Commit (CANCELLO: solo su OK esplicito)
 - Non committare mai in automatico. Chiedi conferma e mostra cosa verrà incluso.
 - Su OK: `git add` di
-  - `Resources/Calend Bocce 2026 (1).xlsx`
+  - `Resources/Calend Bocce 2026.xlsx`
   - `data/tournament.json`, `data/tournament.js`
   - `index.html` (cache-busting aggiornato dal build)
   - `tools/build_data.py` **solo se** modificato al passo 5

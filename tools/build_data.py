@@ -5,7 +5,7 @@ Genera i dati del torneo a partire dal foglio Excel.
   python tools/build_data.py
 
 Legge i 2 fogli 2026 (`Calendario26` + `Gironi26`) da
-`Resources/Calend Bocce 2026 (1).xlsx`, ricalcola le classifiche dai risultati
+`Resources/Calend Bocce 2026.xlsx`, ricalcola le classifiche dai risultati
 e scrive:
   - data/tournament.js   (window.TOURNAMENT = {...}, usato dal sito)
   - data/tournament.json (stessi dati, per ispezione/debug)
@@ -22,7 +22,7 @@ from pathlib import Path
 import openpyxl
 
 ROOT = Path(__file__).resolve().parent.parent
-XLSX = ROOT / "Resources" / "Calend Bocce 2026 (1).xlsx"
+XLSX = ROOT / "Resources" / "Calend Bocce 2026.xlsx"
 YEAR = 2026
 
 # Colori del tema "Sheets" del foglio (per risolvere i fill basati su tema).

@@ -2,7 +2,7 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-07-03 15:17",
+    "generatedAt": "2026-07-08 23:34",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
@@ -1171,10 +1171,10 @@
       },
       "team1": "Gli Allenati",
       "team2": "Il Boccino della Discordia",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null,
+      "score1": 10,
+      "score2": 3,
+      "played": true,
+      "winner": 1,
       "id": 49
     },
     {
@@ -1259,10 +1259,10 @@
       },
       "team1": "Mirkae",
       "team2": "Chocolate Starfishes",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null,
+      "score1": 5,
+      "score2": 6,
+      "played": true,
+      "winner": 2,
       "id": 53
     },
     {
@@ -1281,10 +1281,10 @@
       },
       "team1": "Bad Boys",
       "team2": "Zaccaria",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null,
+      "score1": 9,
+      "score2": 5,
+      "played": true,
+      "winner": 1,
       "id": 54
     },
     {
@@ -1303,10 +1303,10 @@
       },
       "team1": "A&M",
       "team2": "Ricci di Mare",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null,
+      "score1": 6,
+      "score2": 7,
+      "played": true,
+      "winner": 2,
       "id": 55
     },
     {
@@ -1325,10 +1325,10 @@
       },
       "team1": "I Diavoli",
       "team2": "Lord&Chri",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null,
+      "score1": 4,
+      "score2": 7,
+      "played": true,
+      "winner": 2,
       "id": 56
     },
     {

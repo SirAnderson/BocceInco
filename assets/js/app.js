@@ -51,18 +51,24 @@
   function resolveBracket() {
     if (_bracket) return _bracket;
     function mk(data, t1, t2, l1, l2) {
-      var both = !!(t1 && t2);
+      // Le squadre registrate nella riga (data.team1/team2) sono allineate ai
+      // punteggi: preferiscile sempre. Le squadre derivate per adiacenza
+      // (t1/t2, i vincenti del turno precedente) servono solo come fallback
+      // quando lo slot non e' ancora stato compilato nel calendario.
+      var rt1 = (data && data.team1) || t1;
+      var rt2 = (data && data.team2) || t2;
+      var both = !!(rt1 && rt2);
       var played = !!(data && data.played) && both;
       var winner = played ? data.winner : null;
       return {
         data: data, id: data ? data.id : null,
-        team1: t1 || null, team2: t2 || null,
-        label1: t1 || l1, label2: t2 || l2,
+        team1: rt1 || null, team2: rt2 || null,
+        label1: rt1 || l1, label2: rt2 || l2,
         played: played,
         score1: played ? data.score1 : null, score2: played ? data.score2 : null,
         winner: winner,
-        winnerName: winner === 1 ? t1 : winner === 2 ? t2 : null,
-        loserName: winner === 1 ? t2 : winner === 2 ? t1 : null
+        winnerName: winner === 1 ? rt1 : winner === 2 ? rt2 : null,
+        loserName: winner === 1 ? rt2 : winner === 2 ? rt1 : null
       };
     }
     function win(arr, i) { return arr[i] ? arr[i].winnerName : null; }
@@ -341,11 +347,12 @@
   function renderCalendar(animate) {
     var list = $("#calendar-list");
     list.innerHTML = "";
-    // In calendario: gironi, ottavi, quarti e finali (ora con orario). Le
-    // semifinali restano fuori finche' non avranno orario e numerazione.
+    // In calendario: gironi e tutti i turni della fase finale che hanno un
+    // orario fissato (ottavi, quarti, semifinali, finali).
     var ms = T.matches.filter(function (m) {
       return m.when && m.when.iso &&
-        (m.phase === "girone" || m.phase === "ottavi" || m.phase === "quarti" || m.phase === "finale" || m.phase === "finale3");
+        (m.phase === "girone" || m.phase === "ottavi" || m.phase === "quarti" ||
+         m.phase === "semifinali" || m.phase === "finale" || m.phase === "finale3");
     }).filter(matchPassesFilter).sort(byIso);
     $("#cal-count").textContent = ms.length + (ms.length === 1 ? " partita" : " partite");
     if (!ms.length) {
@@ -449,10 +456,9 @@
     var w1 = rm.played && rm.winner === 1, w2 = rm.played && rm.winner === 2;
     tie.appendChild(tieSlot(rm.label1, rm.team1, w1, rm.played && !w1));
     tie.appendChild(tieSlot(rm.label2, rm.team2, w2, rm.played && !w2));
-    // Riga in basso: punteggio se giocata; l'orario per i turni gia' fissati
-    // (ottavi, quarti, finale e finale 3°/4°). Le semifinali restano "TBD"
-    // finche' non avranno orario e numerazione.
-    var hasDate = phase === "ottavi" || phase === "quarti" || phase === "finale" || phase === "finale3";
+    // Riga in basso: punteggio se giocata; altrimenti l'orario per i turni
+    // gia' fissati (ottavi, quarti, semifinali, finale e finale 3°/4°).
+    var hasDate = phase === "ottavi" || phase === "quarti" || phase === "semifinali" || phase === "finale" || phase === "finale3";
     var bottom = rm.played ? (rm.score1 + "–" + rm.score2)
                            : (hasDate ? (whenShort(rm.data && rm.data.when) || "TBD") : "TBD");
     tie.appendChild(el("div", "tie__when", esc(bottom)));

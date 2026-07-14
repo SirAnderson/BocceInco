@@ -2,7 +2,7 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-07-13 11:25",
+    "generatedAt": "2026-07-14 17:09",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
@@ -1424,13 +1424,13 @@
       "phaseLabel": "Semifinali",
       "group": null,
       "when": {
-        "label": "martedì 14/07 20:45",
+        "label": "martedì 14/07 20:30",
         "weekday": "martedì",
         "day": 14,
         "month": 7,
         "monthName": "luglio",
-        "time": "20:45",
-        "iso": "2026-07-14T20:45:00",
+        "time": "20:30",
+        "iso": "2026-07-14T20:30:00",
         "dateLabel": "14 luglio"
       },
       "team1": "I Cugini",

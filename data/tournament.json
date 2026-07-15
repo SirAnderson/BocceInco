@@ -2,7 +2,7 @@
   "meta": {
     "title": "Zibello Arena Bocce",
     "edition": "2026",
-    "generatedAt": "2026-07-14 17:09",
+    "generatedAt": "2026-07-15 12:19",
     "totalTeams": 32,
     "totalGroups": 8,
     "groupMatches": 48,
@@ -1435,10 +1435,10 @@
       },
       "team1": "I Cugini",
       "team2": "Gli Zebis",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null,
+      "score1": 8,
+      "score2": 12,
+      "played": true,
+      "winner": 2,
       "id": 61
     },
     {
@@ -1457,10 +1457,10 @@
       },
       "team1": "Bad Boys",
       "team2": "Lord&Chri",
-      "score1": null,
-      "score2": null,
-      "played": false,
-      "winner": null,
+      "score1": 3,
+      "score2": 12,
+      "played": true,
+      "winner": 2,
       "id": 62
     },
     {
@@ -1477,8 +1477,8 @@
         "iso": "2026-07-17T21:00:00",
         "dateLabel": "17 luglio"
       },
-      "team1": null,
-      "team2": null,
+      "team1": "I Cugini",
+      "team2": "Bad Boys",
       "score1": null,
       "score2": null,
       "played": false,
@@ -1499,8 +1499,8 @@
         "iso": "2026-07-17T21:45:00",
         "dateLabel": "17 luglio"
       },
-      "team1": null,
-      "team2": null,
+      "team1": "Gli Zebis",
+      "team2": "Lord&Chri",
       "score1": null,
       "score2": null,
       "played": false,
